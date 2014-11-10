@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mainLayout"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+        <TableLayout android:id="@+id/presetsTable"
+  			android:layout_height="60dp"
+    		android:layout_width="300dp" />
+        <ImageButton
+	        android:id="@+id/editPresets"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:src="@drawable/edit" />
+    </LinearLayout>
+	<TextView
+	    android:id="@+id/notificationRules"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Notification Rules" />
+    <TableLayout
+        android:id="@+id/rulesTable"
+        android:layout_width="320dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="240dp">
+    </TableLayout>    
+    <ImageButton
+        android:id="@+id/editRules"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/plus" />
+    <TextView
+	    android:id="@+id/activeTimes"
+	    android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Active Times" />
+    <TableLayout
+        android:id="@+id/timesTable"
+        android:layout_width="320dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="200dp"/>
+    <ImageButton
+        android:id="@+id/editTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/delete" />
+</LinearLayout>
