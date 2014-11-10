@@ -44,7 +44,6 @@ public class MainActivity extends Activity
 	private ImageButton editTimes;
 	private TextView notificationRules;
 	private TextView activeTimes;
-	private TableRow.LayoutParams rowLayout;
 	private TableLayout.LayoutParams tableLayout;
 	private LayoutInflater layoutInflater;
 	private View editScreen;
@@ -147,45 +146,26 @@ public class MainActivity extends Activity
     	rulesTable.removeAllViews();
     	for(int i = 0; i < rules.get(current).size(); i ++)
     	{
-    		TableRow r = new TableRow(this);
-        	TextView program = new TextView(this);
-        	TextView person = new TextView(this);
-        	Button action = new Button(this);
-        	Button delete = new Button(this);
+    		TableRow r = (TableRow)layoutInflater.inflate(R.layout.rulerow, null, false);
+        	TextView program = (TextView)r.getChildAt(0);
+        	TextView person = (TextView)r.getChildAt(1);
+        	Button action = (Button)r.getChildAt(2);
+        	Button delete = (Button)r.getChildAt(3);
         	String [] values = rules.get(current).get(i);
         	program.setText(values[0]);
-        	program.setTextSize(20);
-        	program.setWidth(pixels(110));
-        	program.setId(21000+i);
-        	
         	person.setText(values[1]);
-        	person.setTextSize(20);
-        	person.setWidth(pixels(110));
-        	person.setId(22000+i);
-        	
         	action.setBackground(imageLibrary.notifOpts[actToID(values[2])]);
-        	action.setWidth(pixels(iconSize));
-        	action.setHeight(pixels(iconSize));
         	action.setOnClickListener(notifClickHandler);
-        	action.setId(23000+i);
-        	
         	delete.setBackground(imageLibrary.delete);
-        	delete.setWidth(pixels(iconSize));
-        	delete.setHeight(pixels(iconSize));
         	delete.setOnClickListener(deleteRuleClickHandler);
+        	
+        	r.setId(i+20000);
+        	program.setId(21000+i);
+        	person.setId(22000+i);
+        	action.setId(23000+i);
         	delete.setId(24000+i);
 
-        	r.addView(program);
-        	r.addView(person);
-        	r.addView(action);
-        	r.addView(delete);
-        	r.setId(i+20000);
-        	r.setBackgroundColor(Color.LTGRAY);
-        	rowLayout = new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        	rowLayout.setMargins(900, 50, 80, 160);
-        	r.setLayoutParams(rowLayout);
-        	rulesTable.addView(r, rowLayout);
-        	rulesTable.requestLayout();
+        	rulesTable.addView(r);
         }
     }
     private int actToID(String action)
@@ -199,38 +179,22 @@ public class MainActivity extends Activity
     	timesTable.removeAllViews();
     	for(int i = 0; i < times.get(current).size(); i ++)
     	{
-    		TableRow t = new TableRow(this);
-    		TextView start = new TextView(this);
-        	TextView end = new TextView(this);
-        	Button delete = new Button(this);
+    		TableRow t = (TableRow)layoutInflater.inflate(R.layout.timerow, null, false);
+        	TextView start = (TextView)t.getChildAt(0);
+        	TextView end = (TextView)t.getChildAt(1);
+        	Button delete = (Button)t.getChildAt(2);
         	int [][] values = times.get(current).get(i);
         	start.setText(timeToString(values[0])+ " to ");
-        	start.setTextSize(20);
-        	start.setWidth(pixels(140));
-        	start.setId(31000+i);
-        	
         	end.setText(timeToString(values[1]));
-        	end.setTextSize(20);
-        	end.setWidth(pixels(140));
-        	end.setId(32000+i);
-        	
         	delete.setBackground(imageLibrary.delete);
-        	delete.setWidth(pixels(iconSize));
-        	delete.setHeight(pixels(iconSize));
-        	delete.setGravity(Gravity.RIGHT);
-        	delete.setId(33000+i);
         	delete.setOnClickListener(deleteTimeClickHandler);
         	
-        	t.addView(start);
-        	t.addView(end);
-        	t.addView(delete);
         	t.setId(i+30000);
-        	t.setBackgroundColor(Color.LTGRAY);
+        	start.setId(31000+i);
+        	end.setId(32000+i);
+        	delete.setId(33000+i);
         	
-        	rowLayout = new TableRow.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        	rowLayout.topMargin=900;
-        	t.setLayoutParams(rowLayout);
-        	timesTable.addView(t, rowLayout);
+        	timesTable.addView(t);
     	}
     }
     private void notifClick(int index)

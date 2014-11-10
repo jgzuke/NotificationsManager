@@ -6,25 +6,22 @@
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="5dp"
     android:background="#ffff0000"
+    android:gravity="center"
     android:padding="5dp" >
 
     <TextView
-        android:layout_width="95dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Calls"
         android:textSize="20sp"/>
+    
     <TextView
-        android:layout_width="95dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Default"
         android:textSize="20sp"/>
-
-    <Button
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="left" />
 
     <Button
         android:layout_width="25dp"
