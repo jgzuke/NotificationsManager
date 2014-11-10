@@ -25,18 +25,22 @@ public final class R {
         public static final int editRules=0x7f060005;
         public static final int editTimes=0x7f060008;
         public static final int mainLayout=0x7f060000;
-        public static final int no=0x7f06000a;
+        public static final int no=0x7f06000c;
         public static final int notificationRules=0x7f060003;
         public static final int presetsTable=0x7f060001;
         public static final int rulesTable=0x7f060004;
+        public static final int timePicker1=0x7f060009;
+        public static final int timePicker2=0x7f06000a;
         public static final int timesTable=0x7f060007;
-        public static final int yes=0x7f060009;
+        public static final int yes=0x7f06000b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int popup_delete=0x7f030001;
-        public static final int rulerow=0x7f030002;
-        public static final int timerow=0x7f030003;
+        public static final int makerule=0x7f030001;
+        public static final int maketime=0x7f030002;
+        public static final int popup_delete=0x7f030003;
+        public static final int rulerow=0x7f030004;
+        public static final int timerow=0x7f030005;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

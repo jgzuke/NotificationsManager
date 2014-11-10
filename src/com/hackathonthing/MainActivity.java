@@ -155,9 +155,7 @@ public class MainActivity extends Activity
         	program.setText(values[0]);
         	person.setText(values[1]);
         	action.setBackground(imageLibrary.notifOpts[actToID(values[2])]);
-        	action.setOnClickListener(notifClickHandler);
         	delete.setBackground(imageLibrary.delete);
-        	delete.setOnClickListener(deleteRuleClickHandler);
         	
         	r.setId(i+20000);
         	program.setId(21000+i);
@@ -187,7 +185,6 @@ public class MainActivity extends Activity
         	start.setText(timeToString(values[0])+ " to ");
         	end.setText(timeToString(values[1]));
         	delete.setBackground(imageLibrary.delete);
-        	delete.setOnClickListener(deleteTimeClickHandler);
         	
         	t.setId(i+30000);
         	start.setId(31000+i);
@@ -308,16 +305,11 @@ public class MainActivity extends Activity
 	    	loadPreset(v.getId()-10000);
 	    }
 	};
-	View.OnClickListener notifClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(View v)
+	    public void notifClickHandler(View v)
 	    {
 	    	notifClick(v.getId()-23000);
 	    }
-	};
-	View.OnClickListener deleteRuleClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(final View v)
+	    public void deleteRuleClickHandler(final View v)
 	    {
 	        View popupView = layoutInflater.inflate(R.layout.popup_delete, null);  
 	        popup = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
@@ -341,34 +333,30 @@ public class MainActivity extends Activity
 	        popup.setContentView(popupView);
 	        popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 	    }
-	};
-	View.OnClickListener deleteTimeClickHandler = new View.OnClickListener()
+	public void deleteTimeClickHandler(final View v)
 	{
-		public void onClick(final View v)
-	    {
-			View popupView = layoutInflater.inflate(R.layout.popup_delete, null);  
-	        popup = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
-	        Button yes = (Button) popupView.findViewById(R.id.yes);
-	        Button no = (Button) popupView.findViewById(R.id.no);
-	        yes.setOnClickListener(new View.OnClickListener()
-	        {
-	            public void onClick(View b)
-	            {
-	            	deleteRule(v.getId()-24000);
-	            	popup.dismiss();
-	            }
-	        });
-	        no.setOnClickListener(new View.OnClickListener()
-	        {
-	            public void onClick(View v)
-	            {
-	            	popup.dismiss();
-	            }
-	        });
-	        popup.setContentView(popupView);
-	        popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-	    }
-	};
+		View popupView = layoutInflater.inflate(R.layout.popup_delete, null);  
+        popup = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
+        Button yes = (Button) popupView.findViewById(R.id.yes);
+        Button no = (Button) popupView.findViewById(R.id.no);
+        yes.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View b)
+            {
+            	deleteRule(v.getId()-24000);
+            	popup.dismiss();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+            	popup.dismiss();
+            }
+        });
+        popup.setContentView(popupView);
+        popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+    }
 	View.OnClickListener editPresetsClickHandler = new View.OnClickListener()
 	{
 	    public void onClick(View v)
