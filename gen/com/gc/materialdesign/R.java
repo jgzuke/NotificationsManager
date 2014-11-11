@@ -45,20 +45,20 @@ public final class R {
 		public static final int sprite_check = 0x7f020016;
 	}
 	public static final class id {
-		public static final int blue = 0x7f09000c;
-		public static final int button_accept = 0x7f090011;
-		public static final int button_cancel = 0x7f090010;
-		public static final int buttonflat = 0x7f090019;
-		public static final int contentDialog = 0x7f09000d;
-		public static final int green = 0x7f09000b;
-		public static final int message = 0x7f09000f;
-		public static final int number_indicator_spinner_content = 0x7f090014;
-		public static final int red = 0x7f09000a;
-		public static final int shape_bacground = 0x7f09001b;
-		public static final int snackbar = 0x7f090018;
-		public static final int text = 0x7f09001a;
-		public static final int title = 0x7f09000e;
-		public static final int viewColor = 0x7f090009;
+		public static final int blue = 0x7f09000e;
+		public static final int button_accept = 0x7f090013;
+		public static final int button_cancel = 0x7f090012;
+		public static final int buttonflat = 0x7f09001b;
+		public static final int contentDialog = 0x7f09000f;
+		public static final int green = 0x7f09000d;
+		public static final int message = 0x7f090011;
+		public static final int number_indicator_spinner_content = 0x7f090016;
+		public static final int red = 0x7f09000c;
+		public static final int shape_bacground = 0x7f09001d;
+		public static final int snackbar = 0x7f09001a;
+		public static final int text = 0x7f09001c;
+		public static final int title = 0x7f090010;
+		public static final int viewColor = 0x7f09000b;
 	}
 	public static final class layout {
 		public static final int activity_main = 0x7f030000;

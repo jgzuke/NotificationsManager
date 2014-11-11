@@ -12,7 +12,8 @@
         android:layout_height="60dp" >
         <TableLayout android:id="@+id/presetsTable"
   			android:layout_height="60dp"
-    		android:layout_width="300dp" />
+    		android:layout_width="300dp"
+    		android:stretchColumns="*"/>
         <com.gc.materialdesign.views.ButtonFloatSmall
         	android:id="@+id/editPresets"
             android:layout_width="40dp"
@@ -26,42 +27,95 @@
 	    android:id="@+id/notificationRules"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginTop="7dp"
         android:layout_gravity="center_horizontal"
         android:text="Notification Rules" />
-    <TableLayout
-        android:id="@+id/rulesTable"
-        android:layout_width="320dp"
+	<View
+        android:layout_width="340dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1E88E5" />
+	<View
+        android:layout_width="340dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="#88CECECE" />
+    <com.gc.materialdesign.views.ScrollView
+    	android:id="@+id/scrollRules"
+    	android:layout_width="320dp"
         android:layout_marginLeft="20dp"
-        android:layout_height="240dp">
-    </TableLayout>
-    
-    
-    
-    <com.gc.materialdesign.views.ButtonFloatSmall
-        	android:id="@+id/editRules"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:background="#1E88E5"
-            materialdesign:iconFloat="@drawable/plus" />
+        android:layout_height="255dp">
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+	        <TableLayout
+	        	android:id="@+id/rulesTable"
+	        	android:layout_width="320dp"
+	        	android:layout_height="wrap_content" />
+	        <com.gc.materialdesign.views.ButtonFloatSmall
+	        	android:id="@+id/editRules"
+	            android:layout_width="40dp"
+	            android:layout_height="40dp"
+	            android:layout_marginBottom="5dp"
+	            android:layout_gravity="center_horizontal"
+	            android:background="#1E88E5"
+	            materialdesign:iconFloat="@drawable/plus" />
+        </LinearLayout>
+	</com.gc.materialdesign.views.ScrollView>
+    <View
+        android:layout_width="340dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1E88E5" />
     <TextView
 	    android:id="@+id/activeTimes"
 	    android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginTop="7dp"
         android:layout_gravity="center_horizontal"
         android:text="Active Times" />
-    <TableLayout
-        android:id="@+id/timesTable"
-        android:layout_width="320dp"
+    
+    <View
+        android:layout_width="340dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1E88E5" />
+    <View
+        android:layout_width="340dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="#88CECECE" />
+    <com.gc.materialdesign.views.ScrollView
+    	android:id="@+id/scrollTimes"
+    	android:layout_width="320dp"
         android:layout_marginLeft="20dp"
-        android:layout_height="170dp"/>
-    
-    
-    <com.gc.materialdesign.views.ButtonFloatSmall
-        	android:id="@+id/editTimes"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:background="#1E88E5"
-            materialdesign:iconFloat="@drawable/plus" />
+        android:layout_height="224dp">
+
+        <LinearLayout
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+	        <TableLayout
+	        	android:id="@+id/timesTable"
+	        	android:layout_width="320dp"
+	        	android:layout_height="wrap_content" />
+	        <com.gc.materialdesign.views.ButtonFloatSmall
+	        	android:id="@+id/editTimes"
+	            android:layout_width="40dp"
+	            android:layout_height="40dp"
+	            android:layout_marginBottom="5dp"
+	            android:layout_gravity="center_horizontal"
+	            android:background="#1E88E5"
+	            materialdesign:iconFloat="@drawable/plus" />
+        </LinearLayout>
+    </com.gc.materialdesign.views.ScrollView>
 </LinearLayout>

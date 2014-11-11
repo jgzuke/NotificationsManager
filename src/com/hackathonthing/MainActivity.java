@@ -135,6 +135,12 @@ public class MainActivity extends Activity
         makeRule("Calls", "Default", "silent");
         makeRule("Texts", "Default", "vibrate");
         makeRule("Email", "Default", "ring");
+        makeRule("Calls", "Default", "silent");
+        makeRule("Texts", "Default", "vibrate");
+        makeRule("Email", "Default", "ring");
+        makeRule("Calls", "Default", "silent");
+        makeRule("Texts", "Default", "vibrate");
+        makeRule("Email", "Default", "ring");
         makeTime(1, 2, 3, 1, 2, 4);
         makeTime(1, 2, 3, 1, 2, 4);
 	}
@@ -146,10 +152,6 @@ public class MainActivity extends Activity
         {
         	presetButtons[i] = (ButtonRectangle)layoutInflater.inflate(R.xml.presetbutton, null, false);
         	presetButtons[i].setText(presets[i]);
-        	presetButtons[i].setTop(pixels(0));
-        	presetButtons[i].setBottom(pixels(60));
-        	presetButtons[i].setLeft(pixels(i*100));
-        	presetButtons[i].setRight(pixels((i+1)*100));
         	presetButtons[i].setId(i+10000);
         	presetButtons[i].setOnClickListener(presetsClickHandler);
         	presetButtonRow.addView(presetButtons[i], i);
@@ -161,15 +163,8 @@ public class MainActivity extends Activity
     	ButtonRectangle b = (ButtonRectangle)layoutInflater.inflate(R.xml.presetbutton, null, false);
         b.setText(presets[numPresets-1]);
         b.setId(numPresets-1+10000);
-        b.setTop(pixels(5));
-        b.setBottom(pixels(60));
         b.setOnClickListener(presetsClickHandler);
         presetButtons[numPresets-1] = b;
-        for(int i = 0; i < numPresets; i++)
-        {
-        	presetButtons[i].setLeft(pixels(i*300/numPresets));
-        	presetButtons[i].setLeft(pixels((i+1)*300/numPresets));
-        }
         presetButtonRow.addView(b, numPresets-1);
     }
     private void makeRule(String program, String person, String action)
@@ -322,7 +317,8 @@ public class MainActivity extends Activity
     private void loadPreset(int preset)
     {
     	current = preset;
-    	
+    	notificationRules.setText(presets[current]+" rules");
+    	notificationRules.setText(presets[current]+" times");
     	buildRuleRows();
     	buildTimeRows();
     }
