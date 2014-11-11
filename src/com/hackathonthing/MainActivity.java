@@ -7,16 +7,26 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,12 +37,16 @@ import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.widgets.SnackBar;
 
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
@@ -40,30 +54,28 @@ public class MainActivity extends Activity
 {
 	private MainActivity myself;
 	private LinearLayout mainLayout;
-	private byte numPresets = 3;
-	private String [] presets = {"Home", "Sleep", "Work", "", "", ""};
-	private ButtonRectangle presetButtons [] = new ButtonRectangle[6];
+	private ArrayList<String> presets = new ArrayList<String>();
 	private Resources r;
 	private int iconSize = 25;
 	private double dpToPx;
-	private TableLayout presetsTable;
-	private TableRow presetButtonRow;
 	private ArrayList<ArrayList<int[][]>> times =  new ArrayList<ArrayList<int[][]>>(); // preset, rule, [start/end][day, hour, min]
 	private ArrayList<ArrayList<String[]>> rules = new ArrayList<ArrayList<String[]>>();
 	private TableLayout rulesTable;
 	private TableLayout timesTable;
 	private int current = 0;
 	private ImageLibrary imageLibrary;
-	private ButtonFloatSmall editPresets;
 	private ButtonFloatSmall editRules;
 	private ButtonFloatSmall editTimes;
-	private TextView notificationRules;
-	private TextView activeTimes;
+	private TextView presetRulesText;
+	private TextView presetTimesText;
 	private TableLayout.LayoutParams tableLayout;
 	private LayoutInflater layoutInflater;
 	private View editScreen;
 	private PopupWindow popup;
 	private AttributeSet presetAttributes;
+	private ListView navDrawer;
+	private DrawerLayout navLayout;
+	private ActionBarDrawerToggle navToggle;
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,15 +83,71 @@ public class MainActivity extends Activity
         myself = this;
         setContentView(R.layout.activity_main);
         r = getResources();
-        //presetAttributes = getAttributeSet(R.xml.presetbutton); // just inflated layouts instead
+        makePreset("Home");
+        makePreset("Work");
+        makePreset("Sleep");
+        setUpNavBar();
         layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
         imageLibrary = new ImageLibrary(this);
         dpToPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, r.getDisplayMetrics())/1000;
         setStaticTablesButtons();
         makePresetBase();
         setUpDefaultPresets();
-        buildPresetButtons();
         loadPreset(0);
+    }
+	private void setUpNavBar()
+	{
+		setTitle(presets.get(0));
+		navLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navDrawer = (ListView) findViewById(R.id.left_drawer);
+        navDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.navlistitem, presets));
+        navDrawer.setOnItemClickListener(new DrawerItemClickListener());
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        
+        navToggle = new ActionBarDrawerToggle(this, navLayout, R.string.drawer_open, R.string.drawer_close)
+        {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(presets.get(current));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(presets.get(current));
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        navLayout.setDrawerListener(navToggle);
+	}
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+	@Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        navToggle.syncState();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        navToggle.onConfigurationChanged(newConfig);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (navToggle.onOptionsItemSelected(item)) return true;
+        return false;
+    }
+	private void selectItem(int position)
+	{
+        loadPreset(position);
+        navDrawer.setItemChecked(position, true);
+        setTitle(presets.get(current));
+        navLayout.closeDrawer(navDrawer);
     }
 	private AttributeSet getAttributeSet(int res)
 	{
@@ -106,17 +174,14 @@ public class MainActivity extends Activity
 	private void setStaticTablesButtons()
 	{
 		mainLayout = (LinearLayout) findViewById( R.id.mainLayout);
-		notificationRules = (TextView)findViewById( R.id.notificationRules);
-        activeTimes = (TextView)findViewById( R.id.activeTimes);
-        notificationRules.setTextSize(20);
-        activeTimes.setTextSize(20);
-        editPresets = (ButtonFloatSmall) findViewById( R.id.editPresets);
+		presetRulesText = (TextView)findViewById( R.id.notificationRules);
+		presetTimesText = (TextView)findViewById( R.id.activeTimes);
+        presetRulesText.setTextSize(20);
+        presetTimesText.setTextSize(20);
     	editRules = (ButtonFloatSmall) findViewById( R.id.editRules);
     	editTimes = (ButtonFloatSmall) findViewById( R.id.editTimes);
-    	editPresets.setOnClickListener(editPresetsClickHandler);
     	editRules.setOnClickListener(editRulesClickHandler);
     	editTimes.setOnClickListener(editTimesClickHandler);
-        presetsTable = (TableLayout) findViewById( R.id.presetsTable);
         rulesTable = (TableLayout) findViewById( R.id.rulesTable);
         timesTable = (TableLayout) findViewById( R.id.timesTable);
     }
@@ -124,10 +189,8 @@ public class MainActivity extends Activity
 	{
 		for(int i = 0; i < 3; i ++)
 		{
-			ArrayList<int[][]> t =  new ArrayList<int[][]>();
-			ArrayList<String[]> r = new ArrayList<String[]>();
-			times.add(t);
-			rules.add(r);
+			times.add(new ArrayList<int[][]>());
+			rules.add(new ArrayList<String[]>());
 		}
 	}
 	private void setUpDefaultPresets()
@@ -144,28 +207,17 @@ public class MainActivity extends Activity
         makeTime(1, 2, 3, 1, 2, 4);
         makeTime(1, 2, 3, 1, 2, 4);
 	}
-    private void buildPresetButtons()
+    private void makePreset(String preset)
     {
-    	presetButtonRow = new TableRow(this);
-    	presetsTable.addView(presetButtonRow);
-        for(int i = 0; i < numPresets; i++)
-        {
-        	presetButtons[i] = (ButtonRectangle)layoutInflater.inflate(R.xml.presetbutton, null, false);
-        	presetButtons[i].setText(presets[i]);
-        	presetButtons[i].setId(i+10000);
-        	presetButtons[i].setOnClickListener(presetsClickHandler);
-        	presetButtonRow.addView(presetButtons[i], i);
-        }
+    	presets.add(preset);
+		times.add(new ArrayList<int[][]>());
+		rules.add(new ArrayList<String[]>());
     }
-    private void makePreset()
+    private void removePreset(int toRemove)
     {
-    	numPresets++;
-    	ButtonRectangle b = (ButtonRectangle)layoutInflater.inflate(R.xml.presetbutton, null, false);
-        b.setText(presets[numPresets-1]);
-        b.setId(numPresets-1+10000);
-        b.setOnClickListener(presetsClickHandler);
-        presetButtons[numPresets-1] = b;
-        presetButtonRow.addView(b, numPresets-1);
+    	presets.remove(toRemove);
+		times.remove(toRemove);
+		rules.remove(toRemove);
     }
     private void makeRule(String program, String person, String action)
     {
@@ -302,23 +354,11 @@ public class MainActivity extends Activity
     	}
     	return "";
     }
-    private void removePreset(int toRemove)
-    {
-    	numPresets--;
-    	for(int i = toRemove; i < numPresets; i ++)
-    	{
-    		presetButtons[i]=presetButtons[i+1];
-    		presetButtonRow.removeViewAt(i);
-    		presetButtonRow.addView(presetButtons[i], i);
-    	}
-    	presetButtons[numPresets]=null;
-        presetButtonRow.removeViewAt(numPresets);
-    }
     private void loadPreset(int preset)
     {
     	current = preset;
-    	notificationRules.setText(presets[current]+" rules");
-    	notificationRules.setText(presets[current]+" times");
+    	presetRulesText.setText(presets.get(current)+" rules");
+    	presetTimesText.setText(presets.get(current)+" times");
     	buildRuleRows();
     	buildTimeRows();
     }
@@ -326,20 +366,13 @@ public class MainActivity extends Activity
     {
     	return (int)(dp*dpToPx);
     }
-    View.OnClickListener presetsClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(View v)
-	    {
-	    	loadPreset(v.getId()-10000);
-	    }
-	};
-	    public void notifClickHandler(View v)
+	public void notifClickHandler(View v)
 	    {
 	    	notifClick(v.getId()-23000);
 	    }
-	    public void deleteRuleClickHandler(final View firstV)
+	public void deleteRuleClickHandler(final View firstV)
 	    {
-	    	new SnackBar(this, "Are you sure you want to delete rule?", "Yes",
+	    	new SnackBar(this, "Are you sure you want to delete this rule?", "Yes",
 	    	new OnClickListener()
 	   		{
 	    		@Override
@@ -349,9 +382,21 @@ public class MainActivity extends Activity
 	    		}
 	    	}).show();
 	    }
+	public void deletePresetClickHandler(final View firstV)
+    {
+    	new SnackBar(this, "Are you sure you want to delete this preset?", "Yes",
+    	new OnClickListener()
+   		{
+    		@Override
+    		public void onClick(View v)
+    		{
+    			deleteRule(firstV.getId()-24000);
+    		}
+    	}).show();
+    }
 	public void deleteTimeClickHandler(final View firstV)
 	{
-		new SnackBar(this, "Are you sure you want to delete time?", "Yes",
+		new SnackBar(this, "Are you sure you want to delete this time?", "Yes",
 		new OnClickListener()
 		{
 			@Override
@@ -361,16 +406,6 @@ public class MainActivity extends Activity
 			}
 		}).show();
     }
-	View.OnClickListener editPresetsClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(View v)
-	    {
-	    	//editScreen = layoutInflater.inflate(R.layout.activity_presets, null);  
-	        //final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
-	        //TODO text box and plus for new
-	    	//TODO list of old 
-	    }
-	};
 	View.OnClickListener editRulesClickHandler = new View.OnClickListener()
 	{
 	    public void onClick(View v)

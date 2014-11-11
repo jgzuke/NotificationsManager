@@ -1,121 +1,127 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/mainLayout"
-    tools:context="${relativePackage}.${activityClass}" >
-	
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp" >
-        <TableLayout android:id="@+id/presetsTable"
-  			android:layout_height="60dp"
-    		android:layout_width="300dp"
-    		android:stretchColumns="*"/>
-        <com.gc.materialdesign.views.ButtonFloatSmall
-        	android:id="@+id/editPresets"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="#1E88E5"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            materialdesign:iconFloat="@drawable/plus" />
-    </LinearLayout>
-	<TextView
-	    android:id="@+id/notificationRules"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="7dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Notification Rules" />
-	<View
-        android:layout_width="340dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="#1E88E5" />
-	<View
-        android:layout_width="340dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:background="#88CECECE" />
-    <com.gc.materialdesign.views.ScrollView
-    	android:id="@+id/scrollRules"
-    	android:layout_width="320dp"
-        android:layout_marginLeft="20dp"
-        android:layout_height="255dp">
-
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-	        <TableLayout
-	        	android:id="@+id/rulesTable"
-	        	android:layout_width="320dp"
-	        	android:layout_height="wrap_content" />
-	        <com.gc.materialdesign.views.ButtonFloatSmall
-	        	android:id="@+id/editRules"
-	            android:layout_width="40dp"
-	            android:layout_height="40dp"
-	            android:layout_marginBottom="5dp"
-	            android:layout_gravity="center_horizontal"
-	            android:background="#1E88E5"
-	            materialdesign:iconFloat="@drawable/plus" />
-        </LinearLayout>
-	</com.gc.materialdesign.views.ScrollView>
-    <View
-        android:layout_width="340dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="#1E88E5" />
-    <TextView
-	    android:id="@+id/activeTimes"
-	    android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="7dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Active Times" />
+    android:layout_height="match_parent">
     
-    <View
-        android:layout_width="340dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="#1E88E5" />
-    <View
-        android:layout_width="340dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:background="#88CECECE" />
-    <com.gc.materialdesign.views.ScrollView
-    	android:id="@+id/scrollTimes"
-    	android:layout_width="320dp"
-        android:layout_marginLeft="20dp"
-        android:layout_height="224dp">
-
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-	        <TableLayout
-	        	android:id="@+id/timesTable"
-	        	android:layout_width="320dp"
-	        	android:layout_height="wrap_content" />
-	        <com.gc.materialdesign.views.ButtonFloatSmall
-	        	android:id="@+id/editTimes"
-	            android:layout_width="40dp"
-	            android:layout_height="40dp"
-	            android:layout_marginBottom="5dp"
-	            android:layout_gravity="center_horizontal"
-	            android:background="#1E88E5"
-	            materialdesign:iconFloat="@drawable/plus" />
-        </LinearLayout>
-    </com.gc.materialdesign.views.ScrollView>
-</LinearLayout>
+    
+    <!-- The main content view -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:id="@+id/mainLayout"
+	    android:background="#ffffff"
+	    tools:context="${relativePackage}.${activityClass}" >
+		
+		<TextView
+		    android:id="@+id/notificationRules"
+	        android:layout_width="wrap_content"
+	        android:layout_height="30dp"
+	        android:layout_marginTop="7dp"
+	        android:layout_gravity="center_horizontal"
+	        android:text="Notification Rules" />
+		<View
+	        android:layout_width="340dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_height="1dp"
+	        android:layout_alignParentBottom="true"
+	        android:background="#1E88E5" />
+		<View
+	        android:layout_width="340dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_height="2dp"
+	        android:layout_alignParentBottom="true"
+	        android:background="#88CECECE" />
+	    <com.gc.materialdesign.views.ScrollView
+	    	android:id="@+id/scrollRules"
+	    	android:layout_width="320dp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_height="275dp">
+	
+	        <LinearLayout
+	            android:layout_width="320dp"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+	
+		        <TableLayout
+		        	android:id="@+id/rulesTable"
+		        	android:layout_width="320dp"
+		        	android:layout_height="wrap_content" />
+		        <com.gc.materialdesign.views.ButtonFloatSmall
+		        	android:id="@+id/editRules"
+		            android:layout_width="40dp"
+		            android:layout_height="40dp"
+		            android:layout_marginBottom="5dp"
+		            android:layout_gravity="center_horizontal"
+		            android:background="#1E88E5"
+		            materialdesign:iconFloat="@drawable/plus" />
+	        </LinearLayout>
+		</com.gc.materialdesign.views.ScrollView>
+	    <View
+	        android:layout_width="340dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_height="1dp"
+	        android:layout_alignParentBottom="true"
+	        android:background="#1E88E5" />
+	    <TextView
+		    android:id="@+id/activeTimes"
+		    android:layout_width="wrap_content"
+	        android:layout_height="30dp"
+	        android:layout_marginTop="17dp"
+	        android:layout_gravity="center_horizontal"
+	        android:text="Active Times" />
+	    
+	    <View
+	        android:layout_width="340dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_height="1dp"
+	        android:layout_alignParentBottom="true"
+	        android:background="#1E88E5" />
+	    <View
+	        android:layout_width="340dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_height="2dp"
+	        android:layout_alignParentBottom="true"
+	        android:background="#88CECECE" />
+	    <com.gc.materialdesign.views.ScrollView
+	    	android:id="@+id/scrollTimes"
+	    	android:layout_width="320dp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_height="254dp">
+	
+	        <LinearLayout
+	            android:layout_width="320dp"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" >
+	
+		        <TableLayout
+		        	android:id="@+id/timesTable"
+		        	android:layout_width="320dp"
+		        	android:layout_height="wrap_content" />
+		        <com.gc.materialdesign.views.ButtonFloatSmall
+		        	android:id="@+id/editTimes"
+		            android:layout_width="40dp"
+		            android:layout_height="40dp"
+		            android:layout_marginBottom="5dp"
+		            android:layout_gravity="center_horizontal"
+		            android:background="#1E88E5"
+		            materialdesign:iconFloat="@drawable/plus" />
+	        </LinearLayout>
+	    </com.gc.materialdesign.views.ScrollView>
+	</LinearLayout>
+    
+    
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:choiceMode="singleChoice"
+        android:divider="#1E88E5"
+        android:dividerHeight="1dp"
+        android:background="#ffffff"/>
+</android.support.v4.widget.DrawerLayout>
