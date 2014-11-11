@@ -76,6 +76,7 @@ public class MainActivity extends Activity
 	private ListView navDrawer;
 	private DrawerLayout navLayout;
 	private ActionBarDrawerToggle navToggle;
+	private ArrayAdapter<String> navAdapter;
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -83,9 +84,14 @@ public class MainActivity extends Activity
         myself = this;
         setContentView(R.layout.activity_main);
         r = getResources();
-        makePreset("Home");
-        makePreset("Work");
-        makePreset("Sleep");
+        presets.add("Home");
+        presets.add("Work");
+        presets.add("Sleep");
+        for (int i = 0; i < 3; i++)
+        {
+        	times.add(new ArrayList<int[][]>());
+        	rules.add(new ArrayList<String[]>());
+        }
         setUpNavBar();
         layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
         imageLibrary = new ImageLibrary(this);
@@ -97,10 +103,13 @@ public class MainActivity extends Activity
     }
 	private void setUpNavBar()
 	{
-		setTitle(presets.get(0));
+		setTitle(presets.get(0)+" Setting");
 		navLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawer = (ListView) findViewById(R.id.left_drawer);
-        navDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.navlistitem, presets));
+        navAdapter = new ArrayAdapter<String>(this, R.layout.navlistitem, presets);
+        presets.add("  +  ");
+        navDrawer.setAdapter(navAdapter);
+        
         navDrawer.setOnItemClickListener(new DrawerItemClickListener());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -109,12 +118,12 @@ public class MainActivity extends Activity
         navToggle = new ActionBarDrawerToggle(this, navLayout, R.string.drawer_open, R.string.drawer_close)
         {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(presets.get(current));
+                getActionBar().setTitle(presets.get(current)+" Setting");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(presets.get(current));
+                getActionBar().setTitle(presets.get(current)+" Setting");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -144,10 +153,11 @@ public class MainActivity extends Activity
     }
 	private void selectItem(int position)
 	{
-        loadPreset(position);
-        navDrawer.setItemChecked(position, true);
-        setTitle(presets.get(current));
-        navLayout.closeDrawer(navDrawer);
+		if(position==presets.size()-1) makePreset("New");
+	    loadPreset(position);
+	    navDrawer.setItemChecked(position, true);
+	    setTitle(presets.get(current));
+	    navLayout.closeDrawer(navDrawer);
     }
 	private AttributeSet getAttributeSet(int res)
 	{
@@ -209,7 +219,8 @@ public class MainActivity extends Activity
 	}
     private void makePreset(String preset)
     {
-    	presets.add(preset);
+    	presets.add(presets.size()-1, preset);
+    	navAdapter.notifyDataSetChanged();
 		times.add(new ArrayList<int[][]>());
 		rules.add(new ArrayList<String[]>());
     }
@@ -390,7 +401,7 @@ public class MainActivity extends Activity
     		@Override
     		public void onClick(View v)
     		{
-    			deleteRule(firstV.getId()-24000);
+    			removePreset(firstV.getId()-10000);
     		}
     	}).show();
     }
@@ -422,5 +433,4 @@ public class MainActivity extends Activity
 	    	//TODO two week scrolls and clocks Add button
 	    }
 	};
-
 }
