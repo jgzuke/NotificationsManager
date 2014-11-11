@@ -18,12 +18,14 @@ import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.gc.materialdesign.widgets.SnackBar;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -339,53 +341,29 @@ public class MainActivity extends Activity
 	    {
 	    	notifClick(v.getId()-23000);
 	    }
-	    public void deleteRuleClickHandler(final View v)
+	    public void deleteRuleClickHandler(final View firstV)
 	    {
-	        View popupView = layoutInflater.inflate(R.layout.popup_delete, null);  
-	        popup = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
-	        Button yes = (Button) popupView.findViewById(R.id.yes);
-	        Button no = (Button) popupView.findViewById(R.id.no);
-	        yes.setOnClickListener(new View.OnClickListener()
-	        {
-	            public void onClick(View b)
-	            {
-	            	deleteRule(v.getId()-24000);
-	            	popup.dismiss();
-	            }
-	        });
-	        no.setOnClickListener(new View.OnClickListener()
-	        {
-	            public void onClick(View v)
-	            {
-	            	popup.dismiss();
-	            }
-	        });
-	        popup.setContentView(popupView);
-	        popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+	    	new SnackBar(this, "Are you sure you want to delete rule?", "Yes",
+	    	new OnClickListener()
+	   		{
+	    		@Override
+	    		public void onClick(View v)
+	    		{
+	    			deleteRule(firstV.getId()-24000);
+	    		}
+	    	}).show();
 	    }
-	public void deleteTimeClickHandler(final View v)
+	public void deleteTimeClickHandler(final View firstV)
 	{
-		View popupView = layoutInflater.inflate(R.layout.popup_delete, null);  
-        popup = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
-        Button yes = (Button) popupView.findViewById(R.id.yes);
-        Button no = (Button) popupView.findViewById(R.id.no);
-        yes.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View b)
-            {
-            	deleteRule(v.getId()-33000);
-            	popup.dismiss();
-            }
-        });
-        no.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-            	popup.dismiss();
-            }
-        });
-        popup.setContentView(popupView);
-        popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+		new SnackBar(this, "Are you sure you want to delete time?", "Yes",
+		new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				deleteTime(firstV.getId()-33000);
+			}
+		}).show();
     }
 	View.OnClickListener editPresetsClickHandler = new View.OnClickListener()
 	{
