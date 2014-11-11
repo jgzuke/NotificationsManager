@@ -12,6 +12,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import com.gc.materialdesign.views.ButtonFloat;
+import com.gc.materialdesign.views.ButtonFloatSmall;
+import com.gc.materialdesign.views.ButtonRectangle;
+
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -39,9 +43,9 @@ public class MainActivity extends Activity
 	private TableLayout timesTable;
 	private int current = 0;
 	private ImageLibrary imageLibrary;
-	private ImageButton editPresets;
-	private ImageButton editRules;
-	private ImageButton editTimes;
+	private ButtonFloatSmall editPresets;
+	private ButtonFloatSmall editRules;
+	private ButtonFloatSmall editTimes;
 	private TextView notificationRules;
 	private TextView activeTimes;
 	private TableLayout.LayoutParams tableLayout;
@@ -71,9 +75,9 @@ public class MainActivity extends Activity
         activeTimes = (TextView)findViewById( R.id.activeTimes);
         notificationRules.setTextSize(20);
         activeTimes.setTextSize(20);
-        editPresets = (ImageButton) findViewById( R.id.editPresets);
-    	editRules = (ImageButton) findViewById( R.id.editRules);
-    	editTimes = (ImageButton) findViewById( R.id.editTimes);
+        editPresets = (ButtonFloatSmall) findViewById( R.id.editPresets);
+    	editRules = (ButtonFloatSmall) findViewById( R.id.editRules);
+    	editTimes = (ButtonFloatSmall) findViewById( R.id.editTimes);
         presetsTable = (TableLayout) findViewById( R.id.presetsTable);
         rulesTable = (TableLayout) findViewById( R.id.rulesTable);
         rulesTable.setStretchAllColumns(true);
@@ -81,12 +85,6 @@ public class MainActivity extends Activity
         timesTable = (TableLayout) findViewById( R.id.timesTable);
         timesTable.setStretchAllColumns(true);
         timesTable.setShrinkAllColumns(true);
-        editPresets.setImageDrawable(imageLibrary.edit);
-        editRules.setImageDrawable(imageLibrary.plus);
-        editTimes.setImageDrawable(imageLibrary.plus);
-        editPresets.setOnClickListener(editPresetsClickHandler);
-        editRules.setOnClickListener(editRulesClickHandler);
-        editTimes.setOnClickListener(editTimesClickHandler);
 	}
 	private void makePresetBase()
 	{
@@ -357,30 +355,21 @@ public class MainActivity extends Activity
         popup.setContentView(popupView);
         popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
     }
-	View.OnClickListener editPresetsClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(View v)
+	    public void editPresetsClickHandler(View v)
 	    {
 	    	//editScreen = layoutInflater.inflate(R.layout.activity_presets, null);  
 	        //final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
 	        //TODO text box and plus for new
 	    	//TODO list of old 
 	    }
-	};
-	View.OnClickListener editRulesClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(View v)
+	    public void editRulesClickHandler(View v)
 	    {
 	    	//editScreen = layoutInflater.inflate(R.layout.activity_rules, null);  
 	    	//TODO two text boxes, and three button, highlight one, add button
 	    }
-	};
-	View.OnClickListener editTimesClickHandler = new View.OnClickListener()
-	{
-	    public void onClick(View v)
+	    public void editTimesClickHandler(View v)
 	    {
 	    	//editScreen = layoutInflater.inflate(R.layout.activity_times, null);  
 	    	//TODO two week scrolls and clocks Add button
 	    }
-	};
 }

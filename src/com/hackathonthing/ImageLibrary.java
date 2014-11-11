@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.widget.ImageView;
 public final class ImageLibrary
 {
 	private String getting;
@@ -17,6 +18,7 @@ public final class ImageLibrary
 	protected BitmapDrawable [] notifOpts;
 	protected BitmapDrawable edit;
 	protected BitmapDrawable plus;
+	protected ImageView plusImage;
 	protected BitmapDrawable delete;
 	/**
 	 * loads in images and optimizes settings for loading
@@ -32,6 +34,8 @@ public final class ImageLibrary
 		res = contextSet.getResources();
 		edit = loadImage("edit", 120, 120);
 		plus = loadImage("plus", 60, 60);
+		plusImage = new ImageView(contextSet);
+		plusImage.setImageDrawable(plus);
 		delete = loadImage("delete", 80, 80);
 		notifOpts = loadArray(3, "notif", 80, 80);
 	}

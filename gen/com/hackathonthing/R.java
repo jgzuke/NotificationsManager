@@ -8,43 +8,159 @@
 package com.hackathonthing;
 
 public final class R {
+    public static final class anim {
+        public static final int progress_indeterminate_animation=0x7f040000;
+        public static final int snackbar_hide_animation=0x7f040001;
+        public static final int snackbar_show_animation=0x7f040002;
+    }
     public static final class attr {
+        /**         in float button indicate if must start with animation 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int animate=0x7f010007;
+        /**         in switche's view indicate state of view 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int check=0x7f010005;
+        /**         in float button indicate icon resource 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int iconFloat=0x7f010006;
+        /**         in progress view indicate max value of progress 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int max=0x7f010001;
+        /**         in progress view indicate min value of progress 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int min=0x7f010002;
+        /**         in progress view indicate value of progress 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int progress=0x7f010004;
+        /**         indicate if the slider must show number indicator 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int showNumberIndicator=0x7f010000;
+        /**         in progress view indicate value of progress 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int value=0x7f010003;
+    }
+    public static final class color {
+        public static final int green=0x7f050000;
     }
     public static final class drawable {
-        public static final int delete=0x7f020000;
-        public static final int edit=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int notif0001=0x7f020003;
-        public static final int notif0002=0x7f020004;
-        public static final int notif0003=0x7f020005;
-        public static final int plus=0x7f020006;
+        public static final int background_button=0x7f020000;
+        public static final int background_button_float=0x7f020001;
+        public static final int background_button_rectangle=0x7f020002;
+        public static final int background_checkbox=0x7f020003;
+        public static final int background_checkbox_check=0x7f020004;
+        public static final int background_checkbox_uncheck=0x7f020005;
+        public static final int background_progress=0x7f020006;
+        public static final int background_switch_ball_uncheck=0x7f020007;
+        public static final int background_transparent=0x7f020008;
+        public static final int delete=0x7f020009;
+        public static final int dialog_background=0x7f02000a;
+        public static final int edit=0x7f02000b;
+        public static final int float_button1_shadowp=0x7f02000c;
+        public static final int float_button_shadow1=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int ic_reloj_max=0x7f02000f;
+        public static final int notif0001=0x7f020010;
+        public static final int notif0002=0x7f020011;
+        public static final int notif0003=0x7f020012;
+        public static final int plus=0x7f020013;
+        public static final int shadow_down=0x7f020014;
+        public static final int shadow_right=0x7f020015;
+        public static final int sprite_check=0x7f020016;
+        public static final int whiteplus=0x7f020017;
     }
     public static final class id {
-        public static final int activeTimes=0x7f060006;
-        public static final int editPresets=0x7f060002;
-        public static final int editRules=0x7f060005;
-        public static final int editTimes=0x7f060008;
-        public static final int mainLayout=0x7f060000;
-        public static final int no=0x7f06000c;
-        public static final int notificationRules=0x7f060003;
-        public static final int presetsTable=0x7f060001;
-        public static final int rulesTable=0x7f060004;
-        public static final int timePicker1=0x7f060009;
-        public static final int timePicker2=0x7f06000a;
-        public static final int timesTable=0x7f060007;
-        public static final int yes=0x7f06000b;
+        public static final int activeTimes=0x7f080006;
+        public static final int blue=0x7f08000c;
+        public static final int button_accept=0x7f080011;
+        public static final int button_cancel=0x7f080010;
+        public static final int buttonflat=0x7f080018;
+        public static final int contentDialog=0x7f08000d;
+        public static final int editPresets=0x7f080002;
+        public static final int editRules=0x7f080005;
+        public static final int editTimes=0x7f080008;
+        public static final int green=0x7f08000b;
+        public static final int mainLayout=0x7f080000;
+        public static final int message=0x7f08000f;
+        public static final int no=0x7f080016;
+        public static final int notificationRules=0x7f080003;
+        public static final int number_indicator_spinner_content=0x7f080014;
+        public static final int presetsTable=0x7f080001;
+        public static final int red=0x7f08000a;
+        public static final int rulesTable=0x7f080004;
+        public static final int shape_bacground=0x7f08001a;
+        public static final int snackbar=0x7f080017;
+        public static final int text=0x7f080019;
+        public static final int timePicker1=0x7f080012;
+        public static final int timePicker2=0x7f080013;
+        public static final int timesTable=0x7f080007;
+        public static final int title=0x7f08000e;
+        public static final int viewColor=0x7f080009;
+        public static final int yes=0x7f080015;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int makerule=0x7f030001;
-        public static final int maketime=0x7f030002;
-        public static final int popup_delete=0x7f030003;
-        public static final int rulerow=0x7f030004;
-        public static final int timerow=0x7f030005;
+        public static final int color_selector=0x7f030001;
+        public static final int dialog=0x7f030002;
+        public static final int makerule=0x7f030003;
+        public static final int maketime=0x7f030004;
+        public static final int number_indicator_spinner=0x7f030005;
+        public static final int popup_delete=0x7f030006;
+        public static final int rulerow=0x7f030007;
+        public static final int snackbar=0x7f030008;
+        public static final int text=0x7f030009;
+        public static final int timerow=0x7f03000a;
     }
     public static final class string {
-        public static final int app_name=0x7f040000;
-        public static final int hello_world=0x7f040001;
+        public static final int app_name=0x7f060000;
+        public static final int hello_world=0x7f060001;
     }
     public static final class style {
         /** 
@@ -68,10 +184,168 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f050000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f050001;
+        public static final int AppTheme=0x7f070001;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a CustomAttributes.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #CustomAttributes_animate com.hackathonthing:animate}</code></td><td>        in float button indicate if must start with animation </td></tr>
+           <tr><td><code>{@link #CustomAttributes_check com.hackathonthing:check}</code></td><td>        in switche's view indicate state of view </td></tr>
+           <tr><td><code>{@link #CustomAttributes_iconFloat com.hackathonthing:iconFloat}</code></td><td>        in float button indicate icon resource </td></tr>
+           <tr><td><code>{@link #CustomAttributes_max com.hackathonthing:max}</code></td><td>        in progress view indicate max value of progress </td></tr>
+           <tr><td><code>{@link #CustomAttributes_min com.hackathonthing:min}</code></td><td>        in progress view indicate min value of progress </td></tr>
+           <tr><td><code>{@link #CustomAttributes_progress com.hackathonthing:progress}</code></td><td>        in progress view indicate value of progress </td></tr>
+           <tr><td><code>{@link #CustomAttributes_showNumberIndicator com.hackathonthing:showNumberIndicator}</code></td><td>        indicate if the slider must show number indicator </td></tr>
+           <tr><td><code>{@link #CustomAttributes_value com.hackathonthing:value}</code></td><td>        in progress view indicate value of progress </td></tr>
+           </table>
+           @see #CustomAttributes_animate
+           @see #CustomAttributes_check
+           @see #CustomAttributes_iconFloat
+           @see #CustomAttributes_max
+           @see #CustomAttributes_min
+           @see #CustomAttributes_progress
+           @see #CustomAttributes_showNumberIndicator
+           @see #CustomAttributes_value
+         */
+        public static final int[] CustomAttributes = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007
+        };
+        /**
+          <p>
+          @attr description
+                  in float button indicate if must start with animation 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:animate
+        */
+        public static final int CustomAttributes_animate = 7;
+        /**
+          <p>
+          @attr description
+                  in switche's view indicate state of view 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:check
+        */
+        public static final int CustomAttributes_check = 5;
+        /**
+          <p>
+          @attr description
+                  in float button indicate icon resource 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:iconFloat
+        */
+        public static final int CustomAttributes_iconFloat = 6;
+        /**
+          <p>
+          @attr description
+                  in progress view indicate max value of progress 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:max
+        */
+        public static final int CustomAttributes_max = 1;
+        /**
+          <p>
+          @attr description
+                  in progress view indicate min value of progress 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:min
+        */
+        public static final int CustomAttributes_min = 2;
+        /**
+          <p>
+          @attr description
+                  in progress view indicate value of progress 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:progress
+        */
+        public static final int CustomAttributes_progress = 4;
+        /**
+          <p>
+          @attr description
+                  indicate if the slider must show number indicator 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:showNumberIndicator
+        */
+        public static final int CustomAttributes_showNumberIndicator = 0;
+        /**
+          <p>
+          @attr description
+                  in progress view indicate value of progress 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hackathonthing:value
+        */
+        public static final int CustomAttributes_value = 3;
+    };
 }
