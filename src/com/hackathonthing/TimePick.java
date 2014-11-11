@@ -1,3 +1,5 @@
+package com.hackathonthing;
+
 import java.util.Calendar;
 
 import android.app.Dialog;
