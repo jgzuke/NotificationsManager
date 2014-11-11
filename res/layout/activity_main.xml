@@ -18,10 +18,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="#1E88E5"
-            android:onClick="editPresetsClickHandler"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            materialdesign:iconFloat="@drawable/whiteplus" />
+            materialdesign:iconFloat="@drawable/plus" />
     </LinearLayout>
 	<TextView
 	    android:id="@+id/notificationRules"
@@ -44,8 +43,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="#1E88E5"
-            android:onClick="editRulesClickHandler" 
-            materialdesign:iconFloat="@drawable/whiteplus" />
+            materialdesign:iconFloat="@drawable/plus" />
     <TextView
 	    android:id="@+id/activeTimes"
 	    android:layout_width="wrap_content"
@@ -56,7 +54,7 @@
         android:id="@+id/timesTable"
         android:layout_width="320dp"
         android:layout_marginLeft="20dp"
-        android:layout_height="180dp"/>
+        android:layout_height="170dp"/>
     
     
     <com.gc.materialdesign.views.ButtonFloatSmall
@@ -65,6 +63,5 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:background="#1E88E5"
-            android:onClick="editTimesClickHandler" 
-            materialdesign:iconFloat="@drawable/whiteplus" />
+            materialdesign:iconFloat="@drawable/plus" />
 </LinearLayout>

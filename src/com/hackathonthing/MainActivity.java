@@ -1,17 +1,26 @@
 package com.hackathonthing;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
+import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -31,7 +40,7 @@ public class MainActivity extends Activity
 	private LinearLayout mainLayout;
 	private byte numPresets = 3;
 	private String [] presets = {"Home", "Sleep", "Work", "", "", ""};
-	private Button presetButtons [] = new Button[6];
+	private ButtonRectangle presetButtons [] = new ButtonRectangle[6];
 	private Resources r;
 	private int iconSize = 25;
 	private double dpToPx;
@@ -52,6 +61,7 @@ public class MainActivity extends Activity
 	private LayoutInflater layoutInflater;
 	private View editScreen;
 	private PopupWindow popup;
+	private AttributeSet presetAttributes;
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,6 +69,7 @@ public class MainActivity extends Activity
         myself = this;
         setContentView(R.layout.activity_main);
         r = getResources();
+        //presetAttributes = getAttributeSet(R.xml.presetbutton); // just inflated layouts instead
         layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);  
         imageLibrary = new ImageLibrary(this);
         dpToPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, r.getDisplayMetrics())/1000;
@@ -68,6 +79,28 @@ public class MainActivity extends Activity
         buildPresetButtons();
         loadPreset(0);
     }
+	private AttributeSet getAttributeSet(int res)
+	{
+		AttributeSet as = null;
+		XmlResourceParser parser = r.getLayout(res);
+		int state = 0;
+        do {
+            try {
+                state = parser.next();
+            } catch (XmlPullParserException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }       
+            if (state == XmlPullParser.START_TAG) {
+                if (parser.getName().equals("TextView")) {
+                    as = Xml.asAttributeSet(parser);
+                    break;
+                }
+            }
+        } while(state != XmlPullParser.END_DOCUMENT);
+        return as;
+	}
 	private void setStaticTablesButtons()
 	{
 		mainLayout = (LinearLayout) findViewById( R.id.mainLayout);
@@ -78,14 +111,13 @@ public class MainActivity extends Activity
         editPresets = (ButtonFloatSmall) findViewById( R.id.editPresets);
     	editRules = (ButtonFloatSmall) findViewById( R.id.editRules);
     	editTimes = (ButtonFloatSmall) findViewById( R.id.editTimes);
+    	editPresets.setOnClickListener(editPresetsClickHandler);
+    	editRules.setOnClickListener(editRulesClickHandler);
+    	editTimes.setOnClickListener(editTimesClickHandler);
         presetsTable = (TableLayout) findViewById( R.id.presetsTable);
         rulesTable = (TableLayout) findViewById( R.id.rulesTable);
-        rulesTable.setStretchAllColumns(true);
-        rulesTable.setShrinkAllColumns(true);
         timesTable = (TableLayout) findViewById( R.id.timesTable);
-        timesTable.setStretchAllColumns(true);
-        timesTable.setShrinkAllColumns(true);
-	}
+    }
 	private void makePresetBase()
 	{
 		for(int i = 0; i < 3; i ++)
@@ -110,15 +142,33 @@ public class MainActivity extends Activity
     	presetsTable.addView(presetButtonRow);
         for(int i = 0; i < numPresets; i++)
         {
-        	presetButtons[i] = new Button(this);
+        	presetButtons[i] = (ButtonRectangle)layoutInflater.inflate(R.xml.presetbutton, null, false);
         	presetButtons[i].setText(presets[i]);
-        	presetButtons[i].setTextSize(20);
-        	presetButtons[i].setWidth(pixels(100));
-        	presetButtons[i].setHeight(pixels(60));
+        	presetButtons[i].setTop(pixels(0));
+        	presetButtons[i].setBottom(pixels(60));
+        	presetButtons[i].setLeft(pixels(i*100));
+        	presetButtons[i].setRight(pixels((i+1)*100));
         	presetButtons[i].setId(i+10000);
-        	presetButtons[i].setOnClickListener(presetClickHandler);
+        	presetButtons[i].setOnClickListener(presetsClickHandler);
         	presetButtonRow.addView(presetButtons[i], i);
         }
+    }
+    private void makePreset()
+    {
+    	numPresets++;
+    	ButtonRectangle b = (ButtonRectangle)layoutInflater.inflate(R.xml.presetbutton, null, false);
+        b.setText(presets[numPresets-1]);
+        b.setId(numPresets-1+10000);
+        b.setTop(pixels(5));
+        b.setBottom(pixels(60));
+        b.setOnClickListener(presetsClickHandler);
+        presetButtons[numPresets-1] = b;
+        for(int i = 0; i < numPresets; i++)
+        {
+        	presetButtons[i].setLeft(pixels(i*300/numPresets));
+        	presetButtons[i].setLeft(pixels((i+1)*300/numPresets));
+        }
+        presetButtonRow.addView(b, numPresets-1);
     }
     private void makeRule(String program, String person, String action)
     {
@@ -148,12 +198,11 @@ public class MainActivity extends Activity
         	TextView program = (TextView)r.getChildAt(0);
         	TextView person = (TextView)r.getChildAt(1);
         	Button action = (Button)r.getChildAt(2);
-        	Button delete = (Button)r.getChildAt(3);
+        	ButtonFloatSmall delete = (ButtonFloatSmall)r.getChildAt(3);
         	String [] values = rules.get(current).get(i);
         	program.setText(values[0]);
         	person.setText(values[1]);
         	action.setBackground(imageLibrary.notifOpts[actToID(values[2])]);
-        	delete.setBackground(imageLibrary.delete);
         	
         	r.setId(i+20000);
         	program.setId(21000+i);
@@ -178,11 +227,10 @@ public class MainActivity extends Activity
     		TableRow t = (TableRow)layoutInflater.inflate(R.layout.timerow, null, false);
         	TextView start = (TextView)t.getChildAt(0);
         	TextView end = (TextView)t.getChildAt(1);
-        	Button delete = (Button)t.getChildAt(2);
+        	ButtonFloatSmall delete = (ButtonFloatSmall)t.getChildAt(2);
         	int [][] values = times.get(current).get(i);
         	start.setText(timeToString(values[0])+ " to ");
         	end.setText(timeToString(values[1]));
-        	delete.setBackground(imageLibrary.delete);
         	
         	t.setId(i+30000);
         	start.setId(31000+i);
@@ -257,22 +305,6 @@ public class MainActivity extends Activity
     	}
     	return "";
     }
-    private void makePreset()
-    {
-    	numPresets++;
-    	Button b = new Button(this);
-        b.setText(presets[numPresets-1]);
-        b.setTextSize(20);
-        b.setId(numPresets-1+100);
-        b.setOnClickListener(presetClickHandler);
-        b.setHeight(pixels(60));
-        presetButtons[numPresets-1] = b;
-        for(int i = 0; i < numPresets; i++)
-        {
-        	presetButtons[i].setWidth(pixels(300/numPresets));
-        }
-        presetButtonRow.addView(b, numPresets-1);
-    }
     private void removePreset(int toRemove)
     {
     	numPresets--;
@@ -296,7 +328,7 @@ public class MainActivity extends Activity
     {
     	return (int)(dp*dpToPx);
     }
-	View.OnClickListener presetClickHandler = new View.OnClickListener()
+    View.OnClickListener presetsClickHandler = new View.OnClickListener()
 	{
 	    public void onClick(View v)
 	    {
@@ -341,7 +373,7 @@ public class MainActivity extends Activity
         {
             public void onClick(View b)
             {
-            	deleteRule(v.getId()-24000);
+            	deleteRule(v.getId()-33000);
             	popup.dismiss();
             }
         });
@@ -355,21 +387,31 @@ public class MainActivity extends Activity
         popup.setContentView(popupView);
         popup.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
     }
-	    public void editPresetsClickHandler(View v)
+	View.OnClickListener editPresetsClickHandler = new View.OnClickListener()
+	{
+	    public void onClick(View v)
 	    {
 	    	//editScreen = layoutInflater.inflate(R.layout.activity_presets, null);  
 	        //final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);  
 	        //TODO text box and plus for new
 	    	//TODO list of old 
 	    }
-	    public void editRulesClickHandler(View v)
+	};
+	View.OnClickListener editRulesClickHandler = new View.OnClickListener()
+	{
+	    public void onClick(View v)
 	    {
 	    	//editScreen = layoutInflater.inflate(R.layout.activity_rules, null);  
 	    	//TODO two text boxes, and three button, highlight one, add button
 	    }
-	    public void editTimesClickHandler(View v)
+	};
+	View.OnClickListener editTimesClickHandler = new View.OnClickListener()
+	{
+	    public void onClick(View v)
 	    {
 	    	//editScreen = layoutInflater.inflate(R.layout.activity_times, null);  
 	    	//TODO two week scrolls and clocks Add button
 	    }
+	};
+
 }

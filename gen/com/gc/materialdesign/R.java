@@ -23,7 +23,7 @@ public final class R {
 		public static final int value = 0x7f010003;
 	}
 	public static final class color {
-		public static final int green = 0x7f050000;
+		public static final int green = 0x7f060000;
 	}
 	public static final class drawable {
 		public static final int background_button = 0x7f020000;
@@ -45,31 +45,31 @@ public final class R {
 		public static final int sprite_check = 0x7f020016;
 	}
 	public static final class id {
-		public static final int blue = 0x7f08000c;
-		public static final int button_accept = 0x7f080011;
-		public static final int button_cancel = 0x7f080010;
-		public static final int buttonflat = 0x7f080018;
-		public static final int contentDialog = 0x7f08000d;
-		public static final int green = 0x7f08000b;
-		public static final int message = 0x7f08000f;
-		public static final int number_indicator_spinner_content = 0x7f080014;
-		public static final int red = 0x7f08000a;
-		public static final int shape_bacground = 0x7f08001a;
-		public static final int snackbar = 0x7f080017;
-		public static final int text = 0x7f080019;
-		public static final int title = 0x7f08000e;
-		public static final int viewColor = 0x7f080009;
+		public static final int blue = 0x7f09000c;
+		public static final int button_accept = 0x7f090011;
+		public static final int button_cancel = 0x7f090010;
+		public static final int buttonflat = 0x7f090019;
+		public static final int contentDialog = 0x7f09000d;
+		public static final int green = 0x7f09000b;
+		public static final int message = 0x7f09000f;
+		public static final int number_indicator_spinner_content = 0x7f090014;
+		public static final int red = 0x7f09000a;
+		public static final int shape_bacground = 0x7f09001b;
+		public static final int snackbar = 0x7f090018;
+		public static final int text = 0x7f09001a;
+		public static final int title = 0x7f09000e;
+		public static final int viewColor = 0x7f090009;
 	}
 	public static final class layout {
 		public static final int activity_main = 0x7f030000;
 		public static final int color_selector = 0x7f030001;
 		public static final int dialog = 0x7f030002;
 		public static final int number_indicator_spinner = 0x7f030005;
-		public static final int snackbar = 0x7f030008;
-		public static final int text = 0x7f030009;
+		public static final int snackbar = 0x7f030009;
+		public static final int text = 0x7f03000a;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f060000;
+		public static final int app_name = 0x7f070000;
 	}
 	public static final class styleable {
 		public static final int[] CustomAttributes = { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007 };

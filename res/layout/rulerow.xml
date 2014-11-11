@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainLayout"
-    android:layout_width="300dp"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginTop="5dp"
-    android:background="#ffff0000"
-    android:padding="5dp" >
+    android:gravity="center"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
 
     <TextView
-        android:layout_width="95dp"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Calls"
         android:textSize="20sp"/>
     <TextView
-        android:layout_width="95dp"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Default"
         android:textSize="20sp"/>
 
     <Button
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="left"
         android:onClick="notifClickHandler" />
 
-    <Button
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+    <com.gc.materialdesign.views.ButtonFloatSmall
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="right"
-        android:onClick="deleteRuleClickHandler" />
+        android:layout_marginLeft="4dp"
+        android:onClick="deleteRuleClickHandler"
+        android:background="#1E88E5"
+        materialdesign:iconFloat="@drawable/delete" />
 
 </TableRow>
