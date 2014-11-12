@@ -282,12 +282,12 @@ public class MainActivity extends Activity
 	}
 	private void makeRule()
 	{
-		String[] newRule = {"Alert", "Person", "silent"};
+		String[] newRule = new String[3];
 		rules.get(current).add(newRule);
 	}
 	private void makeTime()
 	{
-		int[][] newTime = {{1, 8, 30}, {1, 9, 30}};
+		int[][] newTime = new int[2][3];
 		times.get(current).add(newTime);
 	}
 	private void buildRuleRows()
@@ -343,22 +343,21 @@ public class MainActivity extends Activity
 			timesTable.addView(t);
 		}
 	}
-	private int notifClick(int index)
+	private void notifClick(int index)
 	{
 		switch (actToID(rules.get(current).get(index)[2]))
 		{
 			case 0:
 				rules.get(current).get(index)[2] = "vibrate";
-				return 1;
+				break;
 			case 1:
 				rules.get(current).get(index)[2] = "ring";
-				return 2;
+				break;
 			case 2:
 				rules.get(current).get(index)[2] = "silent";
-				return 0;
+				break;
 		}
 		buildRuleRows();
-		return 0;
 	}
 	private void deleteRule(int index)
 	{
@@ -434,8 +433,8 @@ public class MainActivity extends Activity
 	public void changeTimeStartHandler(final View v)
 	{
 		Log.e("hi", "changeTimeStartHandler");
-		//TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 32000);
-		final TextView text = (TextView) v;
+		TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 32000);
+		final TextView text = (TextView) row.getChildAt(1);
 		TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
 		{@
 			Override
@@ -459,8 +458,6 @@ public class MainActivity extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				times.get(current).get(v.getId() - 31000)[0][0] = which + 1;
-				TextView v2 = (TextView)v;
-				v2.setText(intToDay(which + 1));
 				buildTimeRows();
 			}
 		});
@@ -471,9 +468,8 @@ public class MainActivity extends Activity
 	public void changeTimeEndHandler(final View v)
 	{
 		Log.e("hi", "changeTimeEndHandler");
-		
-		//TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 34000);
-		final TextView text = (TextView) v;
+		TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 34000);
+		final TextView text = (TextView) row.getChildAt(1);
 		TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
 		{@
 			Override
@@ -497,8 +493,6 @@ public class MainActivity extends Activity
 			public void onClick(DialogInterface dialog, int which)
 			{
 				times.get(current).get(v.getId() - 33000)[1][0] = which + 1;
-				TextView v2 = (TextView)v;
-				v2.setText(intToDay(which + 1));
 				buildTimeRows();
 			}
 		});
@@ -516,9 +510,7 @@ public class MainActivity extends Activity
 	}
 	public void notifClickHandler(View v)
 	{
-		int i = notifClick(v.getId() - 23000);
-		Button v2 = (Button) v;
-		v2.setBackground(imageLibrary.notifOpts[i]);
+		notifClick(v.getId() - 23000);
 	}
 	public void deleteRuleClickHandler(final View firstV)
 	{
@@ -584,6 +576,9 @@ public class MainActivity extends Activity
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 			LayoutInflater inflater = getLayoutInflater();
 			makeRule();
+
+
+			
 			TableRow makeRuleRow = (TableRow) layoutInflater.inflate(R.layout.makerule, rulesTable, false);
 			TextView program = (TextView) makeRuleRow.getChildAt(0);
 			TextView person = (TextView) makeRuleRow.getChildAt(1);
@@ -597,7 +592,7 @@ public class MainActivity extends Activity
 			program.setId(21000 + i);
 			person.setId(22000 + i);
 			action.setId(23000 + i);
-			//rulesTable.addView(makeRuleRow);
+			
 			
 			builder.setView(makeRuleRow)
 			.setTitle("New Time").setPositiveButton("Create", new DialogInterface.OnClickListener()
@@ -610,8 +605,7 @@ public class MainActivity extends Activity
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
-					rules.get(current).remove(rules.get(current).size()-1);
-					buildRuleRows();
+					rules.get(current).remove(rules.size()-1);
 				}
 			});
 			AlertDialog dialog = builder.create();
@@ -624,7 +618,6 @@ public class MainActivity extends Activity
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 			LayoutInflater inflater = getLayoutInflater();
-			int[][] valuesStart = {{8, 30},{9, 30}};
 			makeTime();
 			TableRow makeTimeRow = (TableRow) inflater.inflate(R.layout.maketime, null);
 			TextView startD = (TextView) makeTimeRow.getChildAt(0);
@@ -642,8 +635,6 @@ public class MainActivity extends Activity
 			startH.setId(32000 + i);
 			endD.setId(33000 + i);
 			endH.setId(34000 + i);
-			//timesTable.addView(makeTimeRow);
-			
 			builder.setView(makeTimeRow)
 			.setTitle("New Time").setPositiveButton("Create", new DialogInterface.OnClickListener()
 			{
@@ -655,8 +646,7 @@ public class MainActivity extends Activity
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
-					times.get(current).remove(times.get(current).size()-1);
-					buildTimeRows();
+					times.get(current).remove(times.size()-1);
 				}
 			});
 			AlertDialog dialog = builder.create();
