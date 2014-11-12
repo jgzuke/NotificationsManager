@@ -19,6 +19,9 @@ public final class R {
         public static final int snackbar_hide_animation=0x7f040007;
         public static final int snackbar_show_animation=0x7f040008;
     }
+    public static final class array {
+        public static final int days_array=0x7f0d0000;
+    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1968,7 +1971,7 @@ containing a value of this type.
         public static final int timerow=0x7f03002a;
     }
     public static final class menu {
-        public static final int main=0x7f0d0000;
+        public static final int main=0x7f0e0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

@@ -453,6 +453,17 @@ public class MainActivity extends Activity
     	}
     	return "";
     }
+    private int stringToDay(String day)
+    {
+    	if(day.equals("Sun")) return 1;
+    	if(day.equals("Mon")) return 2;
+    	if(day.equals("Tue")) return 3;
+    	if(day.equals("Wed")) return 4;
+    	if(day.equals("Thu")) return 5;
+    	if(day.equals("Fri")) return 6;
+    	if(day.equals("Sat")) return 7;
+    	return 0;
+    }
     private void loadPreset(int preset)
     {
     	current = preset;
@@ -478,13 +489,24 @@ public class MainActivity extends Activity
             	times.get(current).get(v.getId()-32000)[0][1]=hourOfDay;
             	times.get(current).get(v.getId()-32000)[0][2]=minute;
             	text.setText(timeToString(times.get(current).get(v.getId()-32000)[0]));
+            	buildTimeRows();
 			}
         }, times.get(current).get(v.getId()-32000)[0][1], times.get(current).get(v.getId()-32000)[0][2], true);//Yes 24 hour time
         mTimePicker.setTitle("Select Start Time");
         mTimePicker.show();
 	}
-    public void changeDayStartHandler(View v)
+    public void changeDayStartHandler(final View v)
 	{
+    	AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+        builder.setTitle("Pick start Day");
+        builder.setItems(R.array.days_array, new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) {
+                	   times.get(current).get(v.getId()-31000)[0][0]=which+1;
+                	   buildTimeRows();
+               }
+        });
+        AlertDialog dialog = builder.create();
+    	dialog.show();
     	Log.e("hi", "changeDayStartHandler");
 	}
     public void changeTimeEndHandler(final View v)
@@ -500,13 +522,24 @@ public class MainActivity extends Activity
             	times.get(current).get(v.getId()-34000)[1][1]=hourOfDay;
             	times.get(current).get(v.getId()-34000)[1][2]=minute;
                 text.setText(timeToString(times.get(current).get(v.getId()-34000)[1]));
+                buildTimeRows();
 			}
         }, times.get(current).get(v.getId()-34000)[1][1], times.get(current).get(v.getId()-34000)[1][2], true);//Yes 24 hour time
         mTimePicker.setTitle("Select End Time");
         mTimePicker.show();
 	}
-    public void changeDayEndHandler(View v)
+    public void changeDayEndHandler(final View v)
 	{
+    	AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+        builder.setTitle("Pick end Day");
+        builder.setItems(R.array.days_array, new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) {
+                	   times.get(current).get(v.getId()-33000)[1][0]=which+1;
+                	   buildTimeRows();
+               }
+        });
+        AlertDialog dialog = builder.create();
+    	dialog.show();
     	Log.e("hi", "changeDayEndHandler");
 	}
     public void changeProgramHandler(View v)
