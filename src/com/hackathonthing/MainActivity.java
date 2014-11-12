@@ -8,10 +8,12 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -155,7 +157,24 @@ public class MainActivity extends Activity
         switch(item.getItemId())
         {
 	        case R.id.editPresetName:
-	        	
+	        	AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+	        	final EditText input = new EditText(this);
+	        	builder.setView(input);
+	        	builder.setPositiveButton(R.string.set, new DialogInterface.OnClickListener() {
+	        	           public void onClick(DialogInterface dialog, int id) {
+	        	        	   presets.set(current, input.getText().toString());
+	        	        	   loadPreset(current);
+	        	        	   setTitle(presets.get(current));
+	        	           }
+	        	       });
+	        	builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+	        	           public void onClick(DialogInterface dialog, int id) {
+	        	               // User cancelled the dialog
+	        	           }
+	        	       });
+	        	builder.setTitle("Name Preset");
+	        	AlertDialog dialog = builder.create();
+	        	dialog.show();
 	            return true;
 	        case R.id.removePreset:
 	        	new SnackBar(this, "Are you sure you want to delete this preset?", "Yes",
@@ -182,11 +201,38 @@ public class MainActivity extends Activity
     }
 	private void selectItem(int position)
 	{
-		if(position==presets.size()-1) makePreset("New");
+		Boolean makeNew = false;
+		if(position==presets.size()-1)
+		{
+			makePreset("New");
+			makeNew = true;
+			
+		}
 	    loadPreset(position);
 	    navDrawer.setItemChecked(position, true);
 	    setTitle(presets.get(current));
 	    navLayout.closeDrawer(navDrawer);
+	    if(makeNew)
+	    {
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+        	final EditText input = new EditText(this);
+        	builder.setView(input);
+        	builder.setPositiveButton(R.string.set, new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	        	   presets.set(current, input.getText().toString());
+        	        	   loadPreset(current);
+        	        	   setTitle(presets.get(current));
+        	           }
+        	       });
+        	builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	               // User cancelled the dialog
+        	           }
+        	       });
+        	builder.setTitle("Name Preset");
+        	AlertDialog dialog = builder.create();
+        	dialog.show();
+	    }
     }
 	private AttributeSet getAttributeSet(int res)
 	{

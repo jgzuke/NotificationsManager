@@ -2025,11 +2025,13 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000d;
         public static final int app_name=0x7f0b000f;
-        public static final int drawer_close=0x7f0b0014;
+        public static final int cancel=0x7f0b0015;
+        public static final int drawer_close=0x7f0b0016;
         public static final int drawer_open=0x7f0b0013;
         public static final int edit_preset=0x7f0b0011;
         public static final int hello_world=0x7f0b0010;
         public static final int remove_preset=0x7f0b0012;
+        public static final int set=0x7f0b0014;
     }
     public static final class style {
         /** 

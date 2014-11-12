@@ -598,11 +598,13 @@ int string abc_searchview_description_voice 0x7f0b000a
 int string abc_shareactionprovider_share_with 0x7f0b000e
 int string abc_shareactionprovider_share_with_application 0x7f0b000d
 int string app_name 0x7f0b000f
-int string drawer_close 0x7f0b0014
+int string cancel 0x7f0b0015
+int string drawer_close 0x7f0b0016
 int string drawer_open 0x7f0b0013
 int string edit_preset 0x7f0b0011
 int string hello_world 0x7f0b0010
 int string remove_preset 0x7f0b0012
+int string set 0x7f0b0014
 int style AppBaseTheme 0x7f0c011d
 int style AppTheme 0x7f0c011e
 int style Base_TextAppearance_AppCompat 0x7f0c00ca

@@ -6,6 +6,8 @@
     <string name="edit_preset">Edit Preset</string>
     <string name="remove_preset">Remove Preset</string>
     <string name="drawer_open">Open Navigation drawer</string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
     <string name="drawer_close">Close navigation drawer</string>
 
 </resources>
