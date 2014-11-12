@@ -272,6 +272,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int barSize=0x7f01009f;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int baseColor=0x7f0100b1;
         /**  A style that may be applied to Buttons placed within a
              LinearLayout with the style buttonBarStyle to form a button bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -576,6 +585,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int elevation=0x7f01006b;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int errorColor=0x7f0100b4;
         /**  The drawable to show in the button for expanding the activities overflow popup.
              <strong>Note:</strong> Clients would like to set this drawable
              as a clue about the action the chosen activity will perform. For
@@ -586,6 +604,18 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int expandActivityOverflowButtonDrawable=0x7f010085;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>highlight</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int floatingLabel=0x7f0100b3;
         /**  The max gap between the bars when they are parallel to each other 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
@@ -783,6 +813,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int maxButtonHeight=0x7f010091;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int maxCharacters=0x7f0100b5;
         /**  When set to true, all children with a weight will be considered having
              the minimum size of the largest child. If false, all children are
              measured normally. 
@@ -927,6 +965,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int preserveIconSpacing=0x7f010070;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int primaryColor=0x7f0100b2;
         /**         in progress view indicate value of progress 
          <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
@@ -1049,6 +1096,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int showText=0x7f0100a8;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int singleLineEllipsis=0x7f0100b6;
         /**  Whether bars should rotate or not during transition 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
@@ -1617,6 +1672,9 @@ containing a value of this type.
  Default text size for action bar title.
          */
         public static final int abc_text_size_title_material_toolbar=0x7f080012;
+        public static final int bottom_ellipsis_height=0x7f08002b;
+        public static final int default_padding_bottom=0x7f08002c;
+        public static final int default_padding_top=0x7f08002d;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1651,6 +1709,10 @@ containing a value of this type.
         public static final int dialog_fixed_width_minor=0x7f08000d;
         public static final int disabled_alpha_material_dark=0x7f080001;
         public static final int disabled_alpha_material_light=0x7f080000;
+        public static final int floating_label_text_size=0x7f08002e;
+        public static final int inner_components_spacing=0x7f08002f;
+        public static final int inner_padding_left=0x7f080030;
+        public static final int inner_padding_right=0x7f080031;
     }
     public static final class drawable {
         public static final int abc_ab_bottom_solid_dark_holo=0x7f020000;
@@ -1789,112 +1851,119 @@ containing a value of this type.
         public static final int delete=0x7f020085;
         public static final int dialog_background=0x7f020086;
         public static final int edit=0x7f020087;
-        public static final int float_button1_shadowp=0x7f020088;
-        public static final int float_button_shadow1=0x7f020089;
-        public static final int ic_drawer=0x7f02008a;
-        public static final int ic_launcher=0x7f02008b;
-        public static final int ic_reloj_max=0x7f02008c;
-        public static final int notif0001=0x7f02008d;
-        public static final int notif0002=0x7f02008e;
-        public static final int notif0003=0x7f02008f;
-        public static final int plus=0x7f020090;
-        public static final int remove=0x7f020091;
-        public static final int shadow_down=0x7f020092;
-        public static final int shadow_right=0x7f020093;
-        public static final int sprite_check=0x7f020094;
+        public static final int edittext_bg_activated=0x7f020088;
+        public static final int edittext_bg_ellipsis_activated=0x7f020089;
+        public static final int edittext_bg_ellipsis_normal=0x7f02008a;
+        public static final int edittext_bg_max_characters_activated=0x7f02008b;
+        public static final int edittext_bg_max_characters_normal=0x7f02008c;
+        public static final int edittext_bg_normal=0x7f02008d;
+        public static final int float_button1_shadowp=0x7f02008e;
+        public static final int float_button_shadow1=0x7f02008f;
+        public static final int ic_drawer=0x7f020090;
+        public static final int ic_launcher=0x7f020091;
+        public static final int ic_reloj_max=0x7f020092;
+        public static final int notif0001=0x7f020093;
+        public static final int notif0002=0x7f020094;
+        public static final int notif0003=0x7f020095;
+        public static final int plus=0x7f020096;
+        public static final int remove=0x7f020097;
+        public static final int shadow_down=0x7f020098;
+        public static final int shadow_right=0x7f020099;
+        public static final int sprite_check=0x7f02009a;
     }
     public static final class id {
-        public static final int action_bar=0x7f0a0022;
+        public static final int action_bar=0x7f0a0023;
         public static final int action_bar_activity_content=0x7f0a0003;
-        public static final int action_bar_container=0x7f0a0021;
-        public static final int action_bar_overlay_layout=0x7f0a0024;
-        public static final int action_bar_root=0x7f0a0020;
+        public static final int action_bar_container=0x7f0a0022;
+        public static final int action_bar_overlay_layout=0x7f0a0025;
+        public static final int action_bar_root=0x7f0a0021;
         public static final int action_bar_spinner=0x7f0a0002;
-        public static final int action_bar_subtitle=0x7f0a0027;
-        public static final int action_bar_title=0x7f0a0026;
-        public static final int action_context_bar=0x7f0a0023;
+        public static final int action_bar_subtitle=0x7f0a0028;
+        public static final int action_bar_title=0x7f0a0027;
+        public static final int action_context_bar=0x7f0a0024;
         public static final int action_menu_divider=0x7f0a0005;
         public static final int action_menu_presenter=0x7f0a0006;
-        public static final int action_mode_bar=0x7f0a0035;
-        public static final int action_mode_bar_stub=0x7f0a0034;
-        public static final int action_mode_close_button=0x7f0a0028;
-        public static final int activeTimes=0x7f0a0049;
-        public static final int activity_chooser_view_content=0x7f0a0029;
+        public static final int action_mode_bar=0x7f0a0036;
+        public static final int action_mode_bar_stub=0x7f0a0035;
+        public static final int action_mode_close_button=0x7f0a0029;
+        public static final int activeTimes=0x7f0a004a;
+        public static final int activity_chooser_view_content=0x7f0a002a;
         public static final int always=0x7f0a0014;
         public static final int beginning=0x7f0a001b;
-        public static final int blue=0x7f0a0051;
+        public static final int blue=0x7f0a0052;
         public static final int bottom=0x7f0a001e;
-        public static final int button_accept=0x7f0a0055;
-        public static final int button_cancel=0x7f0a0054;
-        public static final int buttonflat=0x7f0a0058;
-        public static final int checkbox=0x7f0a0031;
+        public static final int button_accept=0x7f0a0056;
+        public static final int button_cancel=0x7f0a0055;
+        public static final int buttonflat=0x7f0a0059;
+        public static final int checkbox=0x7f0a0032;
         public static final int collapseActionView=0x7f0a0015;
-        public static final int contentDialog=0x7f0a0052;
-        public static final int decor_content_parent=0x7f0a0036;
-        public static final int default_activity_button=0x7f0a002c;
+        public static final int contentDialog=0x7f0a0053;
+        public static final int decor_content_parent=0x7f0a0037;
+        public static final int default_activity_button=0x7f0a002d;
         public static final int dialog=0x7f0a0019;
         public static final int disableHome=0x7f0a000d;
-        public static final int drawer_layout=0x7f0a0043;
+        public static final int drawer_layout=0x7f0a0044;
         public static final int dropdown=0x7f0a001a;
-        public static final int editPresetName=0x7f0a005b;
-        public static final int editRules=0x7f0a0048;
-        public static final int editTimes=0x7f0a004c;
-        public static final int edit_query=0x7f0a0037;
+        public static final int editPresetName=0x7f0a005c;
+        public static final int editRules=0x7f0a0049;
+        public static final int editTimes=0x7f0a004d;
+        public static final int edit_query=0x7f0a0038;
         public static final int end=0x7f0a001c;
-        public static final int expand_activities_button=0x7f0a002a;
-        public static final int expanded_menu=0x7f0a0030;
-        public static final int green=0x7f0a0050;
+        public static final int expand_activities_button=0x7f0a002b;
+        public static final int expanded_menu=0x7f0a0031;
+        public static final int green=0x7f0a0051;
+        public static final int highlight=0x7f0a0020;
         public static final int home=0x7f0a0000;
         public static final int homeAsUp=0x7f0a000e;
-        public static final int icon=0x7f0a002e;
+        public static final int icon=0x7f0a002f;
         public static final int ifRoom=0x7f0a0016;
-        public static final int image=0x7f0a002b;
-        public static final int left_drawer=0x7f0a004d;
+        public static final int image=0x7f0a002c;
+        public static final int left_drawer=0x7f0a004e;
         public static final int listMode=0x7f0a000a;
-        public static final int list_item=0x7f0a002d;
-        public static final int mainLayout=0x7f0a0044;
-        public static final int message=0x7f0a0053;
+        public static final int list_item=0x7f0a002e;
+        public static final int mainLayout=0x7f0a0045;
+        public static final int message=0x7f0a0054;
         public static final int middle=0x7f0a001d;
         public static final int never=0x7f0a0017;
         public static final int none=0x7f0a000f;
         public static final int normal=0x7f0a000b;
-        public static final int notificationRules=0x7f0a0045;
-        public static final int number_indicator_spinner_content=0x7f0a0056;
+        public static final int notificationRules=0x7f0a0046;
+        public static final int number_indicator_spinner_content=0x7f0a0057;
         public static final int progress_circular=0x7f0a0007;
         public static final int progress_horizontal=0x7f0a0008;
-        public static final int radio=0x7f0a0033;
-        public static final int red=0x7f0a004f;
-        public static final int removePreset=0x7f0a005c;
-        public static final int rulesTable=0x7f0a0047;
-        public static final int scrollRules=0x7f0a0046;
-        public static final int scrollTimes=0x7f0a004a;
-        public static final int search_badge=0x7f0a0039;
-        public static final int search_bar=0x7f0a0038;
-        public static final int search_button=0x7f0a003a;
-        public static final int search_close_btn=0x7f0a003f;
-        public static final int search_edit_frame=0x7f0a003b;
-        public static final int search_go_btn=0x7f0a0041;
-        public static final int search_mag_icon=0x7f0a003c;
-        public static final int search_plate=0x7f0a003d;
-        public static final int search_src_text=0x7f0a003e;
-        public static final int search_voice_btn=0x7f0a0042;
-        public static final int shape_bacground=0x7f0a005a;
-        public static final int shortcut=0x7f0a0032;
+        public static final int radio=0x7f0a0034;
+        public static final int red=0x7f0a0050;
+        public static final int removePreset=0x7f0a005d;
+        public static final int rulesTable=0x7f0a0048;
+        public static final int scrollRules=0x7f0a0047;
+        public static final int scrollTimes=0x7f0a004b;
+        public static final int search_badge=0x7f0a003a;
+        public static final int search_bar=0x7f0a0039;
+        public static final int search_button=0x7f0a003b;
+        public static final int search_close_btn=0x7f0a0040;
+        public static final int search_edit_frame=0x7f0a003c;
+        public static final int search_go_btn=0x7f0a0042;
+        public static final int search_mag_icon=0x7f0a003d;
+        public static final int search_plate=0x7f0a003e;
+        public static final int search_src_text=0x7f0a003f;
+        public static final int search_voice_btn=0x7f0a0043;
+        public static final int shape_bacground=0x7f0a005b;
+        public static final int shortcut=0x7f0a0033;
         public static final int showCustom=0x7f0a0010;
         public static final int showHome=0x7f0a0011;
         public static final int showTitle=0x7f0a0012;
-        public static final int snackbar=0x7f0a0057;
+        public static final int snackbar=0x7f0a0058;
         public static final int split_action_bar=0x7f0a0004;
-        public static final int submit_area=0x7f0a0040;
+        public static final int submit_area=0x7f0a0041;
         public static final int tabMode=0x7f0a000c;
-        public static final int text=0x7f0a0059;
-        public static final int timesTable=0x7f0a004b;
-        public static final int title=0x7f0a002f;
+        public static final int text=0x7f0a005a;
+        public static final int timesTable=0x7f0a004c;
+        public static final int title=0x7f0a0030;
         public static final int top=0x7f0a001f;
-        public static final int top_action_bar=0x7f0a0025;
+        public static final int top_action_bar=0x7f0a0026;
         public static final int up=0x7f0a0001;
         public static final int useLogo=0x7f0a0013;
-        public static final int viewColor=0x7f0a004e;
+        public static final int viewColor=0x7f0a004f;
         public static final int withText=0x7f0a0018;
         public static final int wrap_content=0x7f0a0009;
     }
@@ -3724,6 +3793,121 @@ containing a value of this type.
           @attr name android:dropDownVerticalOffset
         */
         public static final int ListPopupWindow_android_dropDownVerticalOffset = 1;
+        /** Attributes that can be used with a MaterialEditText.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialEditText_baseColor com.hackathonthing:baseColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialEditText_errorColor com.hackathonthing:errorColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialEditText_floatingLabel com.hackathonthing:floatingLabel}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialEditText_maxCharacters com.hackathonthing:maxCharacters}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialEditText_primaryColor com.hackathonthing:primaryColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialEditText_singleLineEllipsis com.hackathonthing:singleLineEllipsis}</code></td><td></td></tr>
+           </table>
+           @see #MaterialEditText_baseColor
+           @see #MaterialEditText_errorColor
+           @see #MaterialEditText_floatingLabel
+           @see #MaterialEditText_maxCharacters
+           @see #MaterialEditText_primaryColor
+           @see #MaterialEditText_singleLineEllipsis
+         */
+        public static final int[] MaterialEditText = {
+            0x7f0100b1, 0x7f0100b2, 0x7f0100b3, 0x7f0100b4,
+            0x7f0100b5, 0x7f0100b6
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#baseColor}
+          attribute's value can be found in the {@link #MaterialEditText} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hackathonthing:baseColor
+        */
+        public static final int MaterialEditText_baseColor = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#errorColor}
+          attribute's value can be found in the {@link #MaterialEditText} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hackathonthing:errorColor
+        */
+        public static final int MaterialEditText_errorColor = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#floatingLabel}
+          attribute's value can be found in the {@link #MaterialEditText} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>highlight</code></td><td>2</td><td></td></tr>
+</table>
+          @attr name com.hackathonthing:floatingLabel
+        */
+        public static final int MaterialEditText_floatingLabel = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#maxCharacters}
+          attribute's value can be found in the {@link #MaterialEditText} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hackathonthing:maxCharacters
+        */
+        public static final int MaterialEditText_maxCharacters = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#primaryColor}
+          attribute's value can be found in the {@link #MaterialEditText} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hackathonthing:primaryColor
+        */
+        public static final int MaterialEditText_primaryColor = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#singleLineEllipsis}
+          attribute's value can be found in the {@link #MaterialEditText} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hackathonthing:singleLineEllipsis
+        */
+        public static final int MaterialEditText_singleLineEllipsis = 5;
         /**  Base attributes that are available to all groups. 
            <p>Includes the following attributes:</p>
            <table>

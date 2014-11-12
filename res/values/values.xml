@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialEditText"><attr format="color" name="baseColor"/><attr format="color" name="primaryColor"/><attr name="floatingLabel"><enum name="none" value="0"/><enum name="normal" value="1"/><enum name="highlight" value="2"/></attr><attr format="color" name="errorColor"/><attr format="integer" name="maxCharacters"/><attr format="boolean" name="singleLineEllipsis"/></declare-styleable>
+    <!-- From: file:/D:/Projects/MaterialEditText/library/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="bottom_ellipsis_height">4dp</dimen>
+    <dimen name="default_padding_bottom">8dp</dimen>
+    <dimen name="default_padding_top">8dp</dimen>
+    <dimen name="floating_label_text_size">12dp</dimen>
+    <dimen name="inner_components_spacing">8dp</dimen>
+    <dimen name="inner_padding_left">0dp</dimen>
+    <dimen name="inner_padding_right">0dp</dimen>
+</resources>

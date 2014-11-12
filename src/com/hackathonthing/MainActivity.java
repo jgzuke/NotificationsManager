@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.widgets.SnackBar;
 import android.widget.AdapterView;
@@ -121,7 +122,7 @@ public class MainActivity extends Activity
 		{
 			case R.id.editPresetName:
 				AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-				final EditText input = new EditText(this);
+				final MaterialEditText input = new MaterialEditText(this);
 				builder.setView(input);
 				builder.setPositiveButton(R.string.set, new DialogInterface.OnClickListener()
 				{
