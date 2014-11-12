@@ -1795,12 +1795,12 @@ containing a value of this type.
         public static final int notif0002=0x7f02008e;
         public static final int notif0003=0x7f02008f;
         public static final int plus=0x7f020090;
-        public static final int shadow_down=0x7f020091;
-        public static final int shadow_right=0x7f020092;
-        public static final int sprite_check=0x7f020093;
+        public static final int remove=0x7f020091;
+        public static final int shadow_down=0x7f020092;
+        public static final int shadow_right=0x7f020093;
+        public static final int sprite_check=0x7f020094;
     }
     public static final class id {
-        public static final int TextView01=0x7f0a004e;
         public static final int action_bar=0x7f0a0022;
         public static final int action_bar_activity_content=0x7f0a0003;
         public static final int action_bar_container=0x7f0a0021;
@@ -1819,27 +1819,28 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f0a0029;
         public static final int always=0x7f0a0014;
         public static final int beginning=0x7f0a001b;
-        public static final int blue=0x7f0a0052;
+        public static final int blue=0x7f0a0051;
         public static final int bottom=0x7f0a001e;
-        public static final int button_accept=0x7f0a0056;
-        public static final int button_cancel=0x7f0a0055;
-        public static final int buttonflat=0x7f0a005b;
+        public static final int button_accept=0x7f0a0055;
+        public static final int button_cancel=0x7f0a0054;
+        public static final int buttonflat=0x7f0a005a;
         public static final int checkbox=0x7f0a0031;
         public static final int collapseActionView=0x7f0a0015;
-        public static final int contentDialog=0x7f0a0053;
+        public static final int contentDialog=0x7f0a0052;
         public static final int decor_content_parent=0x7f0a0036;
         public static final int default_activity_button=0x7f0a002c;
         public static final int dialog=0x7f0a0019;
         public static final int disableHome=0x7f0a000d;
         public static final int drawer_layout=0x7f0a0043;
         public static final int dropdown=0x7f0a001a;
+        public static final int editPresetName=0x7f0a005d;
         public static final int editRules=0x7f0a0048;
         public static final int editTimes=0x7f0a004c;
         public static final int edit_query=0x7f0a0037;
         public static final int end=0x7f0a001c;
         public static final int expand_activities_button=0x7f0a002a;
         public static final int expanded_menu=0x7f0a0030;
-        public static final int green=0x7f0a0051;
+        public static final int green=0x7f0a0050;
         public static final int home=0x7f0a0000;
         public static final int homeAsUp=0x7f0a000e;
         public static final int icon=0x7f0a002e;
@@ -1849,17 +1850,18 @@ containing a value of this type.
         public static final int listMode=0x7f0a000a;
         public static final int list_item=0x7f0a002d;
         public static final int mainLayout=0x7f0a0044;
-        public static final int message=0x7f0a0054;
+        public static final int message=0x7f0a0053;
         public static final int middle=0x7f0a001d;
         public static final int never=0x7f0a0017;
         public static final int none=0x7f0a000f;
         public static final int normal=0x7f0a000b;
         public static final int notificationRules=0x7f0a0045;
-        public static final int number_indicator_spinner_content=0x7f0a0059;
+        public static final int number_indicator_spinner_content=0x7f0a0058;
         public static final int progress_circular=0x7f0a0007;
         public static final int progress_horizontal=0x7f0a0008;
         public static final int radio=0x7f0a0033;
-        public static final int red=0x7f0a0050;
+        public static final int red=0x7f0a004f;
+        public static final int removePreset=0x7f0a005e;
         public static final int rulesTable=0x7f0a0047;
         public static final int scrollRules=0x7f0a0046;
         public static final int scrollTimes=0x7f0a004a;
@@ -1873,25 +1875,25 @@ containing a value of this type.
         public static final int search_plate=0x7f0a003d;
         public static final int search_src_text=0x7f0a003e;
         public static final int search_voice_btn=0x7f0a0042;
-        public static final int shape_bacground=0x7f0a005d;
+        public static final int shape_bacground=0x7f0a005c;
         public static final int shortcut=0x7f0a0032;
         public static final int showCustom=0x7f0a0010;
         public static final int showHome=0x7f0a0011;
         public static final int showTitle=0x7f0a0012;
-        public static final int snackbar=0x7f0a005a;
+        public static final int snackbar=0x7f0a0059;
         public static final int split_action_bar=0x7f0a0004;
         public static final int submit_area=0x7f0a0040;
         public static final int tabMode=0x7f0a000c;
-        public static final int text=0x7f0a005c;
-        public static final int timePicker1=0x7f0a0057;
-        public static final int timePicker2=0x7f0a0058;
+        public static final int text=0x7f0a005b;
+        public static final int timePicker1=0x7f0a0056;
+        public static final int timePicker2=0x7f0a0057;
         public static final int timesTable=0x7f0a004b;
         public static final int title=0x7f0a002f;
         public static final int top=0x7f0a001f;
         public static final int top_action_bar=0x7f0a0025;
         public static final int up=0x7f0a0001;
         public static final int useLogo=0x7f0a0013;
-        public static final int viewColor=0x7f0a004f;
+        public static final int viewColor=0x7f0a004e;
         public static final int withText=0x7f0a0018;
         public static final int wrap_content=0x7f0a0009;
     }
@@ -1953,19 +1955,20 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f03001d;
         public static final int abc_simple_dropdown_hint=0x7f03001e;
         public static final int activity_main=0x7f03001f;
-        public static final int addpresetbutton=0x7f030020;
-        public static final int color_selector=0x7f030021;
-        public static final int dialog=0x7f030022;
-        public static final int makerule=0x7f030023;
-        public static final int maketime=0x7f030024;
-        public static final int navlistitem=0x7f030025;
-        public static final int number_indicator_spinner=0x7f030026;
-        public static final int presetbutton=0x7f030027;
-        public static final int rulerow=0x7f030028;
-        public static final int snackbar=0x7f030029;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002a;
-        public static final int text=0x7f03002b;
-        public static final int timerow=0x7f03002c;
+        public static final int color_selector=0x7f030020;
+        public static final int dialog=0x7f030021;
+        public static final int makerule=0x7f030022;
+        public static final int maketime=0x7f030023;
+        public static final int navlistitem=0x7f030024;
+        public static final int number_indicator_spinner=0x7f030025;
+        public static final int rulerow=0x7f030026;
+        public static final int snackbar=0x7f030027;
+        public static final int support_simple_spinner_dropdown_item=0x7f030028;
+        public static final int text=0x7f030029;
+        public static final int timerow=0x7f03002a;
+    }
+    public static final class menu {
+        public static final int main=0x7f0d0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2022,9 +2025,11 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000d;
         public static final int app_name=0x7f0b000f;
-        public static final int drawer_close=0x7f0b0012;
-        public static final int drawer_open=0x7f0b0011;
+        public static final int drawer_close=0x7f0b0014;
+        public static final int drawer_open=0x7f0b0013;
+        public static final int edit_preset=0x7f0b0011;
         public static final int hello_world=0x7f0b0010;
+        public static final int remove_preset=0x7f0b0012;
     }
     public static final class style {
         /** 

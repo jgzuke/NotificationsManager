@@ -26,11 +26,11 @@ import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonFloatSmall;
@@ -107,7 +107,7 @@ public class MainActivity extends Activity
 		navLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawer = (ListView) findViewById(R.id.left_drawer);
         navAdapter = new ArrayAdapter<String>(this, R.layout.navlistitem, presets);
-        presets.add("  +  ");
+        presets.add("    +");
         navDrawer.setAdapter(navAdapter);
         
         navDrawer.setOnItemClickListener(new DrawerItemClickListener());
@@ -149,7 +149,33 @@ public class MainActivity extends Activity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         if (navToggle.onOptionsItemSelected(item)) return true;
-        return false;
+        switch(item.getItemId())
+        {
+	        case R.id.editPresetName:
+	        	
+	            return true;
+	        case R.id.removePreset:
+	        	new SnackBar(this, "Are you sure you want to delete this preset?", "Yes",
+	    	       	    new OnClickListener()
+	    	       		{
+	    	        	    @Override
+	    	        	    public void onClick(View v)
+	    	        	    {
+	    	        	    	removePreset(current);
+	    	    	        	loadPreset(0);
+	    	    	        	navAdapter.notifyDataSetChanged();
+	    	        	    }
+	    	        	}).show();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 	private void selectItem(int position)
 	{
@@ -285,17 +311,23 @@ public class MainActivity extends Activity
     	for(int i = 0; i < times.get(current).size(); i ++)
     	{
     		TableRow t = (TableRow)layoutInflater.inflate(R.layout.timerow, null, false);
-        	TextView start = (TextView)t.getChildAt(0);
-        	TextView end = (TextView)t.getChildAt(1);
-        	ButtonFloatSmall delete = (ButtonFloatSmall)t.getChildAt(2);
+        	TextView startD = (TextView)t.getChildAt(0);
+        	TextView startH = (TextView)t.getChildAt(1);
+        	TextView endD = (TextView)t.getChildAt(2);
+        	TextView endH = (TextView)t.getChildAt(3);
+        	ButtonFloatSmall delete = (ButtonFloatSmall)t.getChildAt(4);
         	int [][] values = times.get(current).get(i);
-        	start.setText(timeToString(values[0])+ " to ");
-        	end.setText(timeToString(values[1]));
+        	startD.setText(intToDay(values[0][0])+ " ");
+        	startH.setText(timeToString(values[0])+ " to ");
+        	endD.setText(intToDay(values[1][0])+ " ");
+        	endH.setText(timeToString(values[1]));
         	
         	t.setId(i+30000);
-        	start.setId(31000+i);
-        	end.setId(32000+i);
-        	delete.setId(33000+i);
+        	startD.setId(31000+i);
+        	startH.setId(32000+i);
+        	endD.setId(33000+i);
+        	endH.setId(34000+i);
+        	delete.setId(35000+i);
         	
         	timesTable.addView(t);
     	}
@@ -344,12 +376,14 @@ public class MainActivity extends Activity
     		row.getChildAt(0).setId(31000+ID);
     		row.getChildAt(1).setId(32000+ID);
     		row.getChildAt(2).setId(33000+ID);
+    		row.getChildAt(3).setId(34000+ID);
+    		row.getChildAt(4).setId(35000+ID);
     	}
     	buildTimeRows();
     }
     private String timeToString(int [] time)
     {
-    	return intToDay(time[0])+" "+Integer.toString(time[1])+":"+Integer.toString(time[2]);
+    	return Integer.toString(time[1])+":"+Integer.toString(time[2]);
     }
     private String intToDay(int day)
     {
@@ -377,10 +411,34 @@ public class MainActivity extends Activity
     {
     	return (int)(dp*dpToPx);
     }
-	public void notifClickHandler(View v)
-	    {
-	    	notifClick(v.getId()-23000);
-	    }
+    public void changeTimeStartHandler(View v)
+	{
+    	
+	}
+    public void changeDayStartHandler(View v)
+	{
+    	
+	}
+    public void changeTimeEndHandler(View v)
+	{
+    	
+	}
+    public void changeDayEndHandler(View v)
+	{
+    	
+	}
+    public void changeProgramHandler(View v)
+	{
+    	
+	}
+    public void changePersonHandler(View v)
+	{
+    	
+	}
+    public void notifClickHandler(View v)
+	{
+    	notifClick(v.getId()-23000);
+	}
 	public void deleteRuleClickHandler(final View firstV)
 	    {
 	    	new SnackBar(this, "Are you sure you want to delete this rule?", "Yes",
@@ -413,7 +471,7 @@ public class MainActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				deleteTime(firstV.getId()-33000);
+				deleteTime(firstV.getId()-35000);
 			}
 		}).show();
     }

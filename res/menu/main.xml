@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/editPresetName"
+          android:icon="@drawable/edit"
+          android:title="@string/edit_preset"
+          android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/removePreset"
+          android:icon="@drawable/remove"
+          android:title="@string/remove_preset"
+          android:showAsAction="ifRoom|withText" />
+</menu>

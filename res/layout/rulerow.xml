@@ -15,12 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Calls"
+        android:onClick="changeProgramHandler"
         android:textSize="20sp"/>
     <TextView
         android:layout_width="107dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Default"
+        android:onClick="changePersonHandler"
         android:textSize="20sp"/>
 
     <Button

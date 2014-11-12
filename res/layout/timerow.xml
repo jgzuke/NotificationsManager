@@ -11,17 +11,32 @@
     android:paddingTop="5dp" >
 
     <TextView
-        android:layout_width="125dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Calls"
+        android:onClick="changeDayStartHandler"
         android:textSize="20sp"/>
-    
     <TextView
-        android:layout_width="125dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:text="Default"
+        android:text="Calls"
+        android:onClick="changeTimeStartHandler"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Calls"
+        android:onClick="changeDayEndHandler"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Calls"
+        android:onClick="changeTimeEndHandler"
         android:textSize="20sp"/>
 
    <com.gc.materialdesign.views.ButtonFloatSmall
