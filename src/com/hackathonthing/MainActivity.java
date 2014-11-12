@@ -279,6 +279,16 @@ public class MainActivity extends Activity
 		newTime[1][2] = endM;
 		times.get(current).add(newTime);
 	}
+	private void makeRule()
+	{
+		String[] newRule = new String[3];
+		rules.get(current).add(newRule);
+	}
+	private void makeTime()
+	{
+		int[][] newTime = new int[2][3];
+		times.get(current).add(newTime);
+	}
 	private void buildRuleRows()
 	{
 		rulesTable.removeAllViews();
@@ -562,15 +572,84 @@ public class MainActivity extends Activity
 	{
 		public void onClick(View v)
 		{
-			//editScreen = layoutInflater.inflate(R.layout.activity_rules, null);  
-			//TODO two text boxes, and three button, highlight one, add button
+			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+			LayoutInflater inflater = getLayoutInflater();
+			makeRule();
+
+
+			
+			TableRow makeRuleRow = (TableRow) layoutInflater.inflate(R.layout.makerule, rulesTable, false);
+			TextView program = (TextView) makeRuleRow.getChildAt(0);
+			TextView person = (TextView) makeRuleRow.getChildAt(1);
+			Button action = (Button) makeRuleRow.getChildAt(2);
+			String[] values = rules.get(current).get(rules.get(current).size()-1);
+			program.setText(values[0]);
+			person.setText(values[1]);
+			action.setBackground(imageLibrary.notifOpts[actToID(values[2])]);
+			int i = rules.get(current).size()-1;
+			makeRuleRow.setId(i + 20000);
+			program.setId(21000 + i);
+			person.setId(22000 + i);
+			action.setId(23000 + i);
+			
+			
+			builder.setView(makeRuleRow)
+			.setTitle("New Time").setPositiveButton("Create", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					buildRuleRows();
+				}
+			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					rules.get(current).remove(rules.size()-1);
+				}
+			});
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
 	};
 	View.OnClickListener editTimesClickHandler = new View.OnClickListener()
 	{
 		public void onClick(View v)
 		{
-			//editScreen = layoutInflater.inflate(R.layout.activity_times, null);  
-			//TODO two week scrolls and clocks Add button
+			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+			LayoutInflater inflater = getLayoutInflater();
+			makeTime();
+			TableRow makeTimeRow = (TableRow) inflater.inflate(R.layout.maketime, null);
+			TextView startD = (TextView) makeTimeRow.getChildAt(0);
+			TextView startH = (TextView) makeTimeRow.getChildAt(1);
+			TextView endD = (TextView) makeTimeRow.getChildAt(2);
+			TextView endH = (TextView) makeTimeRow.getChildAt(3);
+			int[][] values = times.get(current).get(times.get(current).size()-1);
+			startD.setText(intToDay(values[0][0]) + " ");
+			startH.setText(timeToString(values[0]) + " to ");
+			endD.setText(intToDay(values[1][0]) + " ");
+			endH.setText(timeToString(values[1]));
+			int i = times.get(current).size()-1;
+			makeTimeRow.setId(i + 30000);
+			startD.setId(31000 + i);
+			startH.setId(32000 + i);
+			endD.setId(33000 + i);
+			endH.setId(34000 + i);
+			builder.setView(makeTimeRow)
+			.setTitle("New Time").setPositiveButton("Create", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					buildTimeRows();
+				}
+			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					times.get(current).remove(times.size()-1);
+				}
+			});
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
-	};}
+	};
+}
