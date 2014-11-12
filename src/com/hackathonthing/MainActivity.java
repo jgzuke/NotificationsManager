@@ -2,6 +2,7 @@ package com.hackathonthing;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -10,6 +11,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -46,6 +48,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
@@ -370,7 +373,7 @@ public class MainActivity extends Activity
     	TableRow row;
     	for(int i = index; i < rules.get(current).size(); i++)
     	{
-    		row = (TableRow) rulesTable.getChildAt(index);
+    		row = (TableRow) timesTable.getChildAt(index);
     		int ID = row.getId()-30001;
     		row.setId(30000+ID);
     		row.getChildAt(0).setId(31000+ID);
@@ -383,7 +386,12 @@ public class MainActivity extends Activity
     }
     private String timeToString(int [] time)
     {
-    	return Integer.toString(time[1])+":"+Integer.toString(time[2]);
+    	String minutes = Integer.toString(time[2]);
+    	if(minutes.length()==1)
+    	{
+    		minutes = "0"+minutes;
+    	}
+    	return Integer.toString(time[1])+":"+minutes;
     }
     private String intToDay(int day)
     {
@@ -411,29 +419,57 @@ public class MainActivity extends Activity
     {
     	return (int)(dp*dpToPx);
     }
-    public void changeTimeStartHandler(View v)
+    public void changeTimeStartHandler(final View v)
 	{
-    	
+    	Log.e("hi", "changeTimeStartHandler");
+    	TableRow row = (TableRow) timesTable.getChildAt(v.getId()-32000);
+    	final TextView text = (TextView) row.getChildAt(1);
+    	TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
+        {
+            @Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+            {
+            	times.get(current).get(v.getId()-32000)[0][1]=hourOfDay;
+            	times.get(current).get(v.getId()-32000)[0][2]=minute;
+            	text.setText(timeToString(times.get(current).get(v.getId()-32000)[0]));
+			}
+        }, times.get(current).get(v.getId()-32000)[0][1], times.get(current).get(v.getId()-32000)[0][2], true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Start Time");
+        mTimePicker.show();
 	}
     public void changeDayStartHandler(View v)
 	{
-    	
+    	Log.e("hi", "changeDayStartHandler");
 	}
-    public void changeTimeEndHandler(View v)
+    public void changeTimeEndHandler(final View v)
 	{
-    	
+    	Log.e("hi", "changeTimeEndHandler");
+    	TableRow row = (TableRow) timesTable.getChildAt(v.getId()-34000);
+    	final TextView text = (TextView) row.getChildAt(1);
+    	TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
+        {
+            @Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+            {
+            	times.get(current).get(v.getId()-34000)[1][1]=hourOfDay;
+            	times.get(current).get(v.getId()-34000)[1][2]=minute;
+                text.setText(timeToString(times.get(current).get(v.getId()-34000)[1]));
+			}
+        }, times.get(current).get(v.getId()-34000)[1][1], times.get(current).get(v.getId()-34000)[1][2], true);//Yes 24 hour time
+        mTimePicker.setTitle("Select End Time");
+        mTimePicker.show();
 	}
     public void changeDayEndHandler(View v)
 	{
-    	
+    	Log.e("hi", "changeDayEndHandler");
 	}
     public void changeProgramHandler(View v)
 	{
-    	
+    	Log.e("hi", "changeProgramHandler");
 	}
     public void changePersonHandler(View v)
 	{
-    	
+    	Log.e("hi", "changePersonHandler");
 	}
     public void notifClickHandler(View v)
 	{
