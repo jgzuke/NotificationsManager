@@ -21,6 +21,7 @@ public final class R {
     }
     public static final class array {
         public static final int days_array=0x7f0d0000;
+        public static final int programs_array=0x7f0d0001;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 

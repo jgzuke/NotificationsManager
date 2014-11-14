@@ -16,9 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.gc.materialdesign.views.ButtonFloatSmall;
+import com.gc.materialdesign.views.CheckBox.OnCheckListener;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
+import com.gc.materialdesign.views.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -130,10 +132,10 @@ public class MainActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
-						Toast.makeText(myself, "Preset renamed as "+presets.get(current), Toast.LENGTH_LONG).show();
 						presets.set(current, input.getText().toString());
 						loadPreset(current);
 						setTitle(presets.get(current));
+						Toast.makeText(myself, "Preset renamed as "+presets.get(current), Toast.LENGTH_LONG).show();
 					}
 				});
 				builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
@@ -221,7 +223,7 @@ public class MainActivity extends Activity
 	private void setStaticTablesButtons()
 	{
 		checkPresetActive = (CheckBox) findViewById(R.id.check);
-		checkPresetActive.setOnCheckedChangeListener(changeActivePreset);
+		checkPresetActive.setOncheckListener(changeActivePreset);
 		presetRulesText = (TextView) findViewById(R.id.notificationRules);
 		presetTimesText = (TextView) findViewById(R.id.activeTimes);
 		presetRulesText.setTextSize(20);
@@ -436,6 +438,8 @@ public class MainActivity extends Activity
 	private void loadPreset(int preset)
 	{
 		current = preset;
+		if(currentPresetActive == current) checkPresetActive.setChecked(true);
+		else checkPresetActive.setChecked(false);
 		presetRulesText.setText(presets.get(current) + " rules");
 		presetTimesText.setText(presets.get(current) + " times");
 		buildRuleRows();
@@ -520,12 +524,32 @@ public class MainActivity extends Activity
 		dialog.show();
 		Log.e("hi", "changeDayEndHandler");
 	}
-	public void changeProgramHandler(View v)
+	private String programToString(int index)
 	{
-		Log.e("hi", "changeProgramHandler");
+		return getResources().getStringArray(R.array.programs_array)[index]; 
 	}
-	public void changePersonHandler(View v)
+	public void changeProgramHandler(final View v)
 	{
+		//TODO
+		AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+		builder.setTitle("Pick Program");
+		builder.setItems(R.array.programs_array, new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int which)
+			{
+				rules.get(current).get(v.getId() - 21000)[0] = programToString(which);
+				TextView v2 = (TextView)v;
+				v2.setText(programToString(which));
+				buildRuleRows();
+				Toast.makeText(myself, "Program set", Toast.LENGTH_LONG).show();
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	public void changePersonHandler(final View v)
+	{
+		//TODO
 		Log.e("hi", "changePersonHandler");
 	}
 	public void notifClickHandler(View v)
@@ -556,23 +580,29 @@ public class MainActivity extends Activity
 	}
 	public void deletePresetClickHandler(final View firstV)
 	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-		builder.setMessage("Delete Preset?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+		if(current==0)
 		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-				removePreset(firstV.getId() - 10000);
-				Toast.makeText(myself, "Preset removed", Toast.LENGTH_LONG).show();
-			}
-		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+			Toast.makeText(myself, "Cannot remove default preset", Toast.LENGTH_LONG).show();
+		} else
 		{
-			public void onClick(DialogInterface dialog, int id)
+			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+			builder.setMessage("Delete Preset?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
 			{
-				Toast.makeText(myself, "Preset deletion cancelled", Toast.LENGTH_LONG).show();
-			}
-		});
-		AlertDialog dialog = builder.create();
-		dialog.show();
+				public void onClick(DialogInterface dialog, int id)
+				{
+					removePreset(firstV.getId() - 10000);
+					Toast.makeText(myself, "Preset removed", Toast.LENGTH_LONG).show();
+				}
+			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					Toast.makeText(myself, "Preset deletion cancelled", Toast.LENGTH_LONG).show();
+				}
+			});
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
 	}
 	public void deleteTimeClickHandler(final View firstV)
 	{
@@ -600,20 +630,25 @@ public class MainActivity extends Activity
 		currentPresetActive=preset;
 		
 	}
-	CompoundButton.OnCheckedChangeListener changeActivePreset = new CompoundButton.OnCheckedChangeListener()
+	OnCheckListener changeActivePreset = new OnCheckListener()
 	{
 		@Override
-		public void onCheckedChanged(CompoundButton arg0, boolean arg1)
-		{
+		public void onCheck(boolean check) {
 			//TODO
-			if(arg1)
+			if(check)
 			{
 				Toast.makeText(myself, "Set "+presets.get(current)+" preset as active", Toast.LENGTH_LONG).show();
 				changePresetActive(current);
 			} else
 			{
-				Toast.makeText(myself, "Set "+presets.get(0)+" preset as active", Toast.LENGTH_LONG).show();
-				changePresetActive(0);
+				if(current==0)
+				{
+					Toast.makeText(myself, presets.get(0)+" is default preset, pick another preset to activate", Toast.LENGTH_LONG).show();
+				} else
+				{
+					Toast.makeText(myself, "Set "+presets.get(0)+" preset as active", Toast.LENGTH_LONG).show();
+					changePresetActive(0);
+				}
 			}
 		}
 	};

@@ -8,6 +8,7 @@ int anim progress_indeterminate_animation 0x7f040006
 int anim snackbar_hide_animation 0x7f040007
 int anim snackbar_show_animation 0x7f040008
 int array days_array 0x7f0d0000
+int array programs_array 0x7f0d0001
 int attr actionBarDivider 0x7f010015
 int attr actionBarItemBackground 0x7f010016
 int attr actionBarPopupTheme 0x7f01000f

@@ -9,4 +9,10 @@
     <item>Friday</item>  
     <item>Saturday</item> 
      </array>
+     <array name="programs_array">  
+    <item>Text</item>  
+    <item>Call</item>  
+    <item>Facebook</item>  
+    <item>Gmail</item>
+     </array>
 </resources>
