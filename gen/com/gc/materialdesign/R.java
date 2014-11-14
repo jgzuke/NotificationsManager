@@ -61,12 +61,12 @@ public final class R {
 		public static final int viewColor = 0x7f0a004f;
 	}
 	public static final class layout {
-		public static final int activity_main = 0x7f03001f;
-		public static final int color_selector = 0x7f030020;
-		public static final int dialog = 0x7f030021;
-		public static final int number_indicator_spinner = 0x7f030025;
-		public static final int snackbar = 0x7f030027;
-		public static final int text = 0x7f030029;
+		public static final int activity_main = 0x7f030020;
+		public static final int color_selector = 0x7f030021;
+		public static final int dialog = 0x7f030022;
+		public static final int number_indicator_spinner = 0x7f030026;
+		public static final int snackbar = 0x7f030028;
+		public static final int text = 0x7f03002a;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f0b000f;

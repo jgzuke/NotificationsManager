@@ -795,6 +795,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int measureWithLargestChild=0x7f010087;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int metaButtonBarButtonStyle=0x7f0100b2;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int metaButtonBarStyle=0x7f0100b1;
         /**  The size of the middle bar when top and bottom bars merge into middle bar to form an arrow 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
@@ -1456,26 +1464,27 @@ containing a value of this type.
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f060003;
     }
     public static final class color {
-        public static final int abc_background_cache_hint_selector_material_dark=0x7f070032;
-        public static final int abc_background_cache_hint_selector_material_light=0x7f070033;
+        public static final int abc_background_cache_hint_selector_material_dark=0x7f070033;
+        public static final int abc_background_cache_hint_selector_material_light=0x7f070034;
         public static final int abc_input_method_navigation_guard=0x7f070003;
-        public static final int abc_primary_text_disable_only_material_dark=0x7f070034;
-        public static final int abc_primary_text_disable_only_material_light=0x7f070035;
-        public static final int abc_primary_text_material_dark=0x7f070036;
-        public static final int abc_primary_text_material_light=0x7f070037;
-        public static final int abc_search_url_text=0x7f070038;
-        public static final int abc_search_url_text_holo=0x7f070039;
+        public static final int abc_primary_text_disable_only_material_dark=0x7f070035;
+        public static final int abc_primary_text_disable_only_material_light=0x7f070036;
+        public static final int abc_primary_text_material_dark=0x7f070037;
+        public static final int abc_primary_text_material_light=0x7f070038;
+        public static final int abc_search_url_text=0x7f070039;
+        public static final int abc_search_url_text_holo=0x7f07003a;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
-        public static final int abc_secondary_text_material_dark=0x7f07003a;
-        public static final int abc_secondary_text_material_light=0x7f07003b;
+        public static final int abc_secondary_text_material_dark=0x7f07003b;
+        public static final int abc_secondary_text_material_light=0x7f07003c;
         public static final int accent_material_dark=0x7f07000f;
         public static final int accent_material_light=0x7f07000e;
         public static final int background_floating_material_dark=0x7f070006;
         public static final int background_floating_material_light=0x7f070007;
         public static final int background_material_dark=0x7f070004;
         public static final int background_material_light=0x7f070005;
+        public static final int black_overlay=0x7f070032;
         /**  White 50% 
          */
         public static final int bright_foreground_disabled_material_dark=0x7f070016;
@@ -1618,6 +1627,15 @@ containing a value of this type.
  Default text size for action bar title.
          */
         public static final int abc_text_size_title_material_toolbar=0x7f080012;
+        /**  Default screen margins, per the Android Design guidelines. 
+
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+         */
+        public static final int activity_horizontal_margin=0x7f08002b;
+        public static final int activity_vertical_margin=0x7f08002c;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1819,6 +1837,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0a0035;
         public static final int action_mode_bar_stub=0x7f0a0034;
         public static final int action_mode_close_button=0x7f0a0028;
+        public static final int action_settings=0x7f0a005c;
         public static final int activeTimes=0x7f0a004a;
         public static final int activity_chooser_view_content=0x7f0a0029;
         public static final int always=0x7f0a0014;
@@ -1838,7 +1857,7 @@ containing a value of this type.
         public static final int disableHome=0x7f0a000d;
         public static final int drawer_layout=0x7f0a0043;
         public static final int dropdown=0x7f0a001a;
-        public static final int editPresetName=0x7f0a005c;
+        public static final int editPresetName=0x7f0a005d;
         public static final int editRules=0x7f0a0049;
         public static final int editTimes=0x7f0a004d;
         public static final int edit_query=0x7f0a0037;
@@ -1866,7 +1885,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f0a0008;
         public static final int radio=0x7f0a0033;
         public static final int red=0x7f0a0050;
-        public static final int removePreset=0x7f0a005d;
+        public static final int removePreset=0x7f0a005e;
         public static final int rulesTable=0x7f0a0048;
         public static final int scrollRules=0x7f0a0047;
         public static final int scrollTimes=0x7f0a004b;
@@ -1957,21 +1976,23 @@ containing a value of this type.
         public static final int abc_search_view=0x7f03001c;
         public static final int abc_simple_decor=0x7f03001d;
         public static final int abc_simple_dropdown_hint=0x7f03001e;
-        public static final int activity_main=0x7f03001f;
-        public static final int color_selector=0x7f030020;
-        public static final int dialog=0x7f030021;
-        public static final int makerule=0x7f030022;
-        public static final int maketime=0x7f030023;
-        public static final int navlistitem=0x7f030024;
-        public static final int number_indicator_spinner=0x7f030025;
-        public static final int rulerow=0x7f030026;
-        public static final int snackbar=0x7f030027;
-        public static final int support_simple_spinner_dropdown_item=0x7f030028;
-        public static final int text=0x7f030029;
-        public static final int timerow=0x7f03002a;
+        public static final int activity_get_contacts=0x7f03001f;
+        public static final int activity_main=0x7f030020;
+        public static final int color_selector=0x7f030021;
+        public static final int dialog=0x7f030022;
+        public static final int makerule=0x7f030023;
+        public static final int maketime=0x7f030024;
+        public static final int navlistitem=0x7f030025;
+        public static final int number_indicator_spinner=0x7f030026;
+        public static final int rulerow=0x7f030027;
+        public static final int snackbar=0x7f030028;
+        public static final int support_simple_spinner_dropdown_item=0x7f030029;
+        public static final int text=0x7f03002a;
+        public static final int timerow=0x7f03002b;
     }
     public static final class menu {
-        public static final int main=0x7f0e0000;
+        public static final int get_contacts=0x7f0e0000;
+        public static final int main=0x7f0e0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2027,14 +2048,18 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000d;
+        public static final int action_settings=0x7f0b001a;
         public static final int app_name=0x7f0b000f;
         public static final int cancel=0x7f0b0015;
         public static final int drawer_close=0x7f0b0016;
         public static final int drawer_open=0x7f0b0013;
+        public static final int dummy_button=0x7f0b0018;
+        public static final int dummy_content=0x7f0b0019;
         public static final int edit_preset=0x7f0b0011;
         public static final int hello_world=0x7f0b0010;
         public static final int remove_preset=0x7f0b0012;
         public static final int set=0x7f0b0014;
+        public static final int title_activity_get_contacts=0x7f0b0017;
     }
     public static final class style {
         /** 
@@ -2214,6 +2239,10 @@ containing a value of this type.
     
          */
         public static final int Base_Widget_AppCompat_Toolbar_Button_Navigation=0x7f0c0090;
+        public static final int ButtonBar=0x7f0c0120;
+        public static final int ButtonBarButton=0x7f0c0121;
+        public static final int FullscreenActionBarStyle=0x7f0c0122;
+        public static final int FullscreenTheme=0x7f0c011f;
         public static final int Platform_AppCompat=0x7f0c00fb;
         public static final int Platform_AppCompat_Dialog=0x7f0c00fd;
         public static final int Platform_AppCompat_Light=0x7f0c00fc;
@@ -2450,7 +2479,9 @@ containing a value of this type.
         public static final int Widget_AppCompat_Toolbar_Button_Navigation=0x7f0c0035;
     }
     public static final class xml {
-        public static final int presetbutton=0x7f050000;
+        public static final int contactsearchlist=0x7f050000;
+        public static final int contactsearchlistline=0x7f050001;
+        public static final int presetbutton=0x7f050002;
     }
     public static final class styleable {
         /**  ============================================ 
@@ -3142,6 +3173,46 @@ containing a value of this type.
           @attr name com.hackathonthing:initialActivityCount
         */
         public static final int ActivityChooserView_initialActivityCount = 0;
+        /** 
+         Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels.
+    
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_metaButtonBarButtonStyle com.hackathonthing:metaButtonBarButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_metaButtonBarStyle com.hackathonthing:metaButtonBarStyle}</code></td><td></td></tr>
+           </table>
+           @see #ButtonBarContainerTheme_metaButtonBarButtonStyle
+           @see #ButtonBarContainerTheme_metaButtonBarStyle
+         */
+        public static final int[] ButtonBarContainerTheme = {
+            0x7f0100b1, 0x7f0100b2
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#metaButtonBarButtonStyle}
+          attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.hackathonthing:metaButtonBarButtonStyle
+        */
+        public static final int ButtonBarContainerTheme_metaButtonBarButtonStyle = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.hackathonthing.R.attr#metaButtonBarStyle}
+          attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.hackathonthing:metaButtonBarStyle
+        */
+        public static final int ButtonBarContainerTheme_metaButtonBarStyle = 0;
         /** Attributes that can be used with a CompatTextView.
            <p>Includes the following attributes:</p>
            <table>

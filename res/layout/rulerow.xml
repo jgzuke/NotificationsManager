@@ -16,19 +16,22 @@
         android:layout_gravity="left"
         android:text="Calls"
         android:onClick="changeProgramHandler"
+        android:clickable="true"
         android:textSize="20sp"/>
     <TextView
-        android:layout_width="107dp"
+        android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Default"
         android:onClick="changePersonHandler"
+        android:clickable="true"
         android:textSize="20sp"/>
 
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
         android:onClick="notifClickHandler" />
 
     <com.gc.materialdesign.views.ButtonFloatSmall

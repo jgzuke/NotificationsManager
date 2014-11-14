@@ -2,12 +2,24 @@ package com.hackathonthing;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.ListFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,6 +62,7 @@ public class MainActivity extends Activity
 	private ActionBarDrawerToggle navToggle;
 	private ArrayAdapter < String > navAdapter;
 	private int currentPresetActive = 0;
+	private int contactToSet = 0;
 	@ Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -530,6 +543,7 @@ public class MainActivity extends Activity
 	}
 	public void changeProgramHandler(final View v)
 	{
+		Log.e("hi", "hi");
 		//TODO
 		AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 		builder.setTitle("Pick Program");
@@ -549,8 +563,23 @@ public class MainActivity extends Activity
 	}
 	public void changePersonHandler(final View v)
 	{
-		//TODO
-		Log.e("hi", "changePersonHandler");
+		Intent intent = new Intent(this, GetContacts.class);
+		startActivityForResult(intent, 1);
+		contactToSet = v.getId() - 22000;
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent)
+	{
+		if(requestCode==1)// it was a contact choser
+		{
+			if(resultCode==1)// it even worked
+			{
+				Bundle res = intent.getExtras();
+	            String result = res.getString("contactPicked");
+	            rules.get(current).get(contactToSet)[1] = result;
+	    		buildRuleRows();
+	            Toast.makeText(myself, "Rule applied to contact", Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 	public void notifClickHandler(View v)
 	{
