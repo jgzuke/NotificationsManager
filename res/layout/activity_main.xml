@@ -16,12 +16,30 @@
 	    android:id="@+id/mainLayout"
 	    android:background="#ffffff"
 	    tools:context="${relativePackage}.${activityClass}" >
-		
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="37dp"
+		    android:gravity="center_horizontal"
+		    android:layout_marginTop="7dp">
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#1E88E5"
+		        android:textSize="25sp"
+		        android:text="Currently Active" />
+		    <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/check"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#1E88E5"
+                materialdesign:check="false" />
+		</LinearLayout>
 		<TextView
 		    android:id="@+id/notificationRules"
 	        android:layout_width="wrap_content"
 	        android:layout_height="30dp"
-	        android:layout_marginTop="7dp"
+	        android:layout_marginTop="10dp"
 	        android:layout_gravity="center_horizontal"
 	        android:text="Notification Rules" />
 		<View
@@ -40,7 +58,7 @@
 	    	android:id="@+id/scrollRules"
 	    	android:layout_width="320dp"
 	        android:layout_marginLeft="20dp"
-	        android:layout_height="275dp">
+	        android:layout_height="235dp">
 	
 	        <LinearLayout
 	            android:layout_width="320dp"
@@ -91,7 +109,7 @@
 	    	android:id="@+id/scrollTimes"
 	    	android:layout_width="320dp"
 	        android:layout_marginLeft="20dp"
-	        android:layout_height="254dp">
+	        android:layout_height="204dp">
 	
 	        <LinearLayout
 	            android:layout_width="320dp"

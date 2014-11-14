@@ -14,18 +14,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import com.gc.materialdesign.views.ButtonFloatSmall;
-import com.gc.materialdesign.widgets.SnackBar;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TimePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 public class MainActivity extends Activity
 {
 	private MainActivity myself;
@@ -41,11 +42,13 @@ public class MainActivity extends Activity
 	private TextView presetRulesText;
 	private TextView presetTimesText;
 	private LayoutInflater layoutInflater;
+	private CheckBox checkPresetActive;
 	private ListView navDrawer;
 	private DrawerLayout navLayout;
 	private ActionBarDrawerToggle navToggle;
-	private ArrayAdapter < String > navAdapter;@
-	Override
+	private ArrayAdapter < String > navAdapter;
+	private int currentPresetActive = 0;
+	@ Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -127,6 +130,7 @@ public class MainActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
+						Toast.makeText(myself, "Preset renamed as "+presets.get(current), Toast.LENGTH_LONG).show();
 						presets.set(current, input.getText().toString());
 						loadPreset(current);
 						setTitle(presets.get(current));
@@ -136,7 +140,7 @@ public class MainActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
-						// User cancelled the dialog
+						Toast.makeText(myself, "Name change cancelled", Toast.LENGTH_LONG).show();
 					}
 				});
 				builder.setTitle("Name Preset");
@@ -149,6 +153,7 @@ public class MainActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
+						Toast.makeText(myself, presets.get(current)+" preset deleted", Toast.LENGTH_LONG).show();
 						removePreset(current);
 						loadPreset(0);
 						navAdapter.notifyDataSetChanged();
@@ -157,7 +162,7 @@ public class MainActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
-						// User cancelled the dialog
+						Toast.makeText(myself, "Preset deletetion cancelled", Toast.LENGTH_LONG).show();
 					}
 				});
 				AlertDialog removeDialog = removeBuilder.create();
@@ -198,13 +203,14 @@ public class MainActivity extends Activity
 					presets.set(current, input.getText().toString());
 					loadPreset(current);
 					setTitle(presets.get(current));
+					Toast.makeText(myself, presets.get(current)+" preset created", Toast.LENGTH_LONG).show();
 				}
 			});
 			builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
-					// User cancelled the dialog
+					Toast.makeText(myself, "Preset creation cancelled", Toast.LENGTH_LONG).show();
 				}
 			});
 			builder.setTitle("Name Preset");
@@ -214,6 +220,8 @@ public class MainActivity extends Activity
 	}
 	private void setStaticTablesButtons()
 	{
+		checkPresetActive = (CheckBox) findViewById(R.id.check);
+		checkPresetActive.setOnCheckedChangeListener(changeActivePreset);
 		presetRulesText = (TextView) findViewById(R.id.notificationRules);
 		presetTimesText = (TextView) findViewById(R.id.activeTimes);
 		presetRulesText.setTextSize(20);
@@ -348,12 +356,15 @@ public class MainActivity extends Activity
 		{
 			case 0:
 				rules.get(current).get(index)[2] = "vibrate";
+				Toast.makeText(myself, "Rule action set as vibrate", Toast.LENGTH_LONG).show();
 				return 1;
 			case 1:
 				rules.get(current).get(index)[2] = "ring";
+				Toast.makeText(myself, "Rule action set as ring", Toast.LENGTH_LONG).show();
 				return 2;
 			case 2:
 				rules.get(current).get(index)[2] = "silent";
+				Toast.makeText(myself, "Rule action set as silent", Toast.LENGTH_LONG).show();
 				return 0;
 		}
 		buildRuleRows();
@@ -444,6 +455,7 @@ public class MainActivity extends Activity
 				times.get(current).get(v.getId() - 32000)[0][2] = minute;
 				text.setText(timeToString(times.get(current).get(v.getId() - 32000)[0]));
 				buildTimeRows();
+				Toast.makeText(myself, "End day set", Toast.LENGTH_LONG).show();
 			}
 		}, times.get(current).get(v.getId() - 32000)[0][1], times.get(current).get(v.getId() - 32000)[0][2], true); //Yes 24 hour time
 		mTimePicker.setTitle("Select Start Time");
@@ -461,6 +473,7 @@ public class MainActivity extends Activity
 				TextView v2 = (TextView)v;
 				v2.setText(intToDay(which + 1));
 				buildTimeRows();
+				Toast.makeText(myself, "Start day set", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();
@@ -482,6 +495,7 @@ public class MainActivity extends Activity
 				times.get(current).get(v.getId() - 34000)[1][2] = minute;
 				text.setText(timeToString(times.get(current).get(v.getId() - 34000)[1]));
 				buildTimeRows();
+				Toast.makeText(myself, "End time set", Toast.LENGTH_LONG).show();
 			}
 		}, times.get(current).get(v.getId() - 34000)[1][1], times.get(current).get(v.getId() - 34000)[1][2], true); //Yes 24 hour time
 		mTimePicker.setTitle("Select End Time");
@@ -499,6 +513,7 @@ public class MainActivity extends Activity
 				TextView v2 = (TextView)v;
 				v2.setText(intToDay(which + 1));
 				buildTimeRows();
+				Toast.makeText(myself, "End day set", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();
@@ -527,12 +542,13 @@ public class MainActivity extends Activity
 			public void onClick(DialogInterface dialog, int id)
 			{
 				deleteRule(firstV.getId() - 24000);
+				Toast.makeText(myself, "Rule deleted", Toast.LENGTH_LONG).show();
 			}
 		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
-				// User cancelled the dialog
+				Toast.makeText(myself, "Rule deletion cancelled", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();
@@ -546,12 +562,13 @@ public class MainActivity extends Activity
 			public void onClick(DialogInterface dialog, int id)
 			{
 				removePreset(firstV.getId() - 10000);
+				Toast.makeText(myself, "Preset removed", Toast.LENGTH_LONG).show();
 			}
 		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
-				// User cancelled the dialog
+				Toast.makeText(myself, "Preset deletion cancelled", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();
@@ -565,23 +582,46 @@ public class MainActivity extends Activity
 			public void onClick(DialogInterface dialog, int id)
 			{
 				deleteTime(firstV.getId() - 35000);
+				Toast.makeText(myself, "Time deleted", Toast.LENGTH_LONG).show();
 			}
 		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
-				// User cancelled the dialog
+				Toast.makeText(myself, "Time deletion cancelled", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
+	private void changePresetActive(int preset)
+	{
+		Toast.makeText(myself, "Set "+presets.get(preset)+" preset as active", Toast.LENGTH_LONG).show();
+		currentPresetActive=preset;
+		
+	}
+	CompoundButton.OnCheckedChangeListener changeActivePreset = new CompoundButton.OnCheckedChangeListener()
+	{
+		@Override
+		public void onCheckedChanged(CompoundButton arg0, boolean arg1)
+		{
+			//TODO
+			if(arg1)
+			{
+				Toast.makeText(myself, "Set "+presets.get(current)+" preset as active", Toast.LENGTH_LONG).show();
+				changePresetActive(current);
+			} else
+			{
+				Toast.makeText(myself, "Set "+presets.get(0)+" preset as active", Toast.LENGTH_LONG).show();
+				changePresetActive(0);
+			}
+		}
+	};
 	View.OnClickListener editRulesClickHandler = new View.OnClickListener()
 	{
 		public void onClick(View v)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-			LayoutInflater inflater = getLayoutInflater();
 			makeRule();
 			TableRow makeRuleRow = (TableRow) layoutInflater.inflate(R.layout.makerule, rulesTable, false);
 			TextView program = (TextView) makeRuleRow.getChildAt(0);
@@ -599,11 +639,12 @@ public class MainActivity extends Activity
 			//rulesTable.addView(makeRuleRow);
 			
 			builder.setView(makeRuleRow)
-			.setTitle("New Time").setPositiveButton("Create", new DialogInterface.OnClickListener()
+			.setTitle("New Rule").setPositiveButton("Create", new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
 					buildRuleRows();
+					Toast.makeText(myself, "New rule added", Toast.LENGTH_LONG).show();
 				}
 			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 			{
@@ -611,6 +652,7 @@ public class MainActivity extends Activity
 				{
 					rules.get(current).remove(rules.get(current).size()-1);
 					buildRuleRows();
+					Toast.makeText(myself, "New rule cancelled", Toast.LENGTH_LONG).show();
 				}
 			});
 			AlertDialog dialog = builder.create();
@@ -623,7 +665,6 @@ public class MainActivity extends Activity
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 			LayoutInflater inflater = getLayoutInflater();
-			int[][] valuesStart = {{8, 30},{9, 30}};
 			makeTime();
 			TableRow makeTimeRow = (TableRow) inflater.inflate(R.layout.maketime, null);
 			TextView startD = (TextView) makeTimeRow.getChildAt(0);
@@ -649,6 +690,7 @@ public class MainActivity extends Activity
 				public void onClick(DialogInterface dialog, int id)
 				{
 					buildTimeRows();
+					Toast.makeText(myself, "New time added", Toast.LENGTH_LONG).show();
 				}
 			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 			{
@@ -656,6 +698,7 @@ public class MainActivity extends Activity
 				{
 					times.get(current).remove(times.get(current).size()-1);
 					buildTimeRows();
+					Toast.makeText(myself, "New time cancelled", Toast.LENGTH_LONG).show();
 				}
 			});
 			AlertDialog dialog = builder.create();
