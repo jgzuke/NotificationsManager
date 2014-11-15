@@ -2,24 +2,13 @@ package com.hackathonthing;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.ListFragment;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract.Contacts;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,7 +22,6 @@ import com.gc.materialdesign.views.CheckBox.OnCheckListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.gc.materialdesign.views.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TableLayout;
@@ -44,6 +32,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity
 {
 	private MainActivity myself;
+	private NotificationListener notificationListener;
 	private ArrayList < String > presets = new ArrayList < String > ();
 	private ArrayList < ArrayList < int[][] >> times = new ArrayList < ArrayList < int[][] >> (); // preset, rule, [start/end][day, hour, min]
 	private ArrayList < ArrayList < String[] >> rules = new ArrayList < ArrayList < String[] >> ();
@@ -69,6 +58,7 @@ public class MainActivity extends Activity
 		super.onCreate(savedInstanceState);
 		myself = this;
 		setContentView(R.layout.activity_main);
+		notificationListener = new NotificationListener(this, this);
 		presets.add("Home");
 		presets.add("Work");
 		presets.add("Sleep");
@@ -258,15 +248,10 @@ public class MainActivity extends Activity
 	}
 	private void setUpDefaultPresets()
 	{
-		makeRule("Calls", "Default", "silent");
-		makeRule("Texts", "Default", "vibrate");
-		makeRule("Email", "Default", "ring");
-		makeRule("Calls", "Default", "silent");
-		makeRule("Texts", "Default", "vibrate");
-		makeRule("Email", "Default", "ring");
-		makeRule("Calls", "Default", "silent");
-		makeRule("Texts", "Default", "vibrate");
-		makeRule("Email", "Default", "ring");
+		makeRule("Call", "Default", "vibrate");
+		makeRule("Text", "Default", "silent");
+		makeRule("Gmail", "Default", "vibrate");
+		makeRule("Facebook", "Default", "silent");
 		makeTime(1, 2, 3, 1, 2, 4);
 		makeTime(1, 2, 3, 1, 2, 4);
 	}
@@ -591,7 +576,8 @@ public class MainActivity extends Activity
 			if(resultCode==1)// it even worked
 			{
 				Bundle res = intent.getExtras();
-	            String result = res.getString("contactPicked");
+	            String result = res.getString("contact");
+	            String id = res.getString("idNum");
 	            rules.get(current).get(contactToSet)[1] = result;
 	    		buildRuleRows();
 	            Toast.makeText(myself, "Rule applied to contact", Toast.LENGTH_LONG).show();

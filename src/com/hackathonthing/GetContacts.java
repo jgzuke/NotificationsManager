@@ -22,6 +22,8 @@ import android.widget.TextView;
 public class GetContacts extends Activity
 {
 	int type;
+	private ArrayList<String> populatedIDList;
+	private ArrayList<String> populatedList;
 	@Override  
 	 protected void onCreate(Bundle savedInstanceState)
 	{  
@@ -33,10 +35,11 @@ public class GetContacts extends Activity
 	   fm.beginTransaction().add(android.R.id.content, list).commit();  
 	  }  
 	 }  
-	private void contactChosen(String contact)
+	private void contactChosen(int pos)
 	{
 	    Bundle conData = new Bundle();
-	    conData.putString("contactPicked", contact);
+	    conData.putString("contact", populatedList.get(pos));
+	    conData.putString("idNum", populatedIDList.get(pos));
 	    Intent intent = new Intent();
 	    intent.putExtras(conData);
 	    setResult(1, intent);
@@ -54,12 +57,12 @@ public class GetContacts extends Activity
 	    @Override  
 	    public void onListItemClick(ListView l, View v, int position, long id)
 	    {  
-	    	String contact = ((TextView) v).getText().toString();
-	    	contactChosen(contact);
+	    	contactChosen(position);
 	    }  
 	    public ArrayList<String> getNameEmailDetails() // type 0:phone, 1:email, 2:facebook
 		{
-		    ArrayList<String> populatedList = new ArrayList<String>();
+		    populatedList = new ArrayList<String>();
+		    populatedIDList = new ArrayList<String>();
 		    Context context = getActivity();
 		    ContentResolver cr = context.getContentResolver();
 		    String[] PROJECTION = new String[] {ContactsContract.RawContacts._ID, 
@@ -91,6 +94,7 @@ public class GetContacts extends Activity
 		    if (cur.moveToFirst())
 		    {
 		        do {
+		        	populatedIDList.add(cur.getString(0));
 		        	if(type==0)
 				    {
 		        		populatedList.add(cur.getString(1));
