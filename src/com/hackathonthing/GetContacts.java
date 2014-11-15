@@ -1,37 +1,38 @@
 package com.hackathonthing;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import android.app.Activity;
+import android.app.ListFragment;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.Contacts;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.provider.ContactsContract;
+import android.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-public class GetContacts extends android.support.v4.app.FragmentActivity
+ 
+public class GetContacts extends Activity
 {
-	@ Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		int type = getIntent().getExtras().getInt("type");
-		FragmentManager fm = getSupportFragmentManager();
-		if (fm.findFragmentById(android.R.id.content) == null)
-		{  
-			GetContactsList list = new GetContactsList(type);  
-			fm.beginTransaction().add(android.R.id.content, list).commit();  
-		}
-	}
+	int type;
+	@Override  
+	 protected void onCreate(Bundle savedInstanceState)
+	{  
+	  super.onCreate(savedInstanceState);
+	  type = getIntent().getExtras().getInt("type");
+	  FragmentManager fm = getFragmentManager();  
+	  if (fm.findFragmentById(android.R.id.content) == null) {  
+		  ActualList list = new ActualList();  
+	   fm.beginTransaction().add(android.R.id.content, list).commit();  
+	  }  
+	 }  
 	private void contactChosen(String contact)
 	{
 	    Bundle conData = new Bundle();
@@ -41,60 +42,70 @@ public class GetContacts extends android.support.v4.app.FragmentActivity
 	    setResult(1, intent);
 	    finish();
 	}
-	
-	
-	
-	private class GetContactsList extends ListFragment implements LoaderCallbacks<Cursor>
-	{
-	    private String[] infoToGet = {Contacts._ID, Contacts.DISPLAY_NAME_PRIMARY}; // retreive name/id
-	    private String[] infoSource = {Contacts.DISPLAY_NAME_PRIMARY };
-	    private int[] TO = {android.R.id.text1};
-	    private CursorAdapter mAdapter;
-	    private int typeOfContact;
-	    public GetContactsList(int type)
-	    {
-	    	typeOfContact = type;
-	    }
+	public class ActualList extends ListFragment  
+	{ 
 	    @Override
-	    public void onCreate(Bundle savedInstanceState)
+	    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
 	    {
-	        super.onCreate(savedInstanceState);
-	        Context context = getActivity();
-	        int layout = android.R.layout.simple_list_item_1;
-	        Cursor c = null;
-	        mAdapter = new SimpleCursorAdapter(context, layout, c, infoSource, TO, 0);
+	        ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,getNameEmailDetails());
+	        setListAdapter(adapter);
+	        return super.onCreateView(inflater, container, savedInstanceState);
 	    }
-	    @Override
-	    public void onActivityCreated(Bundle savedInstanceState)
-	    {
-	        super.onActivityCreated(savedInstanceState);
-	        setListAdapter(mAdapter);
-	        getLoaderManager().initLoader(0, null, this);
-	    }
-	    @Override
-	    public Loader<Cursor> onCreateLoader(int id, Bundle args)
-	    {
-	        Uri contentUri = Contacts.CONTENT_URI;
-	        //String selection = AddDBHelper.KEY_DATE + "=?";
-	        //String[] selectionArgs = { String.valueOf(btn_logbook_date.getText().toString()) };
-	        // no sub-selection, no sort order, simply every row
-	        return new CursorLoader(getActivity(), contentUri, infoToGet, null, null, null);
-	    }
-	    @Override
+	    @Override  
 	    public void onListItemClick(ListView l, View v, int position, long id)
-	    {
+	    {  
 	    	String contact = ((TextView) v).getText().toString();
 	    	contactChosen(contact);
-	    }
-	    @Override
-	    public void onLoadFinished(Loader<Cursor> loader, Cursor data)
-	    {
-	        mAdapter.swapCursor(data);
-	    }
-	    @Override
-	    public void onLoaderReset(Loader<Cursor> loader)
-	    {
-	        mAdapter.swapCursor(null);
-	    }
+	    }  
+	    public ArrayList<String> getNameEmailDetails() // type 0:phone, 1:email, 2:facebook
+		{
+		    ArrayList<String> populatedList = new ArrayList<String>();
+		    Context context = getActivity();
+		    ContentResolver cr = context.getContentResolver();
+		    String[] PROJECTION = new String[] {ContactsContract.RawContacts._ID, 
+		            ContactsContract.Contacts.DISPLAY_NAME,
+		            ContactsContract.CommonDataKinds.Email.DATA, 
+		            ContactsContract.CommonDataKinds.Photo.CONTACT_ID };
+		    String order = "CASE WHEN " 
+		            + ContactsContract.Contacts.DISPLAY_NAME 
+		            + " NOT LIKE '%@%' THEN 1 ELSE 2 END, " 
+		            + ContactsContract.Contacts.DISPLAY_NAME 
+		            + ", " 
+		            + ContactsContract.CommonDataKinds.Email.DATA
+		            + " COLLATE NOCASE";
+		    String filter;
+		    Cursor cur;
+		    if(type==0)
+		    {
+		    	filter = ContactsContract.CommonDataKinds.Phone.DATA + " NOT LIKE ''";
+			    cur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PROJECTION, filter, null, order);
+		    } else if(type==1)
+		    { 
+		    	filter = ContactsContract.CommonDataKinds.Email.DATA + " NOT LIKE ''";
+			    cur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
+		    } else
+		    {
+		    	filter = ContactsContract.CommonDataKinds.Email.DATA + " NOT LIKE ''";
+			    cur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
+		    }
+		    if (cur.moveToFirst())
+		    {
+		        do {
+		        	if(type==0)
+				    {
+		        		populatedList.add(cur.getString(1));
+				    } else if(type==1)
+				    { 
+				    	populatedList.add(cur.getString(2));
+				    } else
+				    {
+				    	populatedList.add(cur.getString(1));
+				    }
+		        } while (cur.moveToNext());
+		    }
+		    cur.close();
+		    return populatedList;
+		}
 	}
 }
+

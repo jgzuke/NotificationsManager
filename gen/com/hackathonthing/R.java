@@ -1976,19 +1976,18 @@ containing a value of this type.
         public static final int abc_search_view=0x7f03001c;
         public static final int abc_simple_decor=0x7f03001d;
         public static final int abc_simple_dropdown_hint=0x7f03001e;
-        public static final int activity_get_contacts=0x7f03001f;
-        public static final int activity_main=0x7f030020;
-        public static final int color_selector=0x7f030021;
-        public static final int dialog=0x7f030022;
-        public static final int makerule=0x7f030023;
-        public static final int maketime=0x7f030024;
-        public static final int navlistitem=0x7f030025;
-        public static final int number_indicator_spinner=0x7f030026;
-        public static final int rulerow=0x7f030027;
-        public static final int snackbar=0x7f030028;
-        public static final int support_simple_spinner_dropdown_item=0x7f030029;
-        public static final int text=0x7f03002a;
-        public static final int timerow=0x7f03002b;
+        public static final int activity_main=0x7f03001f;
+        public static final int color_selector=0x7f030020;
+        public static final int dialog=0x7f030021;
+        public static final int makerule=0x7f030022;
+        public static final int maketime=0x7f030023;
+        public static final int navlistitem=0x7f030024;
+        public static final int number_indicator_spinner=0x7f030025;
+        public static final int rulerow=0x7f030026;
+        public static final int snackbar=0x7f030027;
+        public static final int support_simple_spinner_dropdown_item=0x7f030028;
+        public static final int text=0x7f030029;
+        public static final int timerow=0x7f03002a;
     }
     public static final class menu {
         public static final int get_contacts=0x7f0e0000;

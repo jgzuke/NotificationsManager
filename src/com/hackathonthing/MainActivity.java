@@ -561,13 +561,28 @@ public class MainActivity extends Activity
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
+
 	public void changePersonHandler(final View v)
 	{
-		int type = 1;
+		contactToSet = v.getId() - 22000;
+		int type = programToContactType(rules.get(current).get(contactToSet)[0]);
 		Intent intent = new Intent(this, GetContacts.class);
 		intent.putExtra("type", type);
 		startActivityForResult(intent, type);
-		contactToSet = v.getId() - 22000;
+	}
+	private int programToContactType(String program)
+	{
+		if(program.equals("Text")||program.equals("Call"))
+		{
+			return 0;
+		} else if(program.equals("Gmail"))
+		{
+			return 1;
+		} else if(program.equals("Facebook"))
+		{
+			return 2;
+		}
+		return 0;
 	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent)
 	{
