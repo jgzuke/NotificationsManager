@@ -19,7 +19,7 @@ public class CallListener extends BroadcastReceiver
         TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
         if(tm.getCallState()==TelephonyManager.CALL_STATE_RINGING)
         {
-            listener.callFrom(intent.getStringExtra("incoming_number"));
+            listener.notifFrom("Call", intent.getStringExtra("incoming_number"));
         } 
     }
 }

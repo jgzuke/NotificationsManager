@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 
-public class SMSListener extends BroadcastReceiver
+public class EmailListener extends BroadcastReceiver
 {
 	NotificationListener listener;
-	public SMSListener(NotificationListener listenerSet)
+	public EmailListener(NotificationListener listenerSet)
 	{
 		listener = listenerSet;
 	}

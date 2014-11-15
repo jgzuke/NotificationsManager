@@ -248,10 +248,9 @@ public class MainActivity extends Activity
 	}
 	private void setUpDefaultPresets()
 	{
-		makeRule("Call", "Default", "vibrate");
-		makeRule("Text", "Default", "silent");
-		makeRule("Gmail", "Default", "vibrate");
-		makeRule("Facebook", "Default", "silent");
+		makeRule("Call", "Default", "vibrate", "Default");
+		makeRule("Text", "Default", "silent", "Default");
+		makeRule("Email", "Default", "vibrate", "Default");
 		makeTime(1, 2, 3, 1, 2, 4);
 		makeTime(1, 2, 3, 1, 2, 4);
 	}
@@ -268,12 +267,13 @@ public class MainActivity extends Activity
 		times.remove(toRemove);
 		rules.remove(toRemove);
 	}
-	private void makeRule(String program, String person, String action)
+	private void makeRule(String program, String person, String action, String identity)
 	{
-		String[] newRule = new String[3];
+		String[] newRule = new String[4];
 		newRule[0] = program;
 		newRule[1] = person;
 		newRule[2] = action;
+		newRule[3] = identity;
 		rules.get(current).add(newRule);
 	}
 	private void makeTime(int startD, int startH, int startM, int endD, int endH, int endM)
@@ -289,8 +289,21 @@ public class MainActivity extends Activity
 	}
 	private void makeRule()
 	{
-		String[] newRule = {"Alert", "Person", "silent"};
+		String[] newRule = {"Text", "Default", "silent", "Default"};
 		rules.get(current).add(newRule);
+	}
+	protected ArrayList<String[]> getRulesByProgram(String program)
+	{
+		ArrayList<String[]> allRules = rules.get(current);
+		ArrayList<String[]> selectRules = new ArrayList<String[]>();
+		for(int i = 0; i < allRules.size(); i++)
+		{
+			if(allRules.get(i)[0].equals(program))
+			{
+				selectRules.add(allRules.get(i));
+			}
+		}
+		return selectRules;
 	}
 	private void makeTime()
 	{
@@ -563,9 +576,6 @@ public class MainActivity extends Activity
 		} else if(program.equals("Gmail"))
 		{
 			return 1;
-		} else if(program.equals("Facebook"))
-		{
-			return 2;
 		}
 		return 0;
 	}
@@ -576,9 +586,10 @@ public class MainActivity extends Activity
 			if(resultCode==1)// it even worked
 			{
 				Bundle res = intent.getExtras();
-	            String result = res.getString("contact");
-	            String id = res.getString("idNum");
-	            rules.get(current).get(contactToSet)[1] = result;
+	            String contact = res.getString("contact");
+	            String identity = res.getString("identity");
+	            rules.get(current).get(contactToSet)[1] = contact;
+	            rules.get(current).get(contactToSet)[3] = identity;
 	    		buildRuleRows();
 	            Toast.makeText(myself, "Rule applied to contact", Toast.LENGTH_LONG).show();
 			}

@@ -39,7 +39,7 @@ public class GetContacts extends Activity
 	{
 	    Bundle conData = new Bundle();
 	    conData.putString("contact", populatedList.get(pos));
-	    conData.putString("idNum", populatedIDList.get(pos));
+	    conData.putString("identity", populatedIDList.get(pos));
 	    Intent intent = new Intent();
 	    intent.putExtras(conData);
 	    setResult(1, intent);
@@ -68,7 +68,7 @@ public class GetContacts extends Activity
 		    String[] PROJECTION = new String[] {ContactsContract.RawContacts._ID, 
 		            ContactsContract.Contacts.DISPLAY_NAME,
 		            ContactsContract.CommonDataKinds.Email.DATA, 
-		            ContactsContract.CommonDataKinds.Photo.CONTACT_ID };
+		            ContactsContract.CommonDataKinds.Phone.DATA};
 		    String order = "CASE WHEN " 
 		            + ContactsContract.Contacts.DISPLAY_NAME 
 		            + " NOT LIKE '%@%' THEN 1 ELSE 2 END, " 
@@ -94,16 +94,18 @@ public class GetContacts extends Activity
 		    if (cur.moveToFirst())
 		    {
 		        do {
-		        	populatedIDList.add(cur.getString(0));
 		        	if(type==0)
 				    {
 		        		populatedList.add(cur.getString(1));
+		        		populatedIDList.add(cur.getString(3));
 				    } else if(type==1)
 				    { 
 				    	populatedList.add(cur.getString(2));
+				    	populatedIDList.add(cur.getString(2));
 				    } else
 				    {
 				    	populatedList.add(cur.getString(1));
+				    	populatedIDList.add(cur.getString(3));
 				    }
 		        } while (cur.moveToNext());
 		    }

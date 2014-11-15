@@ -1,5 +1,7 @@
 package com.hackathonthing;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -13,13 +15,26 @@ public class NotificationListener
     	context = contextSet;
     	new SMSListener(this);
     	new CallListener(this);
+    	//new EmailListener(this);
     }	
-    protected void textFrom(String number)
+    protected void notifFrom(String program, String identification)
     {
-    	Log.e("Text", "Text From"+number);
-    }
-    protected void callFrom(String number)
-    {
-    	Log.e("Text", "Call From"+number);
+    	ArrayList<String[]> rules = mainActivity.getRulesByProgram(program);
+    	String action = "";
+    	String defaultAct = "";
+    	for(int i = 0; i < rules.size(); i++)
+    	{
+    		if(rules.get(i)[3].equals("Default"))
+    		{
+    			defaultAct = rules.get(i)[2];
+    		}
+    		if(rules.get(i)[3].equals(identification))
+    		{
+    			action = rules.get(i)[2];
+    		}
+    	}
+    	if(action.length()==0) action = defaultAct;
+    	if(action.length()==0) action = "silent";
+    	Log.e("Notification", program + " From " + identification + " Action " + action);
     }
 }
