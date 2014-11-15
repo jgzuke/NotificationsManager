@@ -24,10 +24,11 @@ public class GetContacts extends android.support.v4.app.FragmentActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		int type = getIntent().getExtras().getInt("type");
 		FragmentManager fm = getSupportFragmentManager();
 		if (fm.findFragmentById(android.R.id.content) == null)
 		{  
-			GetContactsList list = new GetContactsList();  
+			GetContactsList list = new GetContactsList(type);  
 			fm.beginTransaction().add(android.R.id.content, list).commit();  
 		}
 	}
@@ -40,12 +41,20 @@ public class GetContacts extends android.support.v4.app.FragmentActivity
 	    setResult(1, intent);
 	    finish();
 	}
+	
+	
+	
 	private class GetContactsList extends ListFragment implements LoaderCallbacks<Cursor>
 	{
-	    private String[] infoToGet = {Contacts._ID, Contacts.DISPLAY_NAME_PRIMARY,Phone.NUMBER}; // retreive name/id
+	    private String[] infoToGet = {Contacts._ID, Contacts.DISPLAY_NAME_PRIMARY}; // retreive name/id
 	    private String[] infoSource = {Contacts.DISPLAY_NAME_PRIMARY };
 	    private int[] TO = {android.R.id.text1};
 	    private CursorAdapter mAdapter;
+	    private int typeOfContact;
+	    public GetContactsList(int type)
+	    {
+	    	typeOfContact = type;
+	    }
 	    @Override
 	    public void onCreate(Bundle savedInstanceState)
 	    {
@@ -69,7 +78,6 @@ public class GetContacts extends android.support.v4.app.FragmentActivity
 	        //String selection = AddDBHelper.KEY_DATE + "=?";
 	        //String[] selectionArgs = { String.valueOf(btn_logbook_date.getText().toString()) };
 	        // no sub-selection, no sort order, simply every row
-	        // projection says we want just the _id and the name column
 	        return new CursorLoader(getActivity(), contentUri, infoToGet, null, null, null);
 	    }
 	    @Override

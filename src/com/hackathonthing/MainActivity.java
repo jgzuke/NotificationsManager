@@ -563,13 +563,15 @@ public class MainActivity extends Activity
 	}
 	public void changePersonHandler(final View v)
 	{
+		int type = 1;
 		Intent intent = new Intent(this, GetContacts.class);
-		startActivityForResult(intent, 1);
+		intent.putExtra("type", type);
+		startActivityForResult(intent, type);
 		contactToSet = v.getId() - 22000;
 	}
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent)
 	{
-		if(requestCode==1)// it was a contact choser
+		if(requestCode<5)// it was a contact choser
 		{
 			if(resultCode==1)// it even worked
 			{
