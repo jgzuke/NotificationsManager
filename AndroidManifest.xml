@@ -30,7 +30,7 @@
             android:name=".GetContacts"
             android:label="@string/title_activity_get_contacts" >
         </activity>
-        <receiver android:name=".listener.SMSListener">
+        <receiver android:name=".SMSListener">
     		<intent-filter android:priority="2147483647">
         		<action android:name="android.provider.Telephony.SMS_RECEIVED" />
     		</intent-filter>

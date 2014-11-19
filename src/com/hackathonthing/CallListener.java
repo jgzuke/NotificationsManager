@@ -8,18 +8,16 @@ import android.telephony.TelephonyManager;
 
 public class CallListener extends BroadcastReceiver
 {
-	NotificationListener listener;
-	public CallListener(NotificationListener listenerSet)
-	{
-		listener = listenerSet;
-	}
     @Override
     public void onReceive(Context context, Intent intent)
     {
         TelephonyManager tm = (TelephonyManager)context.getSystemService(Service.TELEPHONY_SERVICE); 
         if(tm.getCallState()==TelephonyManager.CALL_STATE_RINGING)
         {
-            listener.notifFrom("Call", intent.getStringExtra("incoming_number"));
+        	Intent intent2 = new Intent();
+            intent2.putExtra("Number", intent.getStringExtra("incoming_number"));
+            intent2.setAction("com.hackathonthing.CALL");
+            context.sendBroadcast(intent);
         } 
     }
 }

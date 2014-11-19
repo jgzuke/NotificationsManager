@@ -3,8 +3,11 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -56,6 +59,8 @@ public class MainActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		registerReceiver(textReceiver, new IntentFilter("com.hackathonthing.TEXT"));
+		registerReceiver(callReceiver, new IntentFilter("com.hackathonthing.CALL"));
 		myself = this;
 		setContentView(R.layout.activity_main);
 		notificationListener = new NotificationListener(this, this);
@@ -783,4 +788,20 @@ public class MainActivity extends Activity
 			dialog.show();
 		}
 	};
+	private BroadcastReceiver textReceiver = new BroadcastReceiver()
+	{
+        @Override
+         public void onReceive(final Context context, final Intent intent)
+         {
+        	notificationListener.notifFrom("Text", intent.getStringExtra("Number"));
+         }
+    };
+    private BroadcastReceiver callReceiver = new BroadcastReceiver()
+	{
+        @Override
+         public void onReceive(final Context context, final Intent intent)
+         {
+        	notificationListener.notifFrom("Call", intent.getStringExtra("Number"));
+         }
+    };
 }

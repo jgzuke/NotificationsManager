@@ -13,8 +13,6 @@ public class NotificationListener
     {
     	mainActivity = activitySet;
     	context = contextSet;
-    	new SMSListener(this);
-    	new CallListener(this);
     	//new EmailListener(this);
     }	
     protected void notifFrom(String program, String identification)
