@@ -255,11 +255,11 @@ public class MainActivity extends Activity
 	}
 	private void setUpDefaultPresets()
 	{
-		makeRule("Call", "Default", "vibrate", "Default");
-		makeRule("Text", "Default", "silent", "Default");
-		makeRule("Email", "Default", "vibrate", "Default");
-		makeTime(1, 2, 3, 1, 2, 4);
-		makeTime(1, 2, 3, 1, 2, 4);
+		makeRule("Call", "Default", "vibrate", "Default", 0);
+		makeRule("Text", "Default", "silent", "Default", 0);
+		makeRule("Email", "Default", "vibrate", "Default", 0);
+		makeTime(1, 2, 3, 1, 2, 4, 0);
+		makeTime(1, 2, 3, 1, 2, 4, 0);
 	}
 	private void makePreset(String preset)
 	{
@@ -274,16 +274,16 @@ public class MainActivity extends Activity
 		times.remove(toRemove);
 		rules.remove(toRemove);
 	}
-	private void makeRule(String program, String person, String action, String identity)
+	private void makeRule(String program, String person, String action, String identity, int presetNum)
 	{
 		String[] newRule = new String[4];
 		newRule[0] = program;
 		newRule[1] = person;
 		newRule[2] = action;
 		newRule[3] = identity;
-		rules.get(current).add(newRule);
+		rules.get(presetNum).add(newRule);
 	}
-	private void makeTime(int startD, int startH, int startM, int endD, int endH, int endM)
+	private void makeTime(int startD, int startH, int startM, int endD, int endH, int endM, int presetNum)
 	{
 		int[][] newTime = new int[2][3];
 		newTime[0][0] = startD;
@@ -292,12 +292,12 @@ public class MainActivity extends Activity
 		newTime[1][0] = endD;
 		newTime[1][1] = endH;
 		newTime[1][2] = endM;
-		times.get(current).add(newTime);
+		times.get(presetNum).add(newTime);
 	}
-	private void makeRule()
+	private void makeRule(int presetNum)
 	{
 		String[] newRule = {"Text", "Default", "silent", "Default"};
-		rules.get(current).add(newRule);
+		rules.get(presetNum).add(newRule);
 	}
 	protected ArrayList<String[]> getRulesByProgram(String program)
 	{
@@ -312,10 +312,10 @@ public class MainActivity extends Activity
 		}
 		return selectRules;
 	}
-	private void makeTime()
+	private void makeTime(int presetNum)
 	{
 		int[][] newTime = {{1, 8, 30}, {1, 9, 30}};
-		times.get(current).add(newTime);
+		times.get(presetNum).add(newTime);
 	}
 	private void buildRuleRows()
 	{
@@ -708,7 +708,7 @@ public class MainActivity extends Activity
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 			LayoutInflater inflater = getLayoutInflater();
-			makeRule();
+			makeRule(current);
 			TableRow makeRuleRow = (TableRow) inflater.inflate(R.layout.makerule, rulesTable, false);
 			TextView program = (TextView) makeRuleRow.getChildAt(0);
 			TextView person = (TextView) makeRuleRow.getChildAt(1);
@@ -751,7 +751,7 @@ public class MainActivity extends Activity
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 			LayoutInflater inflater = getLayoutInflater();
-			makeTime();
+			makeTime(current);
 			TableRow makeTimeRow = (TableRow) inflater.inflate(R.layout.maketime, timesTable, false);
 			TextView startD = (TextView) makeTimeRow.getChildAt(0);
 			TextView startH = (TextView) makeTimeRow.getChildAt(1);
