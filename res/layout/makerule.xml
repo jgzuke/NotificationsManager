@@ -16,6 +16,7 @@
         android:layout_gravity="left"
         android:text="Calls"
         android:onClick="changeProgramHandler"
+        android:clickable="true"
         android:textSize="20sp"/>
     <TextView
         android:layout_width="107dp"
@@ -23,6 +24,7 @@
         android:layout_gravity="left"
         android:text="Default"
         android:onClick="changePersonHandler"
+        android:clickable="true"
         android:textSize="20sp"/>
 
     <Button

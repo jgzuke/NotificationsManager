@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -59,6 +60,7 @@ public class MainActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		registerReceiver(textReceiver, new IntentFilter("com.hackathonthing.TEXT"));
 		registerReceiver(callReceiver, new IntentFilter("com.hackathonthing.CALL"));
 		myself = this;
@@ -609,7 +611,7 @@ public class MainActivity extends Activity
 	public void deleteRuleClickHandler(final View firstV)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-		builder.setMessage("Delete Rule?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+		builder.setTitle("Delete Rule?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
@@ -634,7 +636,7 @@ public class MainActivity extends Activity
 		} else
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-			builder.setMessage("Delete Preset?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+			builder.setTitle("Delete Preset?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
@@ -655,7 +657,7 @@ public class MainActivity extends Activity
 	public void deleteTimeClickHandler(final View firstV)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-		builder.setMessage("Delete Time?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+		builder.setTitle("Delete Time?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
@@ -705,8 +707,9 @@ public class MainActivity extends Activity
 		public void onClick(View v)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+			LayoutInflater inflater = getLayoutInflater();
 			makeRule();
-			TableRow makeRuleRow = (TableRow) layoutInflater.inflate(R.layout.makerule, rulesTable, false);
+			TableRow makeRuleRow = (TableRow) inflater.inflate(R.layout.makerule, rulesTable, false);
 			TextView program = (TextView) makeRuleRow.getChildAt(0);
 			TextView person = (TextView) makeRuleRow.getChildAt(1);
 			Button action = (Button) makeRuleRow.getChildAt(2);
@@ -749,7 +752,7 @@ public class MainActivity extends Activity
 			AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 			LayoutInflater inflater = getLayoutInflater();
 			makeTime();
-			TableRow makeTimeRow = (TableRow) inflater.inflate(R.layout.maketime, null);
+			TableRow makeTimeRow = (TableRow) inflater.inflate(R.layout.maketime, timesTable, false);
 			TextView startD = (TextView) makeTimeRow.getChildAt(0);
 			TextView startH = (TextView) makeTimeRow.getChildAt(1);
 			TextView endD = (TextView) makeTimeRow.getChildAt(2);
