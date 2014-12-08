@@ -575,10 +575,11 @@ public class MainActivity extends Activity
 	}
 	private int programToContactType(String program)
 	{
+		Log.e("asgdasdg", program);
 		if(program.equals("Text")||program.equals("Call"))
 		{
 			return 0;
-		} else if(program.equals("Gmail"))
+		} else if(program.equals("Email"))
 		{
 			return 1;
 		}

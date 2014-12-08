@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,10 +81,12 @@ public class GetContacts extends Activity
 		    Cursor cur;
 		    if(type==0)
 		    {
+		    	Log.e("asg", "asdgasadgsg");
 		    	filter = ContactsContract.CommonDataKinds.Phone.DATA + " NOT LIKE ''";
 			    cur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PROJECTION, filter, null, order);
 		    } else if(type==1)
 		    { 
+		    	Log.e("asg", "asdgasg");
 		    	filter = ContactsContract.CommonDataKinds.Email.DATA + " NOT LIKE ''";
 			    cur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
 		    } else
