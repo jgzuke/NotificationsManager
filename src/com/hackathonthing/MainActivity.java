@@ -36,7 +36,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity
 {
 	private MainActivity myself;
-	private NotificationListener notificationListener;
 	private ArrayList < String > presets = new ArrayList < String > ();
 	private ArrayList < ArrayList < int[][] >> times = new ArrayList < ArrayList < int[][] >> (); // preset, rule, [start/end][day, hour, min]
 	private ArrayList < ArrayList < String[] >> rules = new ArrayList < ArrayList < String[] >> ();
@@ -61,11 +60,10 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		registerReceiver(textReceiver, new IntentFilter("com.hackathonthing.TEXT"));
-		registerReceiver(callReceiver, new IntentFilter("com.hackathonthing.CALL"));
+		Toast.makeText(this, "testing", Toast.LENGTH_LONG).show();
+		Log.e("myid", "@@@@@@@@@@@@@@@@@@@@@@");
 		myself = this;
 		setContentView(R.layout.activity_main);
-		notificationListener = new NotificationListener(this, this);
 		presets.add("Home");
 		presets.add("Work");
 		presets.add("Sleep");
@@ -791,20 +789,4 @@ public class MainActivity extends Activity
 			dialog.show();
 		}
 	};
-	private BroadcastReceiver textReceiver = new BroadcastReceiver()
-	{
-        @Override
-         public void onReceive(final Context context, final Intent intent)
-         {
-        	notificationListener.notifFrom("Text", intent.getStringExtra("Number"));
-         }
-    };
-    private BroadcastReceiver callReceiver = new BroadcastReceiver()
-	{
-        @Override
-         public void onReceive(final Context context, final Intent intent)
-         {
-        	notificationListener.notifFrom("Call", intent.getStringExtra("Number"));
-         }
-    };
 }

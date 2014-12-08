@@ -1,10 +1,13 @@
 package com.hackathonthing;
 
+import java.util.ArrayList;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 public class SMSListener extends BroadcastReceiver
 {
@@ -13,6 +16,7 @@ public class SMSListener extends BroadcastReceiver
     {
         if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
         {
+        	Log.e("myid", "zg");
             Bundle bundle = intent.getExtras();
             if (bundle != null)
             {
@@ -20,10 +24,7 @@ public class SMSListener extends BroadcastReceiver
                 {
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String num = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
-                    Intent intent2 = new Intent();
-                    intent2.putExtra("Number", num);
-                    intent2.setAction("com.hackathonthing.TEXT");
-                    context.sendBroadcast(intent); 
+                    Log.e("Notification", "Text From " + num + " Action ");
                 } catch(Exception e){}
             }
         }
