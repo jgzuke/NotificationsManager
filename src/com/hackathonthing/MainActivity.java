@@ -76,6 +76,12 @@ public class MainActivity extends Activity
 		setStaticTablesButtons();
 		loadPreset(0);
 	}
+	@Override
+	protected void onStop()
+	{
+		super.onPause();
+		saveData();
+	}
 	private void setUpNavBar()
 	{
 		setTitle(presets.get(0) + " Setting");
@@ -208,7 +214,6 @@ public class MainActivity extends Activity
 					presets.set(current, input.getText().toString());
 					loadPreset(current);
 					setTitle(presets.get(current));
-					saveData();
 					Toast.makeText(myself, presets.get(current)+" preset created", Toast.LENGTH_LONG).show();
 				}
 			});
@@ -245,14 +250,12 @@ public class MainActivity extends Activity
 		navAdapter.notifyDataSetChanged();
 		times.add(new ArrayList < int[][] > ());
 		rules.add(new ArrayList < String[] > ());
-		saveData();
 	}
 	private void removePreset(int toRemove)
 	{
 		presets.remove(toRemove);
 		times.remove(toRemove);
 		rules.remove(toRemove);
-		saveData();
 	}
 	private void makeRule(String program, String person, String action, String identity, int presetNum)
 	{
@@ -262,7 +265,6 @@ public class MainActivity extends Activity
 		newRule[2] = action;
 		newRule[3] = identity;
 		rules.get(presetNum).add(newRule);
-		saveData();
 	}
 	private void makeTime(int startD, int startH, int startM, int endD, int endH, int endM, int presetNum)
 	{
@@ -274,13 +276,11 @@ public class MainActivity extends Activity
 		newTime[1][1] = endH;
 		newTime[1][2] = endM;
 		times.get(presetNum).add(newTime);
-		saveData();
 	}
 	private void makeRule(int presetNum)
 	{
 		String[] newRule = {"Text", "Default", "silent", "Default"};
 		rules.get(presetNum).add(newRule);
-		saveData();
 	}
 	protected ArrayList<String[]> getRulesByProgram(String program)
 	{
@@ -299,7 +299,6 @@ public class MainActivity extends Activity
 	{
 		int[][] newTime = {{1, 8, 30}, {1, 9, 30}};
 		times.get(presetNum).add(newTime);
-		saveData();
 	}
 	private void buildRuleRows()
 	{
@@ -372,7 +371,6 @@ public class MainActivity extends Activity
 				return 0;
 		}
 		buildRuleRows();
-		saveData();
 		return 0;
 	}
 	private void deleteRule(int index)
@@ -390,7 +388,6 @@ public class MainActivity extends Activity
 			row.getChildAt(3).setId(24000 + ID);
 		}
 		buildRuleRows();
-		saveData();
 	}
 	private void deleteTime(int index)
 	{
@@ -408,7 +405,6 @@ public class MainActivity extends Activity
 			row.getChildAt(4).setId(35000 + ID);
 		}
 		buildTimeRows();
-		saveData();
 	}
 	private String timeToString(int[] time)
 	{
@@ -781,9 +777,12 @@ public class MainActivity extends Activity
 	String saveID = "mysharedpreferencesfortestingtings";
 	private void saveData()
 	{
+		Log.e("myid", Integer.toString(presets.size()-1));
+		Log.e("myid", Integer.toString(rules.size()));
+		Log.e("myid", Integer.toString(times.size()));
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt("presetCount", presets.size()-1); 					// put number of presets (presetCount)
+		editor.putInt("presetCount", presets.size()); 					// put number of presets (presetCount)
 		Set<String> presetNames = new HashSet<>(presets);
 		editor.putStringSet("presetNames", presetNames);				// put preset names (presetNames)
 		for(int j = 0; j < presets.size()-1;j ++) 						// for every preset
@@ -818,7 +817,7 @@ public class MainActivity extends Activity
 		{
 			Set<String> presetsSet = settings.getStringSet("presetNames", null);
 			presets = new ArrayList<String>(presetsSet);
-			for(int j = 0; j < presetCount; j++)
+			for(int j = 0; j < presetCount-1; j++)
 			{
 				String jS = Integer.toString(j);
 				int rulesCount = settings.getInt("ruleCount"+jS, 0);
@@ -858,7 +857,6 @@ public class MainActivity extends Activity
 			Log.e("myid", "h"+ Integer.toString(rules.size()));
 			Log.e("myid", "h"+ Integer.toString(times.size()));
 			setUpDefaultPresets();
-			saveData();
 		}
 	}
 	private void setUpDefaultPresets()
