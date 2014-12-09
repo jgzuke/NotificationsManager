@@ -282,19 +282,6 @@ public class MainActivity extends Activity
 		String[] newRule = {"Text", "Default", "silent", "Default"};
 		rules.get(presetNum).add(newRule);
 	}
-	protected ArrayList<String[]> getRulesByProgram(String program)
-	{
-		ArrayList<String[]> allRules = rules.get(current);
-		ArrayList<String[]> selectRules = new ArrayList<String[]>();
-		for(int i = 0; i < allRules.size(); i++)
-		{
-			if(allRules.get(i)[0].equals(program))
-			{
-				selectRules.add(allRules.get(i));
-			}
-		}
-		return selectRules;
-	}
 	private void makeTime(int presetNum)
 	{
 		int[][] newTime = {{1, 8, 30}, {1, 9, 30}};
@@ -783,17 +770,24 @@ public class MainActivity extends Activity
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt("presetCount", presets.size()); 					// put number of presets (presetCount)
-		Set<String> presetNames = new HashSet<>(presets);
-		editor.putStringSet("presetNames", presetNames);				// put preset names (presetNames)
+		for(int l = 0; l < presets.size(); l++)
+		{
+			String lS = Integer.toString(l);
+			editor.putString("presetNames"+lS, presets.get(l));
+		}
 		for(int j = 0; j < presets.size()-1;j ++) 						// for every preset
 		{
+			
 			String jS = Integer.toString(j);	
 			editor.putInt("ruleCount"+jS, rules.get(j).size()); 		// put number of rules (ruleCounti)
 			for(int k = 0; k < rules.get(j).size(); k++) 				// for every rule in given preset
 			{
 				String kS = Integer.toString(k);	
-				Set<String> rule = new HashSet<>(Arrays.asList(rules.get(j).get(k))); //add rule (ruleIJ) i, j are number, preset
-				editor.putStringSet("rule"+kS+"Preset"+jS, rule);
+				for(int l = 0; l < 4; l++)
+				{
+					String lS = Integer.toString(l);
+					editor.putString("rule"+kS+"Preset"+jS+"pos"+lS, rules.get(j).get(k)[l]);
+				}
 			}
 			editor.putInt("timeCount"+jS, times.get(j).size()); 		// put number of rules (ruleCounti)
 			for(int k = 0; k < times.get(j).size(); k++) 				// for every rule in given preset
@@ -801,7 +795,7 @@ public class MainActivity extends Activity
 				String kS = Integer.toString(k);
 				for(int l = 0; l < 3; l++)
 				{
-					String lS = Integer.toString(j);
+					String lS = Integer.toString(l);
 					editor.putInt("time"+kS+"Preset"+jS+"pos0"+lS, times.get(j).get(k)[0][l]);
 					editor.putInt("time"+kS+"Preset"+jS+"pos1"+lS, times.get(j).get(k)[1][l]);
 				}
@@ -812,32 +806,40 @@ public class MainActivity extends Activity
 	private void readData()
 	{
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0); //this is all making default stuff
-		int presetCount = /*-1;//*/settings.getInt("presetCount", -1);
+		int presetCount = -1;
+		presetCount = settings.getInt("presetCount", -1);
 		if(presetCount!=-1) //TODO change to true for reset
 		{
-			Set<String> presetsSet = settings.getStringSet("presetNames", null);
-			presets = new ArrayList<String>(presetsSet);
+			for(int l = 0; l < presetCount; l++)
+			{
+				String lS = Integer.toString(l);
+				presets.add(settings.getString("presetNames"+lS, null));
+			}
 			for(int j = 0; j < presetCount-1; j++)
 			{
+				rules.add(new ArrayList < String[] > ());
+				times.add(new ArrayList < int[][] > ());
 				String jS = Integer.toString(j);
 				int rulesCount = settings.getInt("ruleCount"+jS, 0);
 				for(int k = 0; k < rulesCount; k++) 				// for every rule in given preset
 				{
-					rules.add(new ArrayList < String[] > ());
 					String kS = Integer.toString(k);
-					Set<String> rule = settings.getStringSet("rule"+kS+"Preset"+jS, null);
-					String[] ruleArray = rule.toArray(new String[rule.size()]);
+					String[] ruleArray = new String[4];
+					for(int l = 0; l < 4; l++)
+					{
+						String lS = Integer.toString(l);
+						ruleArray[l] = settings.getString("rule"+kS+"Preset"+jS+"pos"+lS, null);
+					}
 					rules.get(j).add(ruleArray);
 				}
 				int timesCount = settings.getInt("timeCount"+jS, 0);
 				for(int k = 0; k < timesCount; k++) 				// for every rule in given preset
 				{
-					times.add(new ArrayList < int[][] > ());
 					String kS = Integer.toString(k);
 					int[][] timeArray = new int[2][3];
 					for(int l = 0; l < 3; l++)
 					{
-						String lS = Integer.toString(j);
+						String lS = Integer.toString(l);
 						timeArray[0][l] = settings.getInt("time"+kS+"Preset"+jS+"pos0"+lS, 0);
 						timeArray[1][l] = settings.getInt("time"+kS+"Preset"+jS+"pos1"+lS, 0);
 					}
