@@ -797,6 +797,12 @@ public class MainActivity extends Activity
 				Set<String> rule = new HashSet<>(Arrays.asList(rules.get(j).get(k))); //add rule (ruleIJ) i, j are number, preset
 				editor.putStringSet("rule"+kS+"Preset"+jS, rule);
 			}
+			editor.putInt("timeCount"+jS, times.get(j).size()); 		// put number of rules (ruleCounti)
+			for(int k = 0; k < times.get(j).size(); k++) 				// for every rule in given preset
+			{
+				String kS = Integer.toString(k);
+				editor.putStringSet("time"+kS+"Preset"+jS, timeToStringSet(times.get(j).get(k)));
+			}
 		}
 		editor.apply();
 	}
@@ -804,7 +810,7 @@ public class MainActivity extends Activity
 	{
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0); //this is all making default stuff
 		int presetCount = settings.getInt("presetCount", -1);
-		if(presetCount!=-1)
+		if(presetCount!=-1) //TODO change to true for reset
 		{
 			Set<String> presetsSet = settings.getStringSet("presetNames", null);
 			presets = new ArrayList<String>(presetsSet);
@@ -814,10 +820,20 @@ public class MainActivity extends Activity
 				int rulesCount = settings.getInt("ruleCount"+jS, 0);
 				for(int k = 0; k < rulesCount; k++) 				// for every rule in given preset
 				{
+					rules.add(new ArrayList < String[] > ());
 					String kS = Integer.toString(k);
 					Set<String> rule = settings.getStringSet("rule"+kS+"Preset"+jS, null);
 					String[] ruleArray = rule.toArray(new String[rule.size()]);
 					rules.get(j).add(ruleArray);
+				}
+				int timesCount = settings.getInt("timeCount"+jS, 0);
+				for(int k = 0; k < timesCount; k++) 				// for every rule in given preset
+				{
+					times.add(new ArrayList < int[][] > ());
+					String kS = Integer.toString(k);
+					Set<String> time = settings.getStringSet("time"+kS+"Preset"+jS, null);
+					int[][] timeArray = timeToIntArray(time);
+					times.get(j).add(timeArray);
 				}
 			}
 		} else
@@ -831,6 +847,14 @@ public class MainActivity extends Activity
 			setUpDefaultPresets();
 			saveData();
 		}
+	}
+	private Set<String> timeToStringSet(int [][] time)
+	{
+		
+	}
+	private int[][] timeToIntArray(Set<String> time)
+	{
+		
 	}
 	private void setUpDefaultPresets()
 	{
