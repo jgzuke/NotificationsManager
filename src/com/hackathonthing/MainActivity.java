@@ -1,5 +1,8 @@
 package com.hackathonthing;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -8,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -38,7 +42,7 @@ public class MainActivity extends Activity
 	private MainActivity myself;
 	private ArrayList < String > presets = new ArrayList < String > ();
 	private ArrayList < ArrayList < int[][] >> times = new ArrayList < ArrayList < int[][] >> (); // preset, rule, [start/end][day, hour, min]
-	private ArrayList < ArrayList < String[] >> rules = new ArrayList < ArrayList < String[] >> ();
+	private ArrayList < ArrayList < String[] >> rules = new ArrayList < ArrayList < String[] >> (); // program person action number
 	private TableLayout rulesTable;
 	private TableLayout timesTable;
 	private int current = 0;
@@ -59,6 +63,11 @@ public class MainActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(saveEmpty())
+		{
+			setPresetData();
+		}
+		readData();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		Toast.makeText(this, "testing", Toast.LENGTH_LONG).show();
 		Log.e("myid", "@@@@@@@@@@@@@@@@@@@@@@");
@@ -242,22 +251,6 @@ public class MainActivity extends Activity
 		editTimes.setOnClickListener(editTimesClickHandler);
 		rulesTable = (TableLayout) findViewById(R.id.rulesTable);
 		timesTable = (TableLayout) findViewById(R.id.timesTable);
-	}
-	private void makePresetBase()
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			times.add(new ArrayList < int[][] > ());
-			rules.add(new ArrayList < String[] > ());
-		}
-	}
-	private void setUpDefaultPresets()
-	{
-		makeRule("Call", "Default", "vibrate", "Default", 0);
-		makeRule("Text", "Default", "silent", "Default", 0);
-		makeRule("Email", "Default", "vibrate", "Default", 0);
-		makeTime(1, 2, 3, 1, 2, 4, 0);
-		makeTime(1, 2, 3, 1, 2, 4, 0);
 	}
 	private void makePreset(String preset)
 	{
@@ -790,4 +783,69 @@ public class MainActivity extends Activity
 			dialog.show();
 		}
 	};
+	String sharedPreferences = "";
+	private void saveData()
+	{
+		SharedPreferences settings = getApplicationContext().getSharedPreferences(sharedPreferences, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		for(int i = 0; i < rules.size(); i++)
+		{
+			editor.putInt("presetCount", presets.size()); 					// put number of presets (presetCount)
+			Set<String> presetNames = new HashSet<>(presets);
+			editor.putStringSet("presetNames", presetNames);				// put preset names (presetNames)
+			for(int j = 0; j < presets.size();j ++) 						// for every preset
+			{
+				String jS = Integer.toString(j);	
+				editor.putInt("ruleCount"+jS, rules.get(j).size()); 		// put number of rules (ruleCounti)
+				for(int k = 0; k < rules.get(j).size(); k++) 				// for every rule in given preset
+				{
+					String kS = Integer.toString(k);						
+					editor.putStringSet("rule"+kS+"Preset"+jS, rules.get(j));
+				}
+			}
+			editor.putStringSet(arg0, arg1);
+			
+		}
+		editor.apply();
+	}
+	private void readData()
+	{
+		SharedPreferences settings = getApplicationContext().getSharedPreferences(sharedPreferences, 0);
+		/*
+		 * int number of presets
+		 * int number of rules in preset(repeats every preset)
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		int homeScore = settings.getInt("homeScore", 0);
+	}
+	private void saveEmpty()
+	{
+		//TODO
+	}
+	private void setPresetData()
+	{
+		//TODO
+	}
+
+	private void makePresetBase()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			times.add(new ArrayList < int[][] > ());
+			rules.add(new ArrayList < String[] > ());
+		}
+	}
+	private void setUpDefaultPresets()
+	{
+		makeRule("Call", "Default", "vibrate", "Default", 0);
+		makeRule("Text", "Default", "silent", "Default", 0);
+		makeRule("Email", "Default", "vibrate", "Default", 0);
+		makeTime(1, 2, 3, 1, 2, 4, 0);
+		makeTime(1, 2, 3, 1, 2, 4, 0);
+	}
 }
