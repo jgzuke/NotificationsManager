@@ -82,7 +82,6 @@ public class MainActivity extends Activity
 		navLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		navDrawer = (ListView) findViewById(R.id.left_drawer);
 		navAdapter = new ArrayAdapter < String > (this, R.layout.navlistitem, presets);
-		presets.add("    +");
 		navDrawer.setAdapter(navAdapter);
 		navDrawer.setOnItemClickListener(new DrawerItemClickListener());
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -784,10 +783,10 @@ public class MainActivity extends Activity
 	{
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt("presetCount", presets.size()); 					// put number of presets (presetCount)
+		editor.putInt("presetCount", presets.size()-1); 					// put number of presets (presetCount)
 		Set<String> presetNames = new HashSet<>(presets);
 		editor.putStringSet("presetNames", presetNames);				// put preset names (presetNames)
-		for(int j = 0; j < presets.size();j ++) 						// for every preset
+		for(int j = 0; j < presets.size()-1;j ++) 						// for every preset
 		{
 			String jS = Integer.toString(j);	
 			editor.putInt("ruleCount"+jS, rules.get(j).size()); 		// put number of rules (ruleCounti)
@@ -801,7 +800,12 @@ public class MainActivity extends Activity
 			for(int k = 0; k < times.get(j).size(); k++) 				// for every rule in given preset
 			{
 				String kS = Integer.toString(k);
-				editor.putStringSet("time"+kS+"Preset"+jS, timeToStringSet(times.get(j).get(k)));
+				for(int l = 0; l < 3; l++)
+				{
+					String lS = Integer.toString(j);
+					editor.putInt("time"+kS+"Preset"+jS+"pos0"+lS, times.get(j).get(k)[0][l]);
+					editor.putInt("time"+kS+"Preset"+jS+"pos1"+lS, times.get(j).get(k)[1][l]);
+				}
 			}
 		}
 		editor.apply();
@@ -809,7 +813,7 @@ public class MainActivity extends Activity
 	private void readData()
 	{
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0); //this is all making default stuff
-		int presetCount = settings.getInt("presetCount", -1);
+		int presetCount = /*-1;//*/settings.getInt("presetCount", -1);
 		if(presetCount!=-1) //TODO change to true for reset
 		{
 			Set<String> presetsSet = settings.getStringSet("presetNames", null);
@@ -831,30 +835,31 @@ public class MainActivity extends Activity
 				{
 					times.add(new ArrayList < int[][] > ());
 					String kS = Integer.toString(k);
-					Set<String> time = settings.getStringSet("time"+kS+"Preset"+jS, null);
-					int[][] timeArray = timeToIntArray(time);
+					int[][] timeArray = new int[2][3];
+					for(int l = 0; l < 3; l++)
+					{
+						String lS = Integer.toString(j);
+						timeArray[0][l] = settings.getInt("time"+kS+"Preset"+jS+"pos0"+lS, 0);
+						timeArray[1][l] = settings.getInt("time"+kS+"Preset"+jS+"pos1"+lS, 0);
+					}
 					times.get(j).add(timeArray);
 				}
 			}
 		} else
 		{
 			presets.add("Home"); presets.add("Work"); presets.add("Sleep");
+			presets.add("    +");
 			for (int i = 0; i < 3; i++)
 			{
 				times.add(new ArrayList < int[][] > ());
 				rules.add(new ArrayList < String[] > ());
 			}
+			Log.e("myid", "h"+ Integer.toString(presets.size()));
+			Log.e("myid", "h"+ Integer.toString(rules.size()));
+			Log.e("myid", "h"+ Integer.toString(times.size()));
 			setUpDefaultPresets();
 			saveData();
 		}
-	}
-	private Set<String> timeToStringSet(int [][] time)
-	{
-		
-	}
-	private int[][] timeToIntArray(Set<String> time)
-	{
-		
 	}
 	private void setUpDefaultPresets()
 	{
