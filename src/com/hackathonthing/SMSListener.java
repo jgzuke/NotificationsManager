@@ -1,6 +1,7 @@
 package com.hackathonthing;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -36,6 +37,11 @@ public class SMSListener extends BroadcastReceiver
     {
     	SharedPreferences settings = c.getSharedPreferences(saveID, 0); //this is all making default stuff
 		int presetCount = settings.getInt("presetCount", -1);
+		Calendar now = Calendar.getInstance(); 
+		int dNow = 1440*now.get(Calendar.DAY_OF_WEEK);
+		int hNow = 60*now.get(Calendar.HOUR_OF_DAY);
+		int mNow = now.get(Calendar.MINUTE);
+		int timeNow = dNow+hNow+mNow;
 		for(int j = 0; j < presetCount-1; j++)
 		{
 			String jS = Integer.toString(j);
@@ -43,7 +49,6 @@ public class SMSListener extends BroadcastReceiver
 			for(int k = 0; k < timesCount; k++) 				// for every rule in given preset
 			{
 				String kS = Integer.toString(k);
-				int timeNow = ;//TODO get time now
 				int start = 1440*settings.getInt("time"+kS+"Preset"+jS+"pos00", 0)
 				+ 60*settings.getInt("time"+kS+"Preset"+jS+"pos01", 0)
 				+ settings.getInt("time"+kS+"Preset"+jS+"pos02", 0);
