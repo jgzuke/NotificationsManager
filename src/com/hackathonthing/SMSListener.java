@@ -67,26 +67,9 @@ public class SMSListener extends BroadcastReceiver
     	//TODO use times to find current preset
     	return -1;
     }
-	private String getAction(int pre, Context c, String Number)
+	private String getAction(int preset, Context c, String Number)
 	{
-		if(pre!=-1)
-		{
-			SharedPreferences settings = c.getSharedPreferences(saveID, 0); //this is all making default stuff
-			String preset = Integer.toString(pre);
-			int ruleCount = settings.getInt("ruleCount"+preset, -1);
-			if(ruleCount!=-1) //TODO change to true for reset
-			{
-				for(int k = 0; k < ruleCount; k++) 				// for every rule in given preset
-				{
-					String kS = Integer.toString(k);
-					String number = settings.getString("rule"+kS+"Preset"+preset+"pos3", null);
-					if(number.equals(Number))
-					{
-						return settings.getString("rule"+kS+"Preset"+preset+"pos2", null);
-					}
-				}
-			}
-		}
-		return null;
+		SharedPreferences settings = c.getSharedPreferences(saveID, 0);
+		return settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNum"+Number, null);
 	}
 }

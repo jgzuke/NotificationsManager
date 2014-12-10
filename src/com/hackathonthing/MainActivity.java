@@ -791,6 +791,7 @@ public class MainActivity extends Activity
 					String lS = Integer.toString(l);
 					editor.putString("rule"+kS+"Preset"+jS+"pos"+lS, rules.get(j).get(k)[l]);
 				}
+				editor.putString("ruleByNum"+"Preset"+jS+"Program"+rules.get(j).get(k)[0]+"Num"+rules.get(j).get(k)[3], rules.get(j).get(k)[2]);
 			}
 			editor.putInt("timeCount"+jS, times.get(j).size()); 		// put number of rules (ruleCounti)
 			for(int k = 0; k < times.get(j).size(); k++) 				// for every rule in given preset
