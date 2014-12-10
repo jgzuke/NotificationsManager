@@ -540,6 +540,7 @@ public class MainActivity extends Activity
 		int type = programToContactType(rules.get(current).get(contactToSet)[0]);
 		Intent intent = new Intent(this, GetContacts.class);
 		intent.putExtra("type", type);
+		intent.putExtra("textID", v.getId());
 		startActivityForResult(intent, type);
 		buildRuleRows();
 	}
@@ -564,8 +565,11 @@ public class MainActivity extends Activity
 				Bundle res = intent.getExtras();
 	            String contact = res.getString("contact");
 	            String identity = res.getString("identity");
+	            int textID = res.getInt("textID");
+	            
 	            rules.get(current).get(contactToSet)[1] = contact;
 	            rules.get(current).get(contactToSet)[3] = identity;
+	            //TODO
 	    		buildRuleRows();
 	            Toast.makeText(myself, "Rule applied to contact", Toast.LENGTH_LONG).show();
 			}
