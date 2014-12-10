@@ -518,8 +518,6 @@ public class MainActivity extends Activity
 	}
 	public void changeProgramHandler(final View v)
 	{
-		Log.e("hi", "hi");
-		//TODO
 		AlertDialog.Builder builder = new AlertDialog.Builder(myself);
 		builder.setTitle("Pick Program");
 		builder.setItems(R.array.programs_array, new DialogInterface.OnClickListener()
@@ -543,6 +541,7 @@ public class MainActivity extends Activity
 		Intent intent = new Intent(this, GetContacts.class);
 		intent.putExtra("type", type);
 		startActivityForResult(intent, type);
+		buildRuleRows();
 	}
 	private int programToContactType(String program)
 	{

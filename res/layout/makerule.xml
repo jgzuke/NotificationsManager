@@ -11,7 +11,7 @@
     android:paddingTop="5dp" >
 
     <TextView
-        android:layout_width="107dp"
+        android:layout_width="77dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Calls"
@@ -19,7 +19,7 @@
         android:clickable="true"
         android:textSize="20sp"/>
     <TextView
-        android:layout_width="107dp"
+        android:layout_width="137dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="Default"
