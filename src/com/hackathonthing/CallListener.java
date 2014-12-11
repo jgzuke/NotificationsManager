@@ -8,11 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-public class SMSListener extends BroadcastReceiver
+public class CallListener extends BroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
@@ -28,20 +27,7 @@ public class SMSListener extends BroadcastReceiver
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String num = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
                     String action = getAction(getPreset(context), context, num);
-                    if(action !=null)
-                    {
-                    	if(action.equalsIgnoreCase("vibrate"))
-                    	{
-                    		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                    		v.vibrate(500);
-                    	}
-                    	if(action.equalsIgnoreCase("ring"))
-                    	{
-                    		Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                    		v.vibrate(500);
-                    	}
-                    }
-                    Log.e("Notification", "Text From " + num + " Action " + action);
+                    Log.e("Notification", "Call From " + num + " Action " + action);
                 } catch(Exception e){}
             }
         }
@@ -84,6 +70,6 @@ public class SMSListener extends BroadcastReceiver
 	private String getAction(int preset, Context c, String Number)
 	{
 		SharedPreferences settings = c.getSharedPreferences(saveID, 0);
-		return settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNum"+Number, null);
+		return settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramCallNum"+Number, null);
 	}
 }
