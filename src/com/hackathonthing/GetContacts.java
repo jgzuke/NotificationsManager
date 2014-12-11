@@ -84,13 +84,9 @@ public class GetContacts extends Activity
 		    	Log.e("asg", "asdgasadgsg");
 		    	filter = ContactsContract.CommonDataKinds.Phone.DATA + " NOT LIKE ''";
 			    cur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PROJECTION, filter, null, order);
-		    } else if(type==1)
+		    } else
 		    { 
 		    	Log.e("asg", "asdgasg");
-		    	filter = ContactsContract.CommonDataKinds.Email.DATA + " NOT LIKE ''";
-			    cur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
-		    } else
-		    {
 		    	filter = ContactsContract.CommonDataKinds.Email.DATA + " NOT LIKE ''";
 			    cur = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
 		    }
@@ -101,14 +97,10 @@ public class GetContacts extends Activity
 				    {
 		        		populatedList.add(cur.getString(1));
 		        		populatedIDList.add(cur.getString(3));
-				    } else if(type==1)
+				    } else
 				    { 
 				    	populatedList.add(cur.getString(2));
 				    	populatedIDList.add(cur.getString(2));
-				    } else
-				    {
-				    	populatedList.add(cur.getString(1));
-				    	populatedIDList.add(cur.getString(3));
 				    }
 		        } while (cur.moveToNext());
 		    }
