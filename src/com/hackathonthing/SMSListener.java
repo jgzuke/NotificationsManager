@@ -18,14 +18,11 @@ public class SMSListener extends BroadcastReceiver
     {
         if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
         {
-        	Log.e("myid", "num1");
             Bundle bundle = intent.getExtras();
             if (bundle != null)
             {
-            	Log.e("myid", "num2");
                 try
                 {
-                	Log.e("myid", "num3");
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String num = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
                     String action = getAction(getPreset(context), context, num);
@@ -85,9 +82,12 @@ public class SMSListener extends BroadcastReceiver
 		String action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNum"+Number, null);
 		if(action == null)
 		{
-			action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNum", null); //TODO check this
+			String defaultAction = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNumDefault", null);
+			Log.e("myid", "ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNumDefault");
+			Log.e("myid", defaultAction);
+			action = defaultAction; //TODO check this
+			if(action == null) action = "silent"; 
 		}
-		if(action == null) action = "silent"; 
 		return action;
 	}
 }
