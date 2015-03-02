@@ -68,7 +68,6 @@ public class MainActivity extends Activity
 		readData();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		Toast.makeText(this, "testing", Toast.LENGTH_LONG).show();
-		Log.e("myid", "@@@@@@@@@@@@@@@@@@@@@@");
 		setContentView(R.layout.activity_main);
 		setUpNavBar();
 		layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
