@@ -56,7 +56,6 @@ public class MainActivity extends Activity
 	private TextView presetRulesText;
 	private TextView presetTimesText;
 	private LayoutInflater layoutInflater;
-	private CheckBox checkPresetActive;
 	private ListView navDrawer;
 	private DrawerLayout navLayout;
 	private ActionBarDrawerToggle navToggle;
@@ -87,7 +86,7 @@ public class MainActivity extends Activity
 	}
 	private void setUpNavBar()
 	{
-		setTitle(presets.get(0) + " Setting");
+		setTitle(presets.get(0));
 		navLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		navDrawer = (ListView) findViewById(R.id.left_drawer);
 		navAdapter = new ArrayAdapter < String > (this, R.layout.navlistitem, presets);
@@ -99,12 +98,12 @@ public class MainActivity extends Activity
 		{
 			public void onDrawerClosed(View view)
 			{
-				getActionBar().setTitle(presets.get(current) + " Setting");
+				getActionBar().setTitle(presets.get(current));
 				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
 			public void onDrawerOpened(View drawerView)
 			{
-				getActionBar().setTitle(presets.get(current) + " Setting");
+				getActionBar().setTitle(presets.get(current));
 				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
 		};
@@ -240,8 +239,6 @@ public class MainActivity extends Activity
 	}
 	private void setStaticTablesButtons()
 	{
-		checkPresetActive = (CheckBox) findViewById(R.id.check);
-		checkPresetActive.setOncheckListener(changeActivePreset);
 		presetRulesText = (TextView) findViewById(R.id.notificationRules);
 		presetTimesText = (TextView) findViewById(R.id.activeTimes);
 		presetRulesText.setTextSize(20);
@@ -437,8 +434,6 @@ public class MainActivity extends Activity
 	{
 		//TODO here
 		current = preset;
-		if(currentPresetActive == current) checkPresetActive.setChecked(true);
-		else checkPresetActive.setChecked(false);
 		presetRulesText.setText(presets.get(current) + " rules");
 		buildRuleRows();
 		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rulesScroll.getLayoutParams();
@@ -449,7 +444,7 @@ public class MainActivity extends Activity
 			buildTimeRows();
 		} else
 		{
-			params.height = (int) (rulesScrollHeight*2.045);
+			params.height = (int) (rulesScrollHeight*2.19);
 		}
 		rulesScroll.setLayoutParams(params); 
 	}
@@ -672,27 +667,6 @@ public class MainActivity extends Activity
 		currentPresetActive=preset;
 		
 	}
-	OnCheckListener changeActivePreset = new OnCheckListener()
-	{
-		@Override
-		public void onCheck(boolean check) {
-			if(check)
-			{
-				Toast.makeText(myself, "Set "+presets.get(current)+" preset as active", Toast.LENGTH_LONG).show();
-				changePresetActive(current);
-			} else
-			{
-				if(current==0)
-				{
-					Toast.makeText(myself, presets.get(0)+" is default preset, pick another preset to activate", Toast.LENGTH_LONG).show();
-				} else
-				{
-					Toast.makeText(myself, "Set "+presets.get(0)+" preset as active", Toast.LENGTH_LONG).show();
-					changePresetActive(0);
-				}
-			}
-		}
-	};
 	View.OnClickListener editRulesClickHandler = new View.OnClickListener()
 	{
 		public void onClick(View v)
