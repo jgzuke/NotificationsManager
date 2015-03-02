@@ -36,7 +36,7 @@
     		</intent-filter>
 		</receiver>
 		<receiver android:name=".CallListener">  
-		    <intent-filter android:priority="2147483647">
+		    <intent-filter>
 		         <action android:name="android.intent.action.PHONE_STATE"/> 
 		    </intent-filter>
 		</receiver>

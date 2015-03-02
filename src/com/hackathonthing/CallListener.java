@@ -1,6 +1,5 @@
 package com.hackathonthing;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.BroadcastReceiver;
@@ -27,7 +26,7 @@ public class CallListener extends BroadcastReceiver
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String num = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
                     String action = getAction(getPreset(context), context, num);
-                    Log.e("Notification", "Call From " + num + " Action " + action);
+                    Log.e("myid", "Call From " + num + " Action " + action);
                 } catch(Exception e){}
             }
         }

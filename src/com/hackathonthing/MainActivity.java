@@ -1,6 +1,5 @@
 package com.hackathonthing;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,7 +66,6 @@ public class MainActivity extends Activity
 		myself = this;
 		readData();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		Toast.makeText(this, "testing", Toast.LENGTH_LONG).show();
 		setContentView(R.layout.activity_main);
 		setUpNavBar();
 		layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -434,7 +432,6 @@ public class MainActivity extends Activity
 	}
 	public void changeTimeStartHandler(final View v)
 	{
-		Log.e("hi", "changeTimeStartHandler");
 		//TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 32000);
 		final TextView text = (TextView) v;
 		TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
@@ -469,12 +466,9 @@ public class MainActivity extends Activity
 		});
 		AlertDialog dialog = builder.create();
 		dialog.show();
-		Log.e("hi", "changeDayStartHandler");
 	}
 	public void changeTimeEndHandler(final View v)
 	{
-		Log.e("hi", "changeTimeEndHandler");
-		
 		//TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 34000);
 		final TextView text = (TextView) v;
 		TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
@@ -509,7 +503,6 @@ public class MainActivity extends Activity
 		});
 		AlertDialog dialog = builder.create();
 		dialog.show();
-		Log.e("hi", "changeDayEndHandler");
 	}
 	private String programToString(int index)
 	{
@@ -545,7 +538,6 @@ public class MainActivity extends Activity
 	}
 	private int programToContactType(String program)
 	{
-		Log.e("asgdasdg", program);
 		if(program.equals("Text")||program.equals("Call"))
 		{
 			return 0;
@@ -766,9 +758,7 @@ public class MainActivity extends Activity
 	String saveID = "mysharedpreferencesfortestingtings";
 	private void saveData()
 	{
-		Log.e("myid", Integer.toString(presets.size()-1));
-		Log.e("myid", Integer.toString(rules.size()));
-		Log.e("myid", Integer.toString(times.size()));
+		Log.e("myid", "*****SAVE START");
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt("presetCount", presets.size()); 					// put number of presets (presetCount)
@@ -779,7 +769,6 @@ public class MainActivity extends Activity
 		}
 		for(int j = 0; j < presets.size()-1;j ++) 						// for every preset
 		{
-			
 			String jS = Integer.toString(j);	
 			editor.putInt("ruleCount"+jS, rules.get(j).size()); 		// put number of rules (ruleCounti)
 			for(int k = 0; k < rules.get(j).size(); k++) 				// for every rule in given preset
@@ -790,6 +779,9 @@ public class MainActivity extends Activity
 					String lS = Integer.toString(l);
 					editor.putString("rule"+kS+"Preset"+jS+"pos"+lS, rules.get(j).get(k)[l]);
 				}
+				Log.e("myid", "*****ENTRY START");
+				Log.e("myid", rules.get(j).get(k)[3]);
+				Log.e("myid", "ruleByNum"+"Preset"+jS+"Program"+rules.get(j).get(k)[0]+"Num"+rules.get(j).get(k)[3]);
 				editor.putString("ruleByNum"+"Preset"+jS+"Program"+rules.get(j).get(k)[0]+"Num"+rules.get(j).get(k)[3], rules.get(j).get(k)[2]);
 			}
 			editor.putInt("timeCount"+jS, times.get(j).size()); 		// put number of rules (ruleCounti)
@@ -858,9 +850,6 @@ public class MainActivity extends Activity
 				times.add(new ArrayList < int[][] > ());
 				rules.add(new ArrayList < String[] > ());
 			}
-			Log.e("myid", "h"+ Integer.toString(presets.size()));
-			Log.e("myid", "h"+ Integer.toString(rules.size()));
-			Log.e("myid", "h"+ Integer.toString(times.size()));
 			setUpDefaultPresets();
 		}
 	}

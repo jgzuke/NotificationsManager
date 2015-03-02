@@ -1,6 +1,5 @@
 package com.hackathonthing;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.BroadcastReceiver;
@@ -19,15 +18,18 @@ public class SMSListener extends BroadcastReceiver
     {
         if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
         {
-        	Log.e("myid", "zg");
+        	Log.e("myid", "num1");
             Bundle bundle = intent.getExtras();
             if (bundle != null)
             {
+            	Log.e("myid", "num2");
                 try
                 {
+                	Log.e("myid", "num3");
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String num = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
                     String action = getAction(getPreset(context), context, num);
+                    Log.e("myid", "Text From " + num + " Action " + action);
                     if(action.equalsIgnoreCase("vibrate"))
                     {
                     	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -38,7 +40,6 @@ public class SMSListener extends BroadcastReceiver
                     	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
                     	v.vibrate(500);
                     }
-                    Log.e("myid", "Text From " + num + " Action " + action);
                 } catch(Exception e){}
             }
         }
@@ -84,8 +85,9 @@ public class SMSListener extends BroadcastReceiver
 		String action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNum"+Number, null);
 		if(action == null)
 		{
-			action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNumDefault", null); //TODO check this
+			action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNum", null); //TODO check this
 		}
+		if(action == null) action = "silent"; 
 		return action;
 	}
 }
