@@ -73,8 +73,7 @@ public class SMSListener extends BroadcastReceiver
 				}
 			}
 		}
-    	//TODO use times to find current preset
-    	return -1;
+    	return 0;
     }
 	private String getAction(int preset, Context c, String Number)
 	{

@@ -26,11 +26,13 @@ import android.view.View;
 import android.widget.Button;
 import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.views.CheckBox.OnCheckListener;
+import com.gc.materialdesign.views.ScrollView;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.gc.materialdesign.views.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,6 +47,8 @@ public class MainActivity extends Activity
 	private ArrayList < ArrayList < String[] >> rules = new ArrayList < ArrayList < String[] >> (); // program person action number
 	private TableLayout rulesTable;
 	private TableLayout timesTable;
+	private ScrollView rulesScroll;
+	private int rulesScrollHeight;
 	private int current = 0;
 	private ImageLibrary imageLibrary;
 	private ButtonFloatSmall editRules;
@@ -71,6 +75,8 @@ public class MainActivity extends Activity
 		layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 		imageLibrary = new ImageLibrary(this);
 		setStaticTablesButtons();
+		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rulesScroll.getLayoutParams();
+		rulesScrollHeight = params.height;
 		loadPreset(0);
 	}
 	@Override
@@ -245,6 +251,7 @@ public class MainActivity extends Activity
 		editRules.setOnClickListener(editRulesClickHandler);
 		editTimes.setOnClickListener(editTimesClickHandler);
 		rulesTable = (TableLayout) findViewById(R.id.rulesTable);
+		rulesScroll = (ScrollView) findViewById(R.id.scrollRules);
 		timesTable = (TableLayout) findViewById(R.id.timesTable);
 	}
 	private void makePreset(String preset)
@@ -428,15 +435,23 @@ public class MainActivity extends Activity
 	}
 	private void loadPreset(int preset)
 	{
+		//TODO here
 		current = preset;
 		if(currentPresetActive == current) checkPresetActive.setChecked(true);
 		else checkPresetActive.setChecked(false);
 		presetRulesText.setText(presets.get(current) + " rules");
 		buildRuleRows();
-		if(presets.get(current) != "Default") //TODO working here
-		presetTimesText.setText(presets.get(current) + " times");
-		
-		buildTimeRows();
+		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rulesScroll.getLayoutParams();
+		if(preset != 0)
+		{
+			params.height = rulesScrollHeight;
+			presetTimesText.setText(presets.get(current) + " times");
+			buildTimeRows();
+		} else
+		{
+			params.height = (int) (rulesScrollHeight*2.045);
+		}
+		rulesScroll.setLayoutParams(params); 
 	}
 	public void changeTimeStartHandler(final View v)
 	{
