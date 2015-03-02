@@ -161,10 +161,16 @@ public class MainActivity extends Activity
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
-						Toast.makeText(myself, presets.get(current)+" preset deleted", Toast.LENGTH_LONG).show();
-						removePreset(current);
-						loadPreset(0);
-						navAdapter.notifyDataSetChanged();
+						if(current != 0)
+						{
+							Toast.makeText(myself, presets.get(current)+" preset deleted", Toast.LENGTH_LONG).show();
+							removePreset(current);
+							loadPreset(0);
+							navAdapter.notifyDataSetChanged();
+						} else
+						{
+							Toast.makeText(myself, "Defult cannot be removed", Toast.LENGTH_LONG).show();
+						}
 					}
 				}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 				{
@@ -426,8 +432,10 @@ public class MainActivity extends Activity
 		if(currentPresetActive == current) checkPresetActive.setChecked(true);
 		else checkPresetActive.setChecked(false);
 		presetRulesText.setText(presets.get(current) + " rules");
-		presetTimesText.setText(presets.get(current) + " times");
 		buildRuleRows();
+		if(presets.get(current) != "Default") //TODO working here
+		presetTimesText.setText(presets.get(current) + " times");
+		
 		buildTimeRows();
 	}
 	public void changeTimeStartHandler(final View v)
@@ -560,7 +568,6 @@ public class MainActivity extends Activity
 	            
 	            rules.get(current).get(contactToSet)[1] = contact;
 	            rules.get(current).get(contactToSet)[3] = identity;
-	            //TODO
 	    		buildRuleRows();
 	            Toast.makeText(myself, "Rule applied to contact", Toast.LENGTH_LONG).show();
 			}
@@ -604,8 +611,14 @@ public class MainActivity extends Activity
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
-					removePreset(firstV.getId() - 10000);
-					Toast.makeText(myself, "Preset removed", Toast.LENGTH_LONG).show();
+					if(firstV.getId() - 10000 != 0)
+					{
+						removePreset(firstV.getId() - 10000);
+						Toast.makeText(myself, "Preset removed", Toast.LENGTH_LONG).show();
+					} else
+					{
+						Toast.makeText(myself, "Defult cannot be removed", Toast.LENGTH_LONG).show();
+					}
 				}
 			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 			{
@@ -648,7 +661,6 @@ public class MainActivity extends Activity
 	{
 		@Override
 		public void onCheck(boolean check) {
-			//TODO
 			if(check)
 			{
 				Toast.makeText(myself, "Set "+presets.get(current)+" preset as active", Toast.LENGTH_LONG).show();
@@ -758,9 +770,9 @@ public class MainActivity extends Activity
 	String saveID = "mysharedpreferencesfortestingtings";
 	private void saveData()
 	{
-		Log.e("myid", "*****SAVE START");
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
+		editor.clear();
 		editor.putInt("presetCount", presets.size()); 					// put number of presets (presetCount)
 		for(int l = 0; l < presets.size(); l++)
 		{
@@ -779,7 +791,6 @@ public class MainActivity extends Activity
 					String lS = Integer.toString(l);
 					editor.putString("rule"+kS+"Preset"+jS+"pos"+lS, rules.get(j).get(k)[l]);
 				}
-				Log.e("myid", "***** ruleByNum"+"Preset"+jS+"Program"+rules.get(j).get(k)[0]+"Num"+rules.get(j).get(k)[3]);
 				editor.putString("ruleByNum"+"Preset"+jS+"Program"+rules.get(j).get(k)[0]+"Num"+rules.get(j).get(k)[3], rules.get(j).get(k)[2]);
 			}
 			editor.putInt("timeCount"+jS, times.get(j).size()); 		// put number of rules (ruleCounti)
@@ -801,7 +812,7 @@ public class MainActivity extends Activity
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0); //this is all making default stuff
 		int presetCount = -1;
 		presetCount = settings.getInt("presetCount", -1);
-		if(presetCount!=-1) //TODO change to true for reset
+		if(presetCount!=-1)
 		{
 			for(int l = 0; l < presetCount; l++)
 			{
@@ -841,7 +852,7 @@ public class MainActivity extends Activity
 			}
 		} else
 		{
-			presets.add("Home"); presets.add("Work"); presets.add("Sleep");
+			presets.add("Default"); presets.add("Work"); presets.add("Sleep");
 			presets.add("    +");
 			for (int i = 0; i < 3; i++)
 			{

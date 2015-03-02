@@ -85,7 +85,7 @@ public class SMSListener extends BroadcastReceiver
 			String defaultAction = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNumDefault", null);
 			Log.e("myid", "ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNumDefault");
 			Log.e("myid", defaultAction);
-			action = defaultAction; //TODO check this
+			action = defaultAction;
 			if(action == null) action = "silent"; 
 		}
 		return action;
