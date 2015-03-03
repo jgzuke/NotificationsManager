@@ -60,7 +60,6 @@ public class MainActivity extends Activity
 	private DrawerLayout navLayout;
 	private ActionBarDrawerToggle navToggle;
 	private ArrayAdapter < String > navAdapter;
-	private int currentPresetActive = 0;
 	private int contactToSet = 0;
 	@ Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -661,12 +660,6 @@ public class MainActivity extends Activity
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
-	private void changePresetActive(int preset)
-	{
-		Toast.makeText(myself, "Set "+presets.get(preset)+" preset as active", Toast.LENGTH_LONG).show();
-		currentPresetActive=preset;
-		
-	}
 	View.OnClickListener editRulesClickHandler = new View.OnClickListener()
 	{
 		public void onClick(View v)
@@ -759,6 +752,7 @@ public class MainActivity extends Activity
 	String saveID = "mysharedpreferencesfortestingtings";
 	private void saveData()
 	{
+		Log.e("myid", "testing345");
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.clear();

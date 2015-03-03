@@ -1,11 +1,15 @@
 package com.hackathonthing;
 
 import java.util.Calendar;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.telephony.SmsMessage;
@@ -16,7 +20,7 @@ public class SMSListener extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIED"))
+        if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
         {
             Bundle bundle = intent.getExtras();
             if (bundle != null)
@@ -27,16 +31,23 @@ public class SMSListener extends BroadcastReceiver
                     String num = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
                     String action = getAction(getPreset(context), context, num);
                     Log.e("myid", "Text From " + num + " Action " + action);
-                    if(action.equalsIgnoreCase("vibrate"))
+                    
+                    final AudioManager am;
+                    am= (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+                    final int oldRingerMode = am.getRingerMode();
+                    
+                    if(action.equalsIgnoreCase("ring")) am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    if(action.equalsIgnoreCase("silent")) am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                    if(action.equalsIgnoreCase("vibrate")) am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                    final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    Runnable task = new Runnable()
                     {
-                    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                    	v.vibrate(500);
-                    }
-                    if(action.equalsIgnoreCase("ring"))
-                    {
-                    	Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                    	v.vibrate(500);
-                    }
+                        public void run()
+                        {
+                        	am.setRingerMode(oldRingerMode);
+                        }
+                    };
+                    worker.schedule(task, 3, TimeUnit.SECONDS);
                 } catch(Exception e){}
             }
         }
@@ -85,7 +96,7 @@ public class SMSListener extends BroadcastReceiver
 			Log.e("myid", "ruleByNum"+"Preset"+Integer.toString(preset)+"ProgramTextNumDefault");
 			Log.e("myid", defaultAction);
 			action = defaultAction;
-			if(action == null) action = "silent"; 
+			if(action == null) action = "none"; 
 		}
 		return action;
 	}
