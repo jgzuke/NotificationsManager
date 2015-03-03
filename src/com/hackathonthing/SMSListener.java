@@ -16,7 +16,7 @@ public class SMSListener extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
+        if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIED"))
         {
             Bundle bundle = intent.getExtras();
             if (bundle != null)
