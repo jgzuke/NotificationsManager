@@ -9,28 +9,25 @@ import android.telephony.TelephonyManager;
 public class CallListener extends BroadcastReceiver
 {
 	private static int NOTIFICATION_TYPE_CALL = 1;
-	public void onReceive(Context context, Intent intent) {
+	@Override
+	public void onReceive(Context context, Intent intent)
+	{
 	    try
 	    {
+	    	CustomRinger.setContext(context);
 	        TelephonyManager tmgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-	        MyPhoneStateListener PhoneListener = new MyPhoneStateListener();
-	        PhoneListener.setContext(context);
-	        tmgr.listen(PhoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+	        MyPhoneStateListener phoneListener = new MyPhoneStateListener();
+	        tmgr.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
 	    } catch (Exception e) {}
 	}
 	private class MyPhoneStateListener extends PhoneStateListener
 	{
-		private Context context;
         public void onCallStateChanged(int state, String callNumber)
         {
             if(state == 1)
             {
-                CustomRinger.ring(callNumber, context, NOTIFICATION_TYPE_CALL);
+                CustomRinger.performAction(callNumber, NOTIFICATION_TYPE_CALL);
             }
-        }
-        protected void setContext(Context c)
-        {
-        	context=c;
         }
     }
 }

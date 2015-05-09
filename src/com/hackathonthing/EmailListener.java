@@ -21,7 +21,8 @@ public class EmailListener extends BroadcastReceiver
                 {
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String textNumber = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
-                    CustomRinger.ring(textNumber, context, NOTIFICATION_TYPE_EMAIL);
+                    CustomRinger.setContext(context);
+                    CustomRinger.performAction(textNumber, NOTIFICATION_TYPE_EMAIL);
                 } catch(Exception e){}
             }
         }

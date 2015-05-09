@@ -21,7 +21,8 @@ public class SMSListener extends BroadcastReceiver
                 {
                     Object[] pdus = (Object[]) bundle.get("pdus");
                     String textNumber = SmsMessage.createFromPdu((byte[])pdus[0]).getOriginatingAddress();
-                    CustomRinger.ring(textNumber, context, NOTIFICATION_TYPE_TEXT);
+                    CustomRinger.setContext(context);
+                    CustomRinger.performAction(textNumber, NOTIFICATION_TYPE_TEXT);
                 } catch(Exception e){}
             }
         }

@@ -12,11 +12,12 @@ import android.util.Log;
 
 public class CustomRinger
 {
-    private static String saveID = "mysharedpreferencesfortestingtings";
-    private static String [] typeStrings = {"ProgramTextNum", "ProgramCallNum", "ProgramEmailNum"};
-	protected static void ring(String num, Context context, int type)
+    private static final String saveID = "mysharedpreferencesfortestingtings";
+    private static final String [] typeStrings = {"ProgramTextNum", "ProgramCallNum", "ProgramEmailNum"};
+	private static Context context;
+	protected static final void performAction(String num, int type)
 	{
-		String action = getAction(getPreset(context), context, num, type);
+		String action = getAction(getPreset(context), num, type);
         Log.e("myid", "Call From " + num + " Action " + action);
 		final AudioManager am;
         am= (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -34,9 +35,9 @@ public class CustomRinger
         };
         worker.schedule(task, 10, TimeUnit.SECONDS);
 	}
-	private static String getAction(int preset, Context c, String Number, int type)
+	private static final String getAction(int preset, String Number, int type)
 	{
-		SharedPreferences settings = c.getSharedPreferences(saveID, 0);
+		SharedPreferences settings = context.getSharedPreferences(saveID, 0);
 		String program = typeStrings[type];
 		String action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"Program"+program+"Num"+Number, null);
 		if(action == null)
@@ -48,7 +49,7 @@ public class CustomRinger
 		}
 		return action;
 	}
-	private static int getPreset(Context c)
+	private static final int getPreset(Context c)
     {
     	SharedPreferences settings = c.getSharedPreferences(saveID, 0); //this is all making default stuff
 		int presetCount = settings.getInt("presetCount", -1);
@@ -81,4 +82,8 @@ public class CustomRinger
 		}
     	return 0;
     }
+	protected static void setContext(Context contextSet)
+	{
+		context = contextSet;
+	}
 }

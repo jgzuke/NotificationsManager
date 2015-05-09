@@ -11,7 +11,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -738,7 +737,6 @@ public class MainActivity extends Activity
 	String saveID = "mysharedpreferencesfortestingtings";
 	private void saveData()
 	{
-		Log.e("myid", "testing345");
 		SharedPreferences settings = getApplicationContext().getSharedPreferences(saveID, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.clear();
