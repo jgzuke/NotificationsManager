@@ -125,56 +125,59 @@ public class MainActivity extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.editPresetName:
-				AlertDialog.Builder builder = new AlertDialog.Builder(myself);
-				final EditText input = new EditText(this);
-				builder.setView(input);
-				builder.setPositiveButton(R.string.set, new DialogInterface.OnClickListener()
+				if(current==0)
 				{
-					public void onClick(DialogInterface dialog, int id)
-					{
-						presets.set(current, input.getText().toString());
-						loadPreset(current);
-						setTitle(presets.get(current));
-						Toast.makeText(myself, "Preset renamed as "+presets.get(current), Toast.LENGTH_LONG).show();
-					}
-				});
-				builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+					Toast.makeText(myself, "Cannot rename default preset", Toast.LENGTH_LONG).show();
+				} else
 				{
-					public void onClick(DialogInterface dialog, int id)
+					AlertDialog.Builder builder = new AlertDialog.Builder(myself);
+					final EditText input = new EditText(this);
+					builder.setTitle("Name Preset").setView(input).setPositiveButton(R.string.set, new DialogInterface.OnClickListener()
 					{
-						Toast.makeText(myself, "Name change cancelled", Toast.LENGTH_LONG).show();
-					}
-				});
-				builder.setTitle("Name Preset");
-				AlertDialog dialog = builder.create();
-				dialog.show();
+						public void onClick(DialogInterface dialog, int id)
+						{
+							presets.set(current, input.getText().toString());
+							loadPreset(current);
+							setTitle(presets.get(current));
+							Toast.makeText(myself, "Preset renamed as "+presets.get(current), Toast.LENGTH_LONG).show();
+						}
+					}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+					{
+						public void onClick(DialogInterface dialog, int id)
+						{
+							Toast.makeText(myself, "Name change cancelled", Toast.LENGTH_LONG).show();
+						}
+					});
+					AlertDialog dialog = builder.create();
+					dialog.show();
+				}
 				return true;
 			case R.id.removePreset:
-				AlertDialog.Builder removeBuilder = new AlertDialog.Builder(myself);
-				removeBuilder.setMessage("Delete Preset?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
+				if(current==0)
 				{
-					public void onClick(DialogInterface dialog, int id)
+					Toast.makeText(myself, "Cannot remove default preset", Toast.LENGTH_LONG).show();
+				} else
+				{
+					AlertDialog.Builder removeBuilder = new AlertDialog.Builder(myself);
+					removeBuilder.setTitle("Delete Preset?").setPositiveButton("Yes", new DialogInterface.OnClickListener()
 					{
-						if(current != 0)
+						public void onClick(DialogInterface dialog, int id)
 						{
 							Toast.makeText(myself, presets.get(current)+" preset deleted", Toast.LENGTH_LONG).show();
 							removePreset(current);
 							loadPreset(0);
 							navAdapter.notifyDataSetChanged();
-						} else
-						{
-							Toast.makeText(myself, "Defult cannot be removed", Toast.LENGTH_LONG).show();
 						}
-					}
-				}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-				{
-					public void onClick(DialogInterface dialog, int id)
+					}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 					{
-						Toast.makeText(myself, "Preset deletetion cancelled", Toast.LENGTH_LONG).show();
-					}
-				});
-				AlertDialog removeDialog = removeBuilder.create();
-				removeDialog.show();
+						public void onClick(DialogInterface dialog, int id)
+						{
+							Toast.makeText(myself, "Preset deletetion cancelled", Toast.LENGTH_LONG).show();
+						}
+					});
+					AlertDialog removeDialog = removeBuilder.create();
+					removeDialog.show();
+				}
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -448,7 +451,7 @@ public class MainActivity extends Activity
 				times.get(current).get(v.getId() - 32000)[0][2] = minute;
 				text.setText(timeToString(times.get(current).get(v.getId() - 32000)[0]));
 				buildTimeRows();
-				Toast.makeText(myself, "End day set", Toast.LENGTH_LONG).show();
+				Toast.makeText(myself, "Start time set", Toast.LENGTH_LONG).show();
 			}
 		}, times.get(current).get(v.getId() - 32000)[0][1], times.get(current).get(v.getId() - 32000)[0][2], true); //Yes 24 hour time
 		mTimePicker.setTitle("Select Start Time");
@@ -467,6 +470,12 @@ public class MainActivity extends Activity
 				v2.setText(intToDay(which + 1));
 				buildTimeRows();
 				Toast.makeText(myself, "Start day set", Toast.LENGTH_LONG).show();
+			}
+		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				Toast.makeText(myself, "Start day selection cancelled", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();
@@ -504,6 +513,12 @@ public class MainActivity extends Activity
 				buildTimeRows();
 				Toast.makeText(myself, "End day set", Toast.LENGTH_LONG).show();
 			}
+		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				Toast.makeText(myself, "End day selection cancelled", Toast.LENGTH_LONG).show();
+			}
 		});
 		AlertDialog dialog = builder.create();
 		dialog.show();
@@ -525,6 +540,12 @@ public class MainActivity extends Activity
 				v2.setText(programToString(which));
 				buildRuleRows();
 				Toast.makeText(myself, "Program set", Toast.LENGTH_LONG).show();
+			}
+		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				Toast.makeText(myself, "Program selection cancelled", Toast.LENGTH_LONG).show();
 			}
 		});
 		AlertDialog dialog = builder.create();

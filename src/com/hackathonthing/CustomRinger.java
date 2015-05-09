@@ -14,10 +14,9 @@ public class CustomRinger
 {
     private static final String saveID = "mysharedpreferencesfortestingtings";
     private static final String [] typeStrings = {"ProgramTextNum", "ProgramCallNum", "ProgramEmailNum"};
-	private static Context context;
-	protected static final void performAction(String num, int type)
+	protected static final void performAction(String num, int type, Context context)
 	{
-		String action = getAction(getPreset(context), num, type);
+		String action = getAction(getPreset(context), num, type, context);
         Log.e("myid", "Call From " + num + " Action " + action);
 		final AudioManager am;
         am= (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -35,7 +34,7 @@ public class CustomRinger
         };
         worker.schedule(task, 10, TimeUnit.SECONDS);
 	}
-	private static final String getAction(int preset, String Number, int type)
+	private static final String getAction(int preset, String Number, int type, Context context)
 	{
 		SharedPreferences settings = context.getSharedPreferences(saveID, 0);
 		String program = typeStrings[type];
@@ -82,8 +81,4 @@ public class CustomRinger
 		}
     	return 0;
     }
-	protected static void setContext(Context contextSet)
-	{
-		context = contextSet;
-	}
 }
