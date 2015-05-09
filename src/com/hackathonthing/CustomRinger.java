@@ -13,6 +13,7 @@ import android.util.Log;
 public class CustomRinger
 {
     private static String saveID = "mysharedpreferencesfortestingtings";
+    private static String [] typeStrings = {"ProgramTextNum", "ProgramCallNum", "ProgramEmailNum"};
 	protected static void ring(String num, Context context, int type)
 	{
 		String action = getAction(getPreset(context), context, num, type);
@@ -36,21 +37,13 @@ public class CustomRinger
 	private static String getAction(int preset, Context c, String Number, int type)
 	{
 		SharedPreferences settings = c.getSharedPreferences(saveID, 0);
-		String program;
-		if(type == 0)
-		{
-			program = "ProgramTextNum";
-		} else
-		{
-			program = "ProgramCallNum";
-		}
-		String action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+program+Number, null);
+		String program = typeStrings[type];
+		String action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"Program"+program+"Num"+Number, null);
 		if(action == null)
 		{
-			String defaultAction = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+program+"Default", null);
-			Log.e("myid", "ruleByNum"+"Preset"+Integer.toString(preset)+program+"Default");
-			Log.e("myid", defaultAction);
-			action = defaultAction;
+			action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+"Program"+program+"Num"+"Default", null);
+			Log.e("myid", "ruleByNum"+"Preset"+Integer.toString(preset)+"Program"+program+"Num"+"Default");
+			Log.e("myid", action);
 			if(action == null) action = "none"; 
 		}
 		return action;

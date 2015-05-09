@@ -1,16 +1,10 @@
 package com.hackathonthing;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -25,12 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.gc.materialdesign.views.ButtonFloatSmall;
-import com.gc.materialdesign.views.CheckBox.OnCheckListener;
 import com.gc.materialdesign.views.ScrollView;
-
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import com.gc.materialdesign.views.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -431,7 +422,6 @@ public class MainActivity extends Activity
 	}
 	private void loadPreset(int preset)
 	{
-		//TODO here
 		current = preset;
 		presetRulesText.setText(presets.get(current) + " rules");
 		buildRuleRows();
@@ -449,11 +439,10 @@ public class MainActivity extends Activity
 	}
 	public void changeTimeStartHandler(final View v)
 	{
-		//TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 32000);
 		final TextView text = (TextView) v;
 		TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
-		{@
-			Override
+		{
+			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 			{
 				times.get(current).get(v.getId() - 32000)[0][1] = hourOfDay;
@@ -486,11 +475,10 @@ public class MainActivity extends Activity
 	}
 	public void changeTimeEndHandler(final View v)
 	{
-		//TableRow row = (TableRow) timesTable.getChildAt(v.getId() - 34000);
 		final TextView text = (TextView) v;
 		TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
-		{@
-			Override
+		{
+			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 			{
 				times.get(current).get(v.getId() - 34000)[1][1] = hourOfDay;
@@ -573,8 +561,6 @@ public class MainActivity extends Activity
 				Bundle res = intent.getExtras();
 	            String contact = res.getString("contact");
 	            String identity = res.getString("identity");
-	            int textID = res.getInt("textID");
-	            
 	            rules.get(current).get(contactToSet)[1] = contact;
 	            rules.get(current).get(contactToSet)[3] = identity;
 	    		buildRuleRows();
