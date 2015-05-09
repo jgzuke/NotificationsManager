@@ -1,0 +1,91 @@
+package com.hackathonthing;
+
+import java.util.Calendar;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.util.Log;
+
+public class CustomRinger
+{
+    private static String saveID = "mysharedpreferencesfortestingtings";
+	protected static void ring(String num, Context context, int type)
+	{
+		String action = getAction(getPreset(context), context, num, type);
+        Log.e("myid", "Call From " + num + " Action " + action);
+		final AudioManager am;
+        am= (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        final int oldRingerMode = am.getRingerMode();
+        if(action.equalsIgnoreCase("ring")) am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        if(action.equalsIgnoreCase("silent")) am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        if(action.equalsIgnoreCase("vibrate")) am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+        final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        Runnable task = new Runnable()
+        {
+            public void run()
+            {
+            	am.setRingerMode(oldRingerMode);
+            }
+        };
+        worker.schedule(task, 10, TimeUnit.SECONDS);
+	}
+	private static String getAction(int preset, Context c, String Number, int type)
+	{
+		SharedPreferences settings = c.getSharedPreferences(saveID, 0);
+		String program;
+		if(type == 0)
+		{
+			program = "ProgramTextNum";
+		} else
+		{
+			program = "ProgramCallNum";
+		}
+		String action = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+program+Number, null);
+		if(action == null)
+		{
+			String defaultAction = settings.getString("ruleByNum"+"Preset"+Integer.toString(preset)+program+"Default", null);
+			Log.e("myid", "ruleByNum"+"Preset"+Integer.toString(preset)+program+"Default");
+			Log.e("myid", defaultAction);
+			action = defaultAction;
+			if(action == null) action = "none"; 
+		}
+		return action;
+	}
+	private static int getPreset(Context c)
+    {
+    	SharedPreferences settings = c.getSharedPreferences(saveID, 0); //this is all making default stuff
+		int presetCount = settings.getInt("presetCount", -1);
+		Calendar now = Calendar.getInstance(); 
+		int dNow = 1440*now.get(Calendar.DAY_OF_WEEK);
+		int hNow = 60*now.get(Calendar.HOUR_OF_DAY);
+		int mNow = now.get(Calendar.MINUTE);
+		int timeNow = dNow+hNow+mNow;
+		for(int j = 0; j < presetCount-1; j++)
+		{
+			String jS = Integer.toString(j);
+			int timesCount = settings.getInt("timeCount"+jS, 0);
+			for(int k = 0; k < timesCount; k++) 				// for every rule in given preset
+			{
+				String kS = Integer.toString(k);
+				int start = 1440*settings.getInt("time"+kS+"Preset"+jS+"pos00", 0)
+				+ 60*settings.getInt("time"+kS+"Preset"+jS+"pos01", 0)
+				+ settings.getInt("time"+kS+"Preset"+jS+"pos02", 0);
+				int end = 1440*settings.getInt("time"+kS+"Preset"+jS+"pos10", 0) //convert times into minutes since start of week
+				+ 60*settings.getInt("time"+kS+"Preset"+jS+"pos11", 0)
+				+ settings.getInt("time"+kS+"Preset"+jS+"pos12", 0);
+				if(end>start)
+				{
+					if(timeNow>start && timeNow<end) return j; //start and end are in order
+				} else											//starts one week ends the next
+				{
+					if(timeNow>start || timeNow<end) return j;
+				}
+			}
+		}
+    	return 0;
+    }
+}
