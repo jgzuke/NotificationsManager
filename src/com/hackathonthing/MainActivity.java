@@ -51,6 +51,8 @@ public class MainActivity extends Activity
 	private ActionBarDrawerToggle navToggle;
 	private ArrayAdapter < String > navAdapter;
 	private int contactToSet = 0;
+	private boolean makingRule = false;
+	private boolean makingTime = false;
 	@ Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -289,7 +291,10 @@ public class MainActivity extends Activity
 	private void buildRuleRows()
 	{
 		rulesTable.removeAllViews();
-		for (int i = 0; i < rules.get(current).size(); i++)
+		//int end = 0;
+		int end = rules.get(current).size();
+		//if(makingRule) end --;
+		for (int i = 0; i < end; i++)
 		{
 			TableRow r = (TableRow) layoutInflater.inflate(R.layout.rulerow, rulesTable, false);
 			TextView program = (TextView) r.getChildAt(0);
@@ -308,16 +313,13 @@ public class MainActivity extends Activity
 			rulesTable.addView(r);
 		}
 	}
-	private int actToID(String action)
-	{
-		if (action.equals("silent")) return 0;
-		if (action.equals("vibrate")) return 1;
-		return 2;
-	}
 	private void buildTimeRows()
 	{
 		timesTable.removeAllViews();
-		for (int i = 0; i < times.get(current).size(); i++)
+		//int end = 0;
+		int end = times.get(current).size();
+		//if(makingTime) end --;
+		for (int i = 0; i < end; i++)
 		{
 			TableRow t = (TableRow) layoutInflater.inflate(R.layout.timerow, timesTable, false);
 			TextView startD = (TextView) t.getChildAt(0);
@@ -338,6 +340,12 @@ public class MainActivity extends Activity
 			delete.setId(35000 + i);
 			timesTable.addView(t);
 		}
+	}
+	private int actToID(String action)
+	{
+		if (action.equals("silent")) return 0;
+		if (action.equals("vibrate")) return 1;
+		return 2;
 	}
 	private int notifClick(int index)
 	{
@@ -686,6 +694,7 @@ public class MainActivity extends Activity
 			program.setId(21000 + i);
 			person.setId(22000 + i);
 			action.setId(23000 + i);
+			makingRule = true;
 			//rulesTable.addView(makeRuleRow);
 			
 			builder.setView(makeRuleRow)
@@ -695,6 +704,7 @@ public class MainActivity extends Activity
 				{
 					buildRuleRows();
 					Toast.makeText(myself, "New rule added", Toast.LENGTH_LONG).show();
+					makingRule = false;
 				}
 			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 			{
@@ -703,6 +713,7 @@ public class MainActivity extends Activity
 					rules.get(current).remove(rules.get(current).size()-1);
 					buildRuleRows();
 					Toast.makeText(myself, "New rule cancelled", Toast.LENGTH_LONG).show();
+					makingRule = false;
 				}
 			});
 			AlertDialog dialog = builder.create();
@@ -732,6 +743,7 @@ public class MainActivity extends Activity
 			startH.setId(32000 + i);
 			endD.setId(33000 + i);
 			endH.setId(34000 + i);
+			makingTime = true;
 			//timesTable.addView(makeTimeRow);
 			
 			builder.setView(makeTimeRow)
@@ -741,6 +753,7 @@ public class MainActivity extends Activity
 				{
 					buildTimeRows();
 					Toast.makeText(myself, "New time added", Toast.LENGTH_LONG).show();
+					makingTime = false;
 				}
 			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
 			{
@@ -749,6 +762,7 @@ public class MainActivity extends Activity
 					times.get(current).remove(times.get(current).size()-1);
 					buildTimeRows();
 					Toast.makeText(myself, "New time cancelled", Toast.LENGTH_LONG).show();
+					makingTime = false;
 				}
 			});
 			AlertDialog dialog = builder.create();
